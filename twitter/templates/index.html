@@ -1,0 +1,13 @@
+<h1>
+    Hi all you are at the poll index?
+</h1>
+
+{% if poll_list %}
+<ul>
+    {% for poll in poll_list %}
+    <li><a href="{% url polls.views.detail poll_id=poll.id %}"></a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No polls available</p>
+{% endif %}
