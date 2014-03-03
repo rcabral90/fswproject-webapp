@@ -1,17 +1,55 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="{{ static }}/static/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="{{ static }}/static/css/spacelab.css">
         <script src="{{ static }}/static/js/jquery-1.11.0.min.js"></script>
         <script src="{{ static }}/static/js/bootstrap.js"></script>
+        <title>FSW | Family Services of Westchester</title>
+        <link rel="Shortcut Icon" href="{{ static }}/static/imgs/favicon.ico" type="image/x-icon">
     </head>
-    <body class="panel-body">
+    <body class="media-body">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+             <div class="container">
+
+                <div class="navbar-header">
+                  <a href="../" class="navbar-brand">Family Services of Westchester</a>
+                  <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                </div>
+      </div>
+    </div>
+    <div class="container">
         <div class="jumbotron">
-            <center>
-                    <div class="text-success">
-                        WOW! Such Bootstrap! Much Style!
+            <h3>Family Services Westchester Resident Database</h3>
+            <div class="container">
+                <div class="pull-right">
+                    <div class="span2 offset3 well">
+                        <legend>Please Sign In</legend>
+                        <div class="alert alert-error">
+                            <a class="close" data-dismiss="alert" href="#">×</a>Incorrect Username or Password!
+                        </div>
+                        <form method="POST" action="" accept-charset="UTF-8">
+                        <input type="text" id="username" class="span4" name="username" placeholder="Username">
+                        <input type="password" id="password" class="span4" name="password" placeholder="Password">
+                        <label class="checkbox">
+                            <input type="checkbox" name="remember" value="1"> Remember Me
+                        </label>
+                        <button type="submit" name="submit" class="btn btn-info btn-block">Sign in</button>
+                        </form>
                     </div>
-                    <img src="{{ static }}/static/imgs/doge.jpeg" class="img-circle" width="140" height="140"/>
-            </center>
+                 </div>
+                <div class="container-fluid">
+                    <div class="col-lg-7">
+                         <img class="img-rounded" src="{{ static }}/static/imgs/celebrating-past-rotator-v7.jpg"/>
+                        <div class="text-primary">
+                             The Online Family Services Westchester Resident Database is designed to give you the most efficient way of keeping track of residents.
+                         </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
     </body>
 </html>
