@@ -3,14 +3,14 @@
         <link rel="stylesheet" type="text/css" href="{{ static }}/static/css/spacelab.css">
         <script src="{{ static }}/static/js/jquery-1.11.0.min.js"></script>
         <script src="{{ static }}/static/js/bootstrap.js"></script>
-        <title>FSW | Family Services of Westchester</title>
+        <title>FSW | Family Services of Westchester Online Resident Database</title>
         <link rel="Shortcut Icon" href="{{ static }}/static/imgs/favicon.ico" type="image/x-icon">
     </head>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
              <div class="container">
                 <div class="navbar-header">
-                  <a href="../" class="navbar-brand">Family Services of Westchester</a>
+                  <a href="../" class="navbar-brand">Family Services of Westchester Online Resident Database</a>
                   <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -26,14 +26,11 @@
 
         <div class="container">
             <div class="jumbotron">
-                <h3>Family Services Westchester Resident Database</h3>
+                <img class="img-rounded" src="{{ static }}/static/imgs/logo.png"/>
                 <div class="container">
                     <div class="pull-right">
                         <div class="span2 offset3 well">
                             <legend>Please Sign In</legend>
-                            <div class="alert alert-error">
-                                <a class="close" data-dismiss="alert" href="#">×</a>Incorrect Username or Password!
-                            </div>
                             <form method="POST" action="" accept-charset="UTF-8">
                             <input type="text" id="username" class="span4" name="username" placeholder="Username">
                             <input type="password" id="password" class="span4" name="password" placeholder="Password">
@@ -49,18 +46,38 @@
                                  <img class="img-rounded" src="{{ static }}/static/imgs/celebrating-past-rotator-v7.jpg"/>
                             </div>
                     </div>
+                    <div class="clearfix" style="padding-top: 10px"></div>
                     <div class="text-primary">
-                        The Online Family Services Westchester Resident Database is designed to give you the easiest & most efficient way of keeping track of residents.
+                        The Family Services Westchester Online Resident Database is designed to give you the easiest & most efficient way of keeping track of residents.
                     </div>
                 </div>
             </div>
         </div>
 
+        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="navbar-text-bottom">
+						<a class="navbar-link" href="http://www.fsw.org/about-us/info/contact-us">Contact Us</a> ·
+
+						<a class="navbar-link" href="http://www.fsw.org/about-us/info/directions">Directions</a> ·
+
+						<a class="navbar-link" href="http://www.fsw.org/about-us/info/site-map">Sitemap</a> ·
+
+						<a class="navbar-link" href="http://www.fsw.org/about-us/employment">Employment</a> ·
+
+						<a class="navbar-link" href="http://www.fsw.org/about-us/info/terms-of-service">Terms of Service</a> ·
+
+						<a class="navbar-link" href="http://www.fsw.org/about-us/info/privacy-policy">Privacy Policy</a> ·
+
+						Copyright © 2014 ·
+
+						<a class="navbar-link" href="http://www.fsw.org">Family Services of Westchester</a>
+        </div>
+
+    </nav>
+
+
     </body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-bottom">
-        <div class="navbar-inner navbar-content-center">
-        </div>
-    </nav>
+
 
 </html>
