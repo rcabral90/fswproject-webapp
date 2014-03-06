@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
 {% block body %}
-    <body class="media-body">
+
         <div class="container">
             <div class="jumbotron">
-                <h3>Family Services Westchester Resident Database</h3>
+                <img class="img-rounded" src="{{ static }}/static/imgs/logo.png"/>
                 <div class="container">
                     <div class="pull-right">
                         <div class="span2 offset3 well">
                             <legend>Please Sign In</legend>
-                            <div class="alert alert-error">
-                                <a class="close" data-dismiss="alert" href="#">×</a>Incorrect Username or Password!
-                            </div>
                             <form method="POST" action="/login/" accept-charset="UTF-8">
                                     {% csrf_token %}
                             <input type="text" id="username" class="span4" name="username" placeholder="Username">
@@ -27,11 +24,13 @@
                                  <img class="img-rounded" src="{{ static }}/static/imgs/celebrating-past-rotator-v7.jpg"/>
                             </div>
                     </div>
+                    <div class="clearfix" style="padding-top: 10px"></div>
                     <div class="text-primary">
-                        The Online Family Services Westchester Resident Database is designed to give you the easiest & most efficient way of keeping track of residents.
+                        The Family Services Westchester Online Resident Database is designed to give you the easiest & most efficient way of keeping track of residents.
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+
 {% endblock %}
+
