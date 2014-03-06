@@ -3106,12 +3106,14 @@ input[type="button"].btn-block {
 }
 .dropup .caret,
 .navbar-fixed-bottom .dropdown .caret {
+  text-align: center;
   border-top: 0;
   border-bottom: 4px solid;
   content: "";
 }
 .dropup .dropdown-menu,
 .navbar-fixed-bottom .dropdown .dropdown-menu {
+  text-align: center;
   top: auto;
   bottom: 100%;
   margin-bottom: 1px;
@@ -3714,6 +3716,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-fixed-top,
 .navbar-fixed-bottom {
+  text-align: center;
   position: fixed;
   right: 0;
   left: 0;
@@ -3925,6 +3928,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+.navbar-text-bottom {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: #dddddd;
+
+}
 @media (min-width: 768px) {
   .navbar-text {
     float: left;
@@ -4027,7 +4037,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #ffffff;
+  color: #dddddd;
   background-color: transparent;
 }
 .navbar-inverse .navbar-text {
