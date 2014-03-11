@@ -1,28 +1,5 @@
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="{{ static }}/static/css/spacelab.css">
-        <script src="{{ static }}/static/js/jquery-1.11.0.min.js"></script>
-        <script src="{{ static }}/static/js/bootstrap.js"></script>
-        <title>FSW | Family Services of Westchester Online Resident Database</title>
-        <link rel="Shortcut Icon" href="{{ static }}/static/imgs/favicon.ico" type="image/x-icon">
-    </head>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-             <div class="container">
-                <div class="navbar-header">
-                  <a href="../" class="navbar-brand">Family Services of Westchester Online Resident Database</a>
-                  <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                </div>
-             </div>
-        </div>
-
-    <div class="clearfix" style="padding-top: 100px"></div>
-
-    <body class="media-body">
+{% extends 'base.html' %}
+{% block body %}
 
         <div class="container">
             <div class="jumbotron">
@@ -31,7 +8,8 @@
                     <div class="pull-right">
                         <div class="span2 offset3 well">
                             <legend>Please Sign In</legend>
-                            <form method="POST" action="" accept-charset="UTF-8">
+                            <form method="POST" action="/login/" accept-charset="UTF-8">
+                                    {% csrf_token %}
                             <input type="text" id="username" class="span4" name="username" placeholder="Username">
                             <input type="password" id="password" class="span4" name="password" placeholder="Password">
                             <label class="checkbox">
@@ -54,30 +32,5 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-inverse navbar-fixed-bottom">
-        <div class="navbar-text-bottom">
-						<a class="navbar-link" href="http://www.fsw.org/about-us/info/contact-us">Contact Us</a> ·
+{% endblock %}
 
-						<a class="navbar-link" href="http://www.fsw.org/about-us/info/directions">Directions</a> ·
-
-						<a class="navbar-link" href="http://www.fsw.org/about-us/info/site-map">Sitemap</a> ·
-
-						<a class="navbar-link" href="http://www.fsw.org/about-us/employment">Employment</a> ·
-
-						<a class="navbar-link" href="http://www.fsw.org/about-us/info/terms-of-service">Terms of Service</a> ·
-
-						<a class="navbar-link" href="http://www.fsw.org/about-us/info/privacy-policy">Privacy Policy</a> ·
-
-						Copyright © 2014 ·
-
-						<a class="navbar-link" href="http://www.fsw.org">Family Services of Westchester</a>
-        </div>
-
-    </nav>
-
-
-    </body>
-
-
-
-</html>

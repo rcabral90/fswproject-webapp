@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ static }}/static/css/spacelab.css">
+        <script src="{{ static }}/static/js/jquery-1.11.0.min.js"></script>
+        <script src="{{ static }}/static/js/bootstrap.js"></script>
+        <title>FSW | Family Services of Westchester Online Resident Database</title>
+        <link rel="Shortcut Icon" href="{{ static }}/static/imgs/favicon.ico" type="image/x-icon">
+    </head>
+    <body class="media-body">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+                 <div class="container">
+                    <div class="navbar-header">
+                      <a href="../" class="navbar-brand">Family Services of Westchester Online Resident Database</a>
+                      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                    </div>
+                 </div>
+            </div>
+
+        <div class="clearfix" style="padding-top: 100px"></div>
+
+        {% block body %}{% endblock %}
+
+        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+            <div class="navbar-text-bottom">
+                <a class="navbar-link" href="http://www.fsw.org/about-us/info/contact-us">Contact Us</a> ·
+                <a class="navbar-link" href="http://www.fsw.org/about-us/info/directions">Directions</a> ·
+                <a class="navbar-link" href="http://www.fsw.org/about-us/info/site-map">Sitemap</a> ·
+                <a class="navbar-link" href="http://www.fsw.org/about-us/employment">Employment</a> ·
+                <a class="navbar-link" href="http://www.fsw.org/about-us/info/terms-of-service">Terms of Service</a> ·
+                <a class="navbar-link" href="http://www.fsw.org/about-us/info/privacy-policy">Privacy Policy</a> ·
+                Copyright © 2014 ·
+                <a class="navbar-link" href="http://www.fsw.org">Family Services of Westchester</a>
+            </div>
+        </nav>
+    </body>
+</html>
