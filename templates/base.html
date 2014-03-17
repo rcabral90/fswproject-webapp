@@ -1,40 +1,43 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="{{ static }}/static/css/spacelab.css">
+		<link href="{{ static }}/static/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ static }}/static/css/default.css">
         <script src="{{ static }}/static/js/jquery-1.11.0.min.js"></script>
         <script src="{{ static }}/static/js/bootstrap.js"></script>
         <title>FSW | Family Services of Westchester Online Resident Database</title>
         <link rel="Shortcut Icon" href="{{ static }}/static/imgs/favicon.ico" type="image/x-icon">
     </head>
-    <body class="media-body">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-                 <div class="container">
-                    <div class="navbar-header">
-                      <a href="../" class="navbar-brand left">Family Services of Westchester Online Resident Database</a>
-                      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                      </button>
-                    </div>
-                 </div>
-            </div>
-
-        <div class="clearfix" style="padding-top: 100px"></div>
+    <body>
+		<!-- header -->
+		<div id='header'>
+			<div id='header_links'>
+				<ul>
+					<li><a href='#'>Home</a>
+					<li><a href='#'>Settings</a>
+				</ul>
+			</div>
+			<div id='header_login'>
+				<ul>
+					<li><a href='#'>Login</a>
+				</ul>
+			</div>
+			<div id='header_search'>
+				<div id='header_search_box'>
+					<input type="text" class="form-control" placeholder="Search">
+				</div>
+				<div id='header_search_box_button'>
+					<button class="btn btn-default" type="button">Go!</button>
+				</div>
+			</div>
+		</div>
+		<!-- end header -->
 
         {% block body %}{% endblock %}
 
-        <nav class="navbar navbar-inverse navbar-fixed-bottom">
-            <div class="navbar-text-bottom">
-                <a class="navbar-link" href="http://www.fsw.org/about-us/info/contact-us">Contact Us</a> ·
-                <a class="navbar-link" href="http://www.fsw.org/about-us/info/directions">Directions</a> ·
-                <a class="navbar-link" href="http://www.fsw.org/about-us/info/site-map">Sitemap</a> ·
-                <a class="navbar-link" href="http://www.fsw.org/about-us/employment">Employment</a> ·
-                <a class="navbar-link" href="http://www.fsw.org/about-us/info/terms-of-service">Terms of Service</a> ·
-                <a class="navbar-link" href="http://www.fsw.org/about-us/info/privacy-policy">Privacy Policy</a> ·
-                Copyright © 2014 ·
-                <a class="navbar-link" href="http://www.fsw.org">Family Services of Westchester</a>
-            </div>
-        </nav>
+		<!-- footer -->
+		<div id='footer'>
+			<p>&copy 2014 - FSW Team</p>
+		</div>
+		<!-- end footer -->
     </body>
 </html>

@@ -3716,7 +3716,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-fixed-top,
 .navbar-fixed-bottom {
-    text-align: center;
   position: fixed;
   right: 0;
   left: 0;
@@ -3733,7 +3732,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-width: 0 0 1px;
 }
 .navbar-fixed-bottom {
-    text-align: center;
   bottom: 0;
   margin-bottom: 0;
   border-width: 1px 0 0;

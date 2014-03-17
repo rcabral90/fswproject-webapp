@@ -1,4 +1,61 @@
 {% extends 'base.html' %}
 {% block body %}
-    Welcome, {{user.first_name}} {{user.last_name}}
+	<div id='main_content'>
+		<div id='top_content_buttons'>
+			<div id='top_content_button_right'>
+				<a href="#" class="btn btn-default btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+			</div>
+			<div id='top_content_button_left'>
+				<a href="#" class="btn btn-default btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+			</div>
+		</div>
+		<div id='top_content_block'>
+			<div id='user_image'>
+				<div id='user_image_options'>
+					<p>Change</p>
+				</div>
+			</div>
+			<div id='main_information'>
+				<p>
+					<ul>
+						<li id='resident_name'>Name: 
+						<li id='resident_address'>Address: 
+						<li id='resident_home_phone'>Home Phone: 
+						<li id='resident_cell_phone'>Cell Phone: 
+						<li id='resident_dob'>Date of Birth: 
+					</ul>
+				</p>
+			</div>
+			<div id='secondary_information'>
+				<p>
+					<ul>
+						<li>Secondary Information
+						<li>More Secondary Information
+						<li>339-555-1221
+						<li>This buddy
+						<li>Your guy
+					</ul>
+				</p>
+			</div>
+		</div>
+		<div id='middle_tabs'>
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#">Medication</a></li>
+				<li><a href="#">Prescriptions</a></li>
+				<li><a href="#">Notes</a></li>
+			</ul>
+		</div>
+		<div id='lower_content_block'>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce egestas tincidunt nisl, eget feugiat justo convallis eget. Maecenas imperdiet, elit ac volutpat iaculis, tortor lectus lobortis massa, quis lacinia diam lacus a nunc. Nullam dictum, nisl mollis sollicitudin interdum, lacus dolor sollicitudin elit, quis suscipit justo lectus ac magna. Mauris cursus malesuada adipiscing. Nulla pretium mi quis diam ultricies, condimentum ultrices risus dictum. Vivamus facilisis, eros at facilisis vestibulum, odio nisi mollis orci, nec dictum purus diam vel arcu. Mauris pulvinar tristique sollicitudin. Pellentesque dictum nisi sit amet diam consectetur, non aliquet nibh cursus. Praesent a pulvinar ante, eu dictum massa. Aenean vestibulum scelerisque nunc non luctus. Praesent aliquet tellus et mauris mollis, a aliquet mi ultricies.
+			</p>
+		</div>
+	</div>
+	<!-- loadup data -->
+	<script src="{{ static }}/static/js/data_callers.js"></script>
+	<script>
+		$( document ).ready(function() {
+			get_resident_information();
+		});
+	</script>
 {% endblock %}
