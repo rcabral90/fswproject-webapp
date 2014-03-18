@@ -207,6 +207,14 @@ body{
 	margin-top:2%;
 	margin-left:5%;
 }
+#main_information h2{
+	display:block;
+	margin:auto;
+	width:170px;
+	padding-bottom:5px;
+	font-size:1.2em;
+	font-weight:bold;
+}
 #secondary_information{
 	display:block;
 	position:relative;
@@ -219,6 +227,14 @@ body{
 	min-height:100px;
 	margin-top:2%;
 	margin-left:5%;
+}
+#secondary_information h2{
+	display:block;
+	margin:auto;
+	width:150px;
+	padding-bottom:5px;
+	font-size:1.2em;
+	font-weight:bold;
 }
 #middle_tabs{
 	display:block;

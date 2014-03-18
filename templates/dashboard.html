@@ -17,6 +17,7 @@
 			</div>
 			<div id='main_information'>
 				<p>
+					<h2>Resident Information</h2>
 					<ul>
 						<li id='resident_name'>Name: 
 						<li id='resident_address'>Address: 
@@ -28,34 +29,149 @@
 			</div>
 			<div id='secondary_information'>
 				<p>
+					<h2>Doctor Information</h2>
 					<ul>
-						<li>Secondary Information
-						<li>More Secondary Information
-						<li>339-555-1221
-						<li>This buddy
-						<li>Your guy
+						<li id='doctor_name'>Name: 
+						<li id='doctor_specialization'>Specialization: 
+						<li id='doctor_phone_number'>Phone Number: 
 					</ul>
 				</p>
 			</div>
 		</div>
 		<div id='middle_tabs'>
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#">Medication</a></li>
-				<li><a href="#">Prescriptions</a></li>
-				<li><a href="#">Notes</a></li>
+				<li id='medication_tab' class="active"><a href="#medication" data-toggle="tab">Medication</a></li>
+				<li id='medication_history_tab'><a href="#medication_history" data-toggle="tab">Medication History</a></li>
+				<li id='prescriptions_tab'><a href="#prescriptions" data-toggle="tab">Prescriptions</a></li>
+				<li id='assessment_tab'><a href="#assessments" data-toggle="tab">Assessments</a></li>
+				<li id='allergies_tab'><a href="#allergies" data-toggle="tab">Allergies</a><li>
+				<li id='diet_tab'><a href="#diet" data-toggle="tab">Diet</a><li>
+				<li id='hospitalization_tab'><a href="#hospitalizations" data-toggle="tab">Hospitalizations</a></li>
+				<li id='emergency_contacts_tab'><a href="#emergency_contacts" data-toggle="tab">Emergency Contacts</a></li>
+				<li id='notes_tab'><a href="#notes" data-toggle="tab">Notes</a></li>
 			</ul>
 		</div>
-		<div id='lower_content_block'>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce egestas tincidunt nisl, eget feugiat justo convallis eget. Maecenas imperdiet, elit ac volutpat iaculis, tortor lectus lobortis massa, quis lacinia diam lacus a nunc. Nullam dictum, nisl mollis sollicitudin interdum, lacus dolor sollicitudin elit, quis suscipit justo lectus ac magna. Mauris cursus malesuada adipiscing. Nulla pretium mi quis diam ultricies, condimentum ultrices risus dictum. Vivamus facilisis, eros at facilisis vestibulum, odio nisi mollis orci, nec dictum purus diam vel arcu. Mauris pulvinar tristique sollicitudin. Pellentesque dictum nisi sit amet diam consectetur, non aliquet nibh cursus. Praesent a pulvinar ante, eu dictum massa. Aenean vestibulum scelerisque nunc non luctus. Praesent aliquet tellus et mauris mollis, a aliquet mi ultricies.
-			</p>
+		<div class='tab-content' id='lower_content_block'>
+			<div class='tab-pane active' id='medication'>
+				<table class="table table-hover table-bordered" id='medication_current_table'>
+
+				</table>
+			</div>
+			<div class='tab-pane' id='medication_history'>
+				<table class="table table-hover table-bordered" id='medication_history_table'>
+
+				</table>
+			</div>
+			<div class='tab-pane' id='prescriptions'>
+				<table class="table table-hover table-bordered" id='prescription_table'>
+				
+				</table>
+			</div>
+			<div class='tab-pane' id='assessments'>
+				<table class="table table-hover table-bordered" id='assessment_table'>
+				
+				</table>
+			</div>
+			<div class='tab-pane' id='allergies'>
+				<table class="table table-hover table-bordered" id='allergies_table'>
+				
+				</table>
+			</div>
+			<div class='tab-pane' id='diet'>
+				<table class="table table-hover table-bordered" id='diet_table'>
+				
+				</table>
+			</div>
+			<div class='tab-pane' id='hospitalizations'>
+				<table class="table table-hover table-bordered" id='hospitalizations_table'>
+				
+				</table>
+			</div>
+			<div class='tab-pane' id='emergency_contacts'>
+				<table class="table table-hover table-bordered" id='emergency_contacts_table'>
+				
+				</table>
+			</div>
+			<div class='tab-pane' id='notes'>
+				<table class="table table-hover table-bordered" id='notes_table'>
+				
+				</table>
+			</div>
 		</div>
 	</div>
 	<!-- loadup data -->
 	<script src="{{ static }}/static/js/data_callers.js"></script>
 	<script>
 		$( document ).ready(function() {
-			get_resident_information();
+			//create a function to get the resident id somehow, use 1 for testing
+			get_resident_information(1);
+			//first load so set the data in the active tab
+			get_current_medication_information(1);
+			//tab activation
+			$('#medication a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+			$('#medication_history a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+			$('#prescriptions a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+			$('#assessments a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+			$('#allergies a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+			$('#diet a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+			$('#hospitalizations a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+			$('#emergency_contacts a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+			$('#notes a').click(function (e) {
+			  e.preventDefault()
+			  $(this).tab('show')
+			})
+			//tab content generation
+			$('#medication_tab').click(function(){
+				get_current_medication_information(1);
+			})
+			$('#medication_history_tab').click(function(){
+				get_medication_history(1);
+			})
+			$('#prescriptions_tab').click(function(){
+				get_prescription_information(1);
+			})
+			$('#assessment_tab').click(function(){
+				get_resident_assessment_information(1);
+			})
+			$('#allergies_tab').click(function(){
+				get_resident_allergy_information(1);
+			})
+			$('#diet_tab').click(function(){
+				get_resident_diet_information(1);
+			})
+			$('#hospitalization_tab').click(function(){
+				get_hospitalization_history(1);
+			})
+			$('#emergency_contacts_tab').click(function(){
+				get_resident_emergency_contacts_information(1);
+			})
+			$('#notes_tab').click(function(){
+				get_resident_notes_information(1);
+			})
 		});
 	</script>
 {% endblock %}
