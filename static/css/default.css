@@ -101,7 +101,7 @@ body{
 	height:40px;
 }
 #main_content{
-	width:1024px;
+	width:95%;
 	min-height:600px;
 	margin:0 auto;
 	display:block;
@@ -111,7 +111,6 @@ body{
 }
 #top_content_buttons{
 	display:block;
-	width:1024px;
 	height:25px;
 	margin-top:-23px;
 	position:relative;
@@ -136,8 +135,8 @@ body{
 }
 #top_content_block{
 	margin:0 auto;
-	width:100%;
-	min-height:205px;
+	width:1024px;
+	min-height:215px;
 	clear:both;
 }
 #user_image{
@@ -307,6 +306,14 @@ body{
 	display:block;
 	width:200px;
 	margin:auto;
+}
+#patient_selection_area{
+	margin:0 auto;
+	display:block;
+	width:400px;
+}
+#patient_selection_form_select_box{
+	margin-bottom:15px;
 }
 #footer{
 	width:100%;
