@@ -56,36 +56,299 @@
 				<table class="table table-hover table-bordered" id='medication_current_table'>
 
 				</table>
+				<button id='form_open_me' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='medication_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="me_medication_name">Medication Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="me_medication_name" placeholder="Medication Name" name="medication_name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="me_generic_name">Generic Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="me_generic_name" placeholder="Generic Name" name="generic_name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="me_expire_date">Expire Date</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="me_expire_date" placeholder="Expire Date" name="med_expire">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="me_prescribed">Prescribed</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="me_prescribed" placeholder="Prescribed" name="med_prescribed">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="me_dose">Dose</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control" id="me_dose" placeholder="Dose (mg)" name="med_dose_mg">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="me_frequency">Frequency</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="me_frequency" placeholder="Frequency" name="med_freq">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="me_purpose">Purpose</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="me_purpose" placeholder="Purpose" name="med_purpose">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="me_note">Note</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="4" id="me_note" placeholder="Notes" name="note"></textarea>
+						</div>
+					</div>
+					<input type='hidden' value='1' name='resident_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
 			</div>
 			<div class='tab-pane' id='medication_history'>
 				<table class="table table-hover table-bordered" id='medication_history_table'>
 
 				</table>
+				<button id='form_open_mhe' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='medication_history_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="mhe_medication_name">Medication Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="mhe_medication_name" placeholder="Medication Name" name="med_name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="mhe_generic_name">Generic Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="mhe_generic_name" placeholder="Generic Name" name="generic_name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="mhe_expire_date">Prescribed Date</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="mhe_expire_date" placeholder="Prescribed Date" name="prescribed">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="mhe_expire_date">Expire Date</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="mhe_expire_date" placeholder="Expire Date" name="expiration">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="mhe_dose">Dose</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control" id="mhe_dose" placeholder="Dose (mg)" name="dosages">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="mhe_diet">Diet</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="mhe_diet" placeholder="Diet" name="diets">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="mhe_frequency">Frequency</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="mhe_frequency" placeholder="Frequency" name="frequency">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="mhe_purpose">Purpose</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="mhe_purpose" placeholder="Purpose" name="purpose">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="mhe_note">Note</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="4" id="mhe_note" placeholder="Notes" name="note"></textarea>
+						</div>
+					</div>
+					<input type='hidden' value='1' name='resident_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
 			</div>
 			<div class='tab-pane' id='prescriptions'>
 				<table class="table table-hover table-bordered" id='prescription_table'>
 				
 				</table>
+				<button id='form_open_pe' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='prescriptions_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="pe_prescription_number">Prescription Number</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="pe_prescription_number" placeholder="Prescription Number" name="prescription_number">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="pe_order_date">Date Ordered</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="pe_order_date" placeholder="Date Ordered" name="date_ordered">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="pe_date_received">Date Received</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="pe_date_received" placeholder="Date Received" name="date_received">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="pe_refill_date">Refill Date</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="pe_refill_date" placeholder="Refill Date" name="refill_date">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="pe_quantity">Quantity</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="pe_quantity" placeholder="Quantity" name="quantity">
+						</div>
+					</div>
+					<input type='hidden' value='1' name='resident_id'>
+					<input type='hidden' value='0' name='medication_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
 			</div>
 			<div class='tab-pane' id='assessments'>
 				<table class="table table-hover table-bordered" id='assessment_table'>
 				
 				</table>
+				<button id='form_open_ae' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='assessments_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ae_assessment_date">Assessment Date</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="ae_assessment_date" placeholder="Assessment Date" name="assessment_date">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ae_assessment_time">Assessment Time</label>
+						<div class="col-sm-10">
+							<input type="time" class="form-control" id="ae_assessment_time" placeholder="Assessment Time" name="assessment_time">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ae_weight">Weight</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="ae_weight" placeholder="Weight" name="weight">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ae_blood_pressure">Blood Pressure</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="ae_blood_pressure" placeholder="Blood Pressure" name="blood_pressure">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ae_note">Note</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="4" id="ae_note" placeholder="Notes" name="assess_notes"></textarea>
+						</div>
+					</div>
+					<input type='hidden' value='1' name='resident_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
 			</div>
 			<div class='tab-pane' id='allergies'>
 				<table class="table table-hover table-bordered" id='allergies_table'>
 				
 				</table>
+				<button id='form_open_ale' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='allergy_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ale_name">Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="ale_name" placeholder="Name" name="allergy_title">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ale_note">Description</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="4" id="ale_note" placeholder="Description" name="allergy_description"></textarea>
+						</div>
+					</div>
+					<input type='hidden' value='1' name='resident_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
 			</div>
 			<div class='tab-pane' id='diet'>
 				<table class="table table-hover table-bordered" id='diet_table'>
 				
 				</table>
+				<button id='form_open_de' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='diet_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="de_name">Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="de_name" placeholder="Name" name="diet_title">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="de_note">Description</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="4" id="de_note" placeholder="Description" name="diet_description"></textarea>
+						</div>
+					</div>
+					<input type='hidden' value='1' name='resident_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
 			</div>
 			<div class='tab-pane' id='hospitalizations'>
 				<table class="table table-hover table-bordered" id='hospitalizations_table'>
 				
 				</table>
+				<button id='form_open_he' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='hospitalizations_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="he_hospitalization_date">Hospitalization Date</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="he_hospitalization_date" placeholder="Hospitalization Date" name="Hospitalization_Date">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="he_location">Location</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="he_location" placeholder="Location" name="Location">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="he_duration">Duration</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="he_duration" placeholder="Duration" name="Duration">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="he_reason">Reason</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="he_reason" placeholder="Reason" name="Reason">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="he_medication_changes">Medication Changes</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="he_medication_changes" placeholder="Medication Changes" name="Medication_Changes">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="he_diagnosis">Diagnosis</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="he_diagnosis" placeholder="Diagnosis" name="Diagnosis">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ae_note">Note</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="4" id="ae_note" placeholder="Notes" name="Notes"></textarea>
+						</div>
+					</div>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
 			</div>
 			<div class='tab-pane' id='emergency_contacts'>
 				<table class="table table-hover table-bordered" id='emergency_contacts_table'>
@@ -96,11 +359,24 @@
 				<table class="table table-hover table-bordered" id='notes_table'>
 				
 				</table>
+				<button id='form_open_ne' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='notes_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ne_note">Description</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="4" id="ne_note" placeholder="Description" name="Description"></textarea>
+						</div>
+					</div>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
+			</div>
 			</div>
 		</div>
 	</div>
 	<!-- loadup data -->
 	<script src="{{ static }}/static/js/data_callers.js"></script>
+	<script src="{{ static }}/static/js/data_pushers.js"></script>
+	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
 	<script>
 		$( document ).ready(function() {
 			//create a function to get the resident id somehow, use 1 for testing
@@ -111,38 +387,47 @@
 			$('#medication a').click(function (e) {
 			  e.preventDefault()
 			  $(this).tab('show')
+			  $('#medication_entry').hide();
 			})
 			$('#medication_history a').click(function (e) {
 			  e.preventDefault()
 			  $(this).tab('show')
+			  $('#medication_history_entry').hide();
 			})
 			$('#prescriptions a').click(function (e) {
 			  e.preventDefault()
 			  $(this).tab('show')
+			  $('#prescriptions_entry').hide();
 			})
 			$('#assessments a').click(function (e) {
 			  e.preventDefault()
 			  $(this).tab('show')
+			  $('#asessments_entry').hide();
 			})
 			$('#allergies a').click(function (e) {
 			  e.preventDefault()
 			  $(this).tab('show')
+			  $('#allergy_entry').hide();
 			})
 			$('#diet a').click(function (e) {
 			  e.preventDefault()
 			  $(this).tab('show')
+			  $('#diet_entry').hide();
 			})
 			$('#hospitalizations a').click(function (e) {
 			  e.preventDefault()
 			  $(this).tab('show')
+			  $('#hospitalizations_entry').hide();
 			})
 			$('#emergency_contacts a').click(function (e) {
 			  e.preventDefault()
 			  $(this).tab('show')
+			  $('#emergency_contacts_entry').hide();
 			})
 			$('#notes a').click(function (e) {
 			  e.preventDefault()
 			  $(this).tab('show')
+			  $('#notes_entry').hide();
 			})
 			//tab content generation
 			$('#medication_tab').click(function(){
@@ -171,6 +456,106 @@
 			})
 			$('#notes_tab').click(function(){
 				get_resident_notes_information(1);
+			})
+			//hidden form stuff
+			$('#form_open_me').click(function(){
+				if($('#medication_entry').is(":visible")){
+					$('#form_open_me').empty();
+					$('#form_open_me').append('New Entry');
+					$('#medication_entry').slideUp();
+				}else{
+					$('#medication_entry').slideDown();
+					$('#form_open_me').empty();
+					$('#form_open_me').append('Close Entry Form');
+				}
+			})
+			$('#form_open_mhe').click(function(){
+				if($('#medication_history_entry').is(":visible")){
+					$('#form_open_mhe').empty();
+					$('#form_open_mhe').append('New Entry');
+					$('#medication_history_entry').slideUp();
+				}else{
+					$('#medication_history_entry').slideDown();
+					$('#form_open_mhe').empty();
+					$('#form_open_mhe').append('Close Entry Form');
+				}
+			})
+			$('#form_open_pe').click(function(){
+				if($('#prescriptions_entry').is(":visible")){
+					$('#form_open_pe').empty();
+					$('#form_open_pe').append('New Entry');
+					$('#prescriptions_entry').slideUp();
+				}else{
+					$('#prescriptions_entry').slideDown();
+					$('#form_open_pe').empty();
+					$('#form_open_pe').append('Close Entry Form');
+				}
+			})
+			$('#form_open_ae').click(function(){
+				if($('#assessments_entry').is(":visible")){
+					$('#form_open_ae').empty();
+					$('#form_open_ae').append('New Entry');
+					$('#assessments_entry').slideUp();
+				}else{
+					$('#assessments_entry').slideDown();
+					$('#form_open_ae').empty();
+					$('#form_open_ae').append('Close Entry Form');
+				}
+			})
+			$('#form_open_ale').click(function(){
+				if($('#allergy_entry').is(":visible")){
+					$('#form_open_ale').empty();
+					$('#form_open_ale').append('New Entry');
+					$('#allergy_entry').slideUp();
+				}else{
+					$('#allergy_entry').slideDown();
+					$('#form_open_ale').empty();
+					$('#form_open_ale').append('Close Entry Form');
+				}
+			})
+			$('#form_open_de').click(function(){
+				if($('#diet_entry').is(":visible")){
+					$('#form_open_de').empty();
+					$('#form_open_de').append('New Entry');
+					$('#diet_entry').slideUp();
+				}else{
+					$('#diet_entry').slideDown();
+					$('#form_open_de').empty();
+					$('#form_open_de').append('Close Entry Form');
+				}
+			})
+			$('#form_open_he').click(function(){
+				if($('#hospitalizations_entry').is(":visible")){
+					$('#form_open_he').empty();
+					$('#form_open_he').append('New Entry');
+					$('#hospitalizations_entry').slideUp();
+				}else{
+					$('#hospitalizations_entry').slideDown();
+					$('#form_open_he').empty();
+					$('#form_open_he').append('Close Entry Form');
+				}
+			})
+			$('#form_open_ece').click(function(){
+				if($('#emergency_contacts_entry').is(":visible")){
+					$('#form_open_ece').empty();
+					$('#form_open_ece').append('New Entry');
+					$('#emergency_contacts_entry').slideUp();
+				}else{
+					$('#emergency_contacts_entry').slideDown();
+					$('#form_open_ece').empty();
+					$('#form_open_ece').append('Close Entry Form');
+				}
+			})
+			$('#form_open_ne').click(function(){
+				if($('#notes_entry').is(":visible")){
+					$('#form_open_ne').empty();
+					$('#form_open_ne').append('New Entry');
+					$('#notes_entry').slideUp();
+				}else{
+					$('#notes_entry').slideDown();
+					$('#form_open_ne').empty();
+					$('#form_open_ne').append('Close Entry Form');
+				}
 			})
 		});
 	</script>

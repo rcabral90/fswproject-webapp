@@ -101,7 +101,7 @@ body{
 	height:40px;
 }
 #main_content{
-	width:1024px;
+	width:95%;
 	min-height:600px;
 	margin:0 auto;
 	display:block;
@@ -111,7 +111,6 @@ body{
 }
 #top_content_buttons{
 	display:block;
-	width:1024px;
 	height:25px;
 	margin-top:-23px;
 	position:relative;
@@ -136,8 +135,8 @@ body{
 }
 #top_content_block{
 	margin:0 auto;
-	width:100%;
-	min-height:205px;
+	width:1024px;
+	min-height:215px;
 	clear:both;
 }
 #user_image{
@@ -287,6 +286,34 @@ body{
 	margin:auto;
 	padding-bottom:15px;
 	padding-top:5px;
+}
+#medication_entry, #medication_history_entry, #prescriptions_entry, #assessments_entry, #allergy_entry, #diet_entry, #hospitalizations_entry, #emergency_contacts_entry, #notes_entry{
+	display:none;
+	margin:auto;
+	padding:10px;
+	border:1px dashed black;
+	border-radius: 5px;
+	width:98%;
+	margin-bottom:5px;
+}
+#form_open_me, #form_open_mhe, #form_open_pe, #form_open_ae, #form_open_ale, #form_open_de, #form_open_he, #form_open_ece, #form_open_ne{
+	display:block;
+	margin:auto;
+	width:200px;
+	margin-bottom:10px;
+}
+#table_input_form_submit{
+	display:block;
+	width:200px;
+	margin:auto;
+}
+#patient_selection_area{
+	margin:0 auto;
+	display:block;
+	width:400px;
+}
+#patient_selection_form_select_box{
+	margin-bottom:15px;
 }
 #footer{
 	width:100%;
