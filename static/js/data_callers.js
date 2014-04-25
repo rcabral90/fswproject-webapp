@@ -24,6 +24,7 @@ function get_resident_information(resident_id){
 		$("#resident_home_phone").append(home_phone);
 		$("#resident_cell_phone").append(cell_phone);
 		$("#resident_dob").append(dob);
+		$("#user_image_src").attr('src', data[0].photo);
 	});
 }
 

@@ -147,8 +147,8 @@ body{
 	float:left;
 	margin-left:2%;
 	margin-top:2%;
-	width:150px;
-	height:150px;
+	width:152px;
+	height:152px;
 	box-shadow: 6px 0px 5px -5px #999, -6px 0px 5px -5px #999;
 }
 #user_image_options{
@@ -158,7 +158,7 @@ body{
 	width:75px;
 	border:1px solid #000;
 	float:left;
-	margin-top:150px;
+	margin-top:5px;
 	margin-left:35px;
 }
 #user_image_options p{
