@@ -55,9 +55,11 @@ function primary_doctor_information(doctor_id){
 
 function get_physical_information(resident_id){
 	$.get(backend_url+"/physical/"+resident_id+"/?format=json", function(data){
-		var physical_date = data[0].physical_date;
-		//update the DOM
-		$("#resident_last_physical_date").append(physical_date);
+		if(data[0]){
+			var physical_date = data[0].physical_date;
+			//update the DOM
+			$("#resident_last_physical_date").append(physical_date);
+		}
 	});
 }
 
