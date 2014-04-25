@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^$', 'com_fsw_webapp.views.home', name='home'),
 	url(r'^selector/', 'com_fsw_webapp.views.selector', name='selector'),
     url(r'^login/$', 'com_fsw_webapp.views.login', name='login'),
+    url(r'^add_user/', 'com_fsw_webapp.views.add_user', name='add_user'),
     # url(r'^fswproject_webapp/', include('fswproject_webapp.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

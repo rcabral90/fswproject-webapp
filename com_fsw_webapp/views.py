@@ -31,3 +31,8 @@ def login(request):
             return render_to_response('home.html', {"error": True}, context_instance=RequestContext(request))
     except:
         return render_to_response('home.html', {"error": True}, context_instance=RequestContext(request))
+
+def add_user(request):
+    context = {}
+    context.update(csrf(request))
+    return render_to_response('add_user.html', {"error": False}, context_instance=RequestContext(request))        
