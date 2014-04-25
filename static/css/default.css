@@ -280,6 +280,26 @@ body{
 }
 #login_panel_content{
 	padding:5px;
+	text-align:center;
+}
+#login_panel_content .form-control{
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	 -moz-box-sizing: border-box;
+		  box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+#login_panel_content  input[type="text"]{
+  margin-bottom: 2px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+#login_panel_content  input[type="password"]{
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 #login_logo{
 	display:block;
@@ -310,7 +330,14 @@ body{
 #patient_selection_area{
 	margin:0 auto;
 	display:block;
-	width:400px;
+	width:500px;
+	border-radius: 5px;
+	box-shadow: 6px 0px 5px -5px #999, -6px 0px 5px -5px #999;
+	border:1px solid #000;
+	padding-left:135px;
+	margin-top:15px;
+	text-align:center;
+	height:150px;
 }
 #patient_selection_form_select_box{
 	margin-bottom:15px;

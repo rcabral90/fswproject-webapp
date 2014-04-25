@@ -15,7 +15,7 @@ $('#medication_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/medication/*/",
+		url: backend_url+"/medication/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -39,7 +39,7 @@ $('#medication_history_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/medicationhistory/*/",
+		url: backend_url+"/medicationhistory/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -64,7 +64,7 @@ $('#prescriptions_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/prescription/*/",
+		url: backend_url+"/prescription/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -89,7 +89,7 @@ $('#assessments_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/assessment/*/",
+		url: backend_url+"/assessment/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -112,7 +112,7 @@ $('#allergy_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/allergies/*/",
+		url: backend_url+"/allergies/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -135,7 +135,7 @@ $('#diet_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/diets/*/",
+		url: backend_url+"/diets/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){

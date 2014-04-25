@@ -24,6 +24,7 @@
 						<li id='resident_home_phone'>Home Phone: 
 						<li id='resident_cell_phone'>Cell Phone: 
 						<li id='resident_dob'>Date of Birth: 
+						<li id='resident_last_physical_date'>Last Physical Date: 
 					</ul>
 				</p>
 			</div>
@@ -380,9 +381,13 @@
 	<script>
 		$( document ).ready(function() {
 			//create a function to get the resident id somehow, use 1 for testing
-			get_resident_information(1);
+			get_resident_information({{ request.session.current_resident }});
+			//get physical info
+			get_physical_information({{ request.session.current_resident }});
+			//get doctor info
+			get_primary_doctor_information({{ request.session.current_resident }});
 			//first load so set the data in the active tab
-			get_current_medication_information(1);
+			get_current_medication_information({{ request.session.current_resident }});
 			//tab activation
 			$('#medication a').click(function (e) {
 			  e.preventDefault()
@@ -431,31 +436,31 @@
 			})
 			//tab content generation
 			$('#medication_tab').click(function(){
-				get_current_medication_information(1);
+				get_current_medication_information({{ request.session.current_resident }});
 			})
 			$('#medication_history_tab').click(function(){
-				get_medication_history(1);
+				get_medication_history({{ request.session.current_resident }});
 			})
 			$('#prescriptions_tab').click(function(){
-				get_prescription_information(1);
+				get_prescription_information({{ request.session.current_resident }});
 			})
 			$('#assessment_tab').click(function(){
-				get_resident_assessment_information(1);
+				get_resident_assessment_information({{ request.session.current_resident }});
 			})
 			$('#allergies_tab').click(function(){
-				get_resident_allergy_information(1);
+				get_resident_allergy_information({{ request.session.current_resident }});
 			})
 			$('#diet_tab').click(function(){
-				get_resident_diet_information(1);
+				get_resident_diet_information({{ request.session.current_resident }});
 			})
 			$('#hospitalization_tab').click(function(){
-				get_hospitalization_history(1);
+				get_hospitalization_history({{ request.session.current_resident }});
 			})
 			$('#emergency_contacts_tab').click(function(){
-				get_resident_emergency_contacts_information(1);
+				get_resident_emergency_contacts_information({{ request.session.current_resident }});
 			})
 			$('#notes_tab').click(function(){
-				get_resident_notes_information(1);
+				get_resident_notes_information({{ request.session.current_resident }});
 			})
 			//hidden form stuff
 			$('#form_open_me').click(function(){
@@ -557,6 +562,10 @@
 					$('#form_open_ne').append('Close Entry Form');
 				}
 			})
+			//search box functionality
+			var options, a;
+			options = { serviceUrl:'/search/' };
+			a = $('#search_box').autocomplete(options);
 		});
 	</script>
 {% endblock %}
