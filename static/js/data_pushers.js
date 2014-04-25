@@ -15,7 +15,7 @@ $('#medication_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/medication/*/",
+		url: backend_url+"/medication/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -39,7 +39,7 @@ $('#medication_history_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/medicationhistory/*/",
+		url: backend_url+"/medicationhistory/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -64,7 +64,7 @@ $('#prescriptions_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/prescription/*/",
+		url: backend_url+"/prescription/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -89,7 +89,7 @@ $('#assessments_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/assessment/*/",
+		url: backend_url+"/assessment/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -112,7 +112,7 @@ $('#allergy_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/allergies/*/",
+		url: backend_url+"/allergies/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -135,7 +135,7 @@ $('#diet_entry').on("submit", function(event){
 	$.ajax({
 		type: "POST",
 		contentType: 'application/json',
-		url: "http://127.0.0.1:7177/diets/*/",
+		url: backend_url+"/diets/*/",
 		data: json,
 		dataType: "json"
 	}).done(function(){
@@ -146,6 +146,52 @@ $('#diet_entry').on("submit", function(event){
 		$('#form_open_de').empty();
 		$('#form_open_de').append('New Entry');
 		$('#diet_entry').slideUp();
+	});
+	return false;
+})
+$('#hospitalizations_entry').on("submit", function(event){
+	event.preventDefault();
+	var json = $(this).serializeJSON();
+	var resident_id = json['resident_id'];
+	json['resident_id'] = parseInt(json['resident_id']);
+	json = JSON.stringify(json);
+	$.ajax({
+		type: "POST",
+		contentType: 'application/json',
+		url: backend_url+"/hospitalization/*/",
+		data: json,
+		dataType: "json"
+	}).done(function(){
+		get_hospitalization_history(resident_id);
+		//clear the form
+		resetForm($('#hospitalizations_entry'));
+		//close the form
+		$('#form_open_he').empty();
+		$('#form_open_he').append('New Entry');
+		$('#hospitalizations_entry').slideUp();
+	});
+	return false;
+})
+$('#notes_entry').on("submit", function(event){
+	event.preventDefault();
+	var json = $(this).serializeJSON();
+	var resident_id = json['resident_id'];
+	json['resident_id'] = parseInt(json['resident_id']);
+	json = JSON.stringify(json);
+	$.ajax({
+		type: "POST",
+		contentType: 'application/json',
+		url: backend_url+"/notes/*/",
+		data: json,
+		dataType: "json"
+	}).done(function(){
+		get_resident_notes_information(resident_id);
+		//clear the form
+		resetForm($('#notes_entry'));
+		//close the form
+		$('#form_open_ne').empty();
+		$('#form_open_ne').append('New Entry');
+		$('#notes_entry').slideUp();
 	});
 	return false;
 })

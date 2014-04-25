@@ -3,7 +3,7 @@
 	<div id='main_content'>
 		<img id='login_logo' class="img-rounded" src="{{ static }}/static/imgs/logo.png"/>
 		<div id="login_panel">
-			<div id='login_panel_content'>
+			<div id='login_panel_content' class='input-group'>
 				<legend>Please Sign In</legend>
 				<form method="POST" action="/login/" accept-charset="UTF-8">
 						{% csrf_token %}
@@ -12,8 +12,8 @@
 						<a class="close" data-dismiss="alert" href="#">×</a>Incorrect Username or Password!
 					</div>
 				{% endif %}
-				<input type="text" id="username" class="span4" name="username" placeholder="Username">
-				<input type="password" id="password" class="span4" name="password" placeholder="Password">
+				<input type="text" id="username" class="form-control" name="username" placeholder="Username">
+				<input type="password" id="password" class="form-control" name="password" placeholder="Password">
 				<div class="clearfix" style="padding-top: 30px"></div>
 				<button type="submit" name="submit" class="btn btn-info btn-block">Sign in</button>
 				</form>

@@ -7,7 +7,8 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'com_fsw_webapp.views.home', name='home'),
-	url(r'^selector/', 'com_fsw_webapp.views.selector', name='selector'),
+	url(r'^selector/$', 'com_fsw_webapp.views.selector', name='selector'),
+	url(r'^search/$', 'com_fsw_webapp.views.search', name='search'),
     url(r'^login/$', 'com_fsw_webapp.views.login', name='login'),
     url(r'^add_user/', 'com_fsw_webapp.views.add_user', name='add_user'),
     # url(r'^fswproject_webapp/', include('fswproject_webapp.foo.urls')),

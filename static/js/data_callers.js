@@ -1,7 +1,8 @@
+var backend_url = "http://127.0.0.1:7177";
 var date = new Date();
 var date_compare = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 function get_resident_information(resident_id){
-	$.get( "http://127.0.0.1:7177/residents/"+resident_id+"/?format=json", function( data ) {
+	$.get(backend_url+"/residents/"+resident_id+"/?format=json", function( data ) {
 		//fill dom objects
 		var first_name = data[0].first_name;
 		if((data[0].middle_name)){
@@ -27,14 +28,15 @@ function get_resident_information(resident_id){
 }
 
 function get_primary_doctor_information(resident_id){
-	var doctor_id = 0;
 	//get the primary doctor id
-	$.get("http://127.0.0.1:7177/?format=json", function(data){
-		//set a var
-		doctor_id = data[0].doctor_id;
+	$.get(backend_url+"/residentstodoctor/"+resident_id+"/?format=json", function(data){
+		primary_doctor_information(data[0].doctor_id);
 	});
+}
+
+function primary_doctor_information(doctor_id){
 	//get the primary doctor information
-	$.get("http://127.0.0.1:7177/doctors/"+doctor_id+"/?format=json", function(data){
+	$.get(backend_url+"/doctors/"+doctor_id+"/?format=json", function(data){
 		//set vars, fill dom's
 		var first_name = data[0].first_name;
 		if((data[0].middle_name)){
@@ -51,8 +53,18 @@ function get_primary_doctor_information(resident_id){
 	});
 }
 
+function get_physical_information(resident_id){
+	$.get(backend_url+"/physical/"+resident_id+"/?format=json", function(data){
+		if(data[0]){
+			var physical_date = data[0].physical_date;
+			//update the DOM
+			$("#resident_last_physical_date").append(physical_date);
+		}
+	});
+}
+
 function get_emergency_contact_information(resident_id){
-	$.get("http://127.0.0.1:7177/emergencycontacts/"+resident_id+"/?format=json", function(data){
+	$.get(backend_url+"/emergencycontacts/"+resident_id+"/?format=json", function(data){
 		var first_name = data[0].first_name;
 		if((data[0].middle_name)){
 			var middle_name = data[0].middle_name;
@@ -81,7 +93,7 @@ function get_emergency_contact_information(resident_id){
 }
 
 function get_current_medication_information(resident_id){
-	$.get("http://127.0.0.1:7177/medication/"+resident_id+"/?format=json", function(data){
+	$.get(backend_url+"/medication/"+resident_id+"/?format=json", function(data){
 		if(data.length < 1){
 			//do nothing?
 		}else{
@@ -106,7 +118,7 @@ function get_current_medication_information(resident_id){
 }
 
 function get_medication_history(resident_id){
-	$.get("http://127.0.0.1:7177/medicationhistory/"+resident_id+"/?format=json", function(data){
+	$.get(backend_url+"/medicationhistory/"+resident_id+"/?format=json", function(data){
 		if(data.length < 1){
 			//do nothing?
 		}else{
@@ -132,15 +144,8 @@ function get_medication_history(resident_id){
 	});
 }
 
-function get_physical_information(resident_id){
-	$.get("http://127.0.0.1:7177/?format=json", function(data){
-		var physical_date = data[0].physical_date;
-		$("#resident_last_physical").append(physical_date);
-	});
-}
-
 function get_prescription_information(resident_id){
-	$.get("http://127.0.0.1:7177/prescription/"+resident_id+"/?format=json", function(data){
+	$.get(backend_url+"/prescription/"+resident_id+"/?format=json", function(data){
 		if(data.length < 1){
 			//do nothing?
 		}else{
@@ -169,7 +174,7 @@ function get_prescription_information(resident_id){
 }
 
 function get_hospitalization_history(resident_id){
-	$.get("http://127.0.0.1:7177/hospitalization/"+resident_id+"/?format=json", function(data){
+	$.get(backend_url+"/hospitalization/"+resident_id+"/?format=json", function(data){
 		if(data.length < 1){
 			//do nothing?
 		}else{
@@ -193,7 +198,7 @@ function get_hospitalization_history(resident_id){
 }
 
 function get_resident_assessment_information(resident_id){
-	$.get("http://127.0.0.1:7177/assessment/"+resident_id+"/?format=json", function(data){
+	$.get(backend_url+"/assessment/"+resident_id+"/?format=json", function(data){
 		if(data.length < 1){
 			//do nothing?
 		}else{
@@ -215,7 +220,7 @@ function get_resident_assessment_information(resident_id){
 }
 
 function get_resident_notes_information(resident_id){
-	$.get("http://127.0.0.1:7177/notes/"+resident_id+"/?format=json", function(data){
+	$.get(backend_url+"/notes/"+resident_id+"/?format=json", function(data){
 		if(data.length < 1){
 			//do nothing?
 		}else{
@@ -233,7 +238,7 @@ function get_resident_notes_information(resident_id){
 }
 
 function get_resident_allergy_information(resident_id){
-	$.get("http://127.0.0.1:7177/allergies/"+resident_id+"/?format=json", function(data){
+	$.get(backend_url+"/allergies/"+resident_id+"/?format=json", function(data){
 		if(data.length < 1){
 			//do nothing?
 		}else{
@@ -252,7 +257,7 @@ function get_resident_allergy_information(resident_id){
 }
 
 function get_resident_diet_information(resident_id){
-	$.get("http://127.0.0.1:7177/diets/"+resident_id+"/?format=json", function(data){
+	$.get(backend_url+"/diets/"+resident_id+"/?format=json", function(data){
 		if(data.length < 1){
 			//do nothing?
 		}else{
@@ -271,7 +276,7 @@ function get_resident_diet_information(resident_id){
 }
 
 function get_resident_emergency_contacts_information(resident_id){
-	$.get("http://127.0.0.1:7177/emergencycontacts/"+resident_id+"/?format=json", function(data){
+	$.get(backend_url+"/emergencycontacts/"+resident_id+"/?format=json", function(data){
 		if(data.length < 1){
 			//do nothing?
 		}else{
@@ -295,3 +300,10 @@ function get_resident_emergency_contacts_information(resident_id){
 		}
 	});
 }
+
+function get_all_resident_base_info(){
+	//note the patient selection box is special, we do that specifically in the patient_select.html file!
+	$.get(backend_url+"/residents/*/?format=json", function( data ) {
+		return data;
+	});
+};

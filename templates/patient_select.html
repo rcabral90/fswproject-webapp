@@ -2,19 +2,21 @@
 {% block body %}
 	<div id='main_content'>
 		<div id='patient_selection_area'>
-			<form id='patient_selection_form' class="form-horizontal" role="form">
+			<form action="/selector/" method="POST" id='patient_selection_form' class="form-horizontal" role="form">
+				{% csrf_token %}
 				<div class="form-group col-xs-8">
 					<label>Select a resident:</label>
-					<select id='patient_selection_form_select_box' class="form-control"></select>
+					<select id='patient_selection_form_select_box' name='resident_id' class="form-control"></select>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</div>
 			</form>
 		</div>
 	</div>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
+	<script src="{{ static }}/static/js/fsw.csrf.js"></script>
 	<script type='text/javascript'>
 	$( document ).ready(function() {
-		$.get( "http://127.0.0.1:7177/residents/*/?format=json", function( data ) {
+		$.get("http://127.0.0.1:7177/residents/*/?format=json", function( data ) {
 			$("#patient_selection_form_select_box").empty();
 			for(i=0;i<data.length;i++){
 				var first_name = data[i].first_name;
@@ -27,21 +29,6 @@
 				$("#patient_selection_form_select_box").append("<option value='"+data[i].resident_id+"'>"+first_name+" "+middle_name+" "+last_name+"</option>");
 			};
 		});
-		$('#patient_selection_form').on("submit", function(event){
-			event.preventDefault();
-			var json = $(this).serializeJSON();
-			json = JSON.stringify(json);
-			$.ajax({
-				type: "POST",
-				contentType: 'application/json',
-				url: "",
-				data: json,
-				dataType: "json"
-			}).done(function(){
-				alert('wat');
-			});
-			return false;
-		})
 	});
 	</script>
 {% endblock %}
