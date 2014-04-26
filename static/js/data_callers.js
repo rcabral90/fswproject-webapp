@@ -100,13 +100,13 @@ function get_current_medication_information(resident_id){
 		}else{
 			$("#medication_current_table").empty();
 			//build the table
-			$("#medication_current_table").append("<tr><th>Medication Name</th><th>Generic Name</th><th>Expire Date</th><th>Prescribed Date</th><th>Dose (Mg)</th><th>Frequency</th><th>Purpose</th><th>Note</th></tr>");
+			$("#medication_current_table").append("<tr><th>Medication Name</th><th>Generic Name</th><th>Prescribed Date</th><th>Expire Date</th><th>Dose (Mg)</th><th>Frequency</th><th>Purpose</th><th>Note</th></tr>");
 			for(i=0;i<data.length;i++){
 				$("#medication_current_table").append(
 					"<tr><td>"+data[i].medication_name+
 					"</td><td>"+data[i].generic_name+
-					"</td><td>"+data[i].med_expire+
 					"</td><td>"+data[i].med_prescribed+
+					"</td><td>"+data[i].med_expire+
 					"</td><td>"+data[i].med_dose_mg+
 					"</td><td>"+data[i].med_freq+
 					"</td><td>"+data[i].med_purpose+
@@ -181,13 +181,13 @@ function get_hospitalization_history(resident_id){
 		}else{
 			$("#hospitalizations_table").empty();
 			//build the table
-			$("#hospitalizations_table").append("<tr><th>Hospitalization Date</th><th>Location</th><th>Duration</th><th>Reason</th><th>Medication Changes</th><th>Diagnosis</th><th>Notes</th></tr>");
+			$("#hospitalizations_table").append("<tr><th>Hospitalization Date</th><th>Location</th><th>Reason</th><th>Duration</th><th>Medication Changes</th><th>Diagnosis</th><th>Discharge Plan</th></tr>");
 			for(i=0;i<data.length;i++){
 				$("#hospitalizations_table").append(
 					"<tr><td>"+data[i].hospitalization_date+
 					"</td><td>"+data[i].hospitalization_location+
-					"</td><td>"+data[i].duration_of_stay+
 					"</td><td>"+data[i].reason+
+					"</td><td>"+data[i].duration_of_stay+
 					"</td><td>"+data[i].medication_changes+
 					"</td><td>"+data[i].diagnosis+
 					"</td><td>"+data[i].notes+
