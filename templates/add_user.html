@@ -12,25 +12,25 @@
 
  		  <!-- Text input-->
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">FirstName</label>
+            <label class="col-sm-2 control-label" for="textinput">First Name</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="FirstName" class="form-control">
+              <input type="text" id="First_Name" placeholder="First Name" class="form-control">
             </div>
           </div>
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">MiddleName</label>
+            <label class="col-sm-2 control-label" for="textinput">Middle Name</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="MiddleName" class="form-control">
+              <input type="text" id="Middle_Name" placeholder="Middle Name" class="form-control">
             </div>
           </div>
 
 		  <!-- Text input-->
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">LastName</label>
+            <label class="col-sm-2 control-label" for="textinput">Last Name</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="LastName" class="form-control">
+              <input type="text" id="Last_Name" placeholder="Last Name" class="form-control">
             </div>
           </div>
 
@@ -38,7 +38,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Line 1</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="Address Line 1" class="form-control">
+              <input type="text" id="Address1" placeholder="Address Line 1" class="form-control">
             </div>
           </div>
 
@@ -46,7 +46,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Line 2</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="Address Line 2" class="form-control">
+              <input type="text" id="Address2" placeholder="Address Line 2" class="form-control">
             </div>
           </div>
 
@@ -54,7 +54,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">City</label>
             <div class="col-sm-10">
-              <input type="text" placeholder="City" class="form-control">
+              <input type="text" id="City" placeholder="City" class="form-control">
             </div>
           </div>
 
@@ -62,12 +62,12 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">State</label>
             <div class="col-sm-4">
-              <input type="text" placeholder="State" class="form-control">
+              <input type="text" id="State" placeholder="State" class="form-control">
             </div>
 
             <label class="col-sm-2 control-label" for="textinput">Postcode</label>
             <div class="col-sm-4">
-              <input type="text" placeholder="Post Code" class="form-control">
+              <input type="text" id="Postcode" placeholder="Post Code" class="form-control">
             </div>
           </div>
 
@@ -86,22 +86,6 @@
     </div><!-- /.col-lg-12 -->
 </div><!-- /.row -->
 
-
-<div class="container">
-	<div class="row">
-		<input type="hidden" name="count" value="1" />
-        <div class="control-group" id="fields">
-            <label class="control-label" for="field1">Nice Multiple Form Fields</label>
-            <div class="controls" id="profs"> 
-                <div class="input-append">
-                    <input autocomplete="off" class="span3" id="field1" name="prof1" type="text" placeholder="Type something (it has typeahead too)" data-provide="typeahead" data-items="8" data-source='["Aardvark","Beatlejuice","Capricorn","Deathmaul","Epic"]'/><button id="b1" class="btn btn-info add-more" type="button">+</button>
-                </div>
-            <br>
-            <small>Press + to add another form field :)</small>
-            </div>
-        </div>
-	</div>
-</div>
 
 
 {% endblock %}
