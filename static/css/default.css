@@ -61,6 +61,9 @@ body{
 	background: linear-gradient(to bottom, #e5e5e5 0%,#ffffff 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=0 );
 }
+.autocomplete-suggestions { margin-top:35px; border: 1px solid #999; background: #fff; cursor: default; overflow: auto; }
+.autocomplete-suggestion { padding: 5px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #f0f0f0; }
 #header_search{
 	display:inline-block;
 	float:right;
@@ -225,7 +228,6 @@ body{
 	min-width:350px;
 	min-height:100px;
 	margin-top:2%;
-	margin-left:5%;
 }
 #secondary_information h2{
 	display:block;
@@ -234,6 +236,31 @@ body{
 	padding-bottom:5px;
 	font-size:1.2em;
 	font-weight:bold;
+}
+#prev_doctor{
+	font-size:2.5em;
+	font-weight:bold;
+	display:block;
+	float:left;
+	margin-left:2%;
+	margin-right:4px;
+	margin-top:55px;
+	cursor:hand;
+}
+#next_doctor{
+	font-size:2.5em;
+	font-weight:bold;
+	display:block;
+	margin-top:55px;
+	float:right;
+	cursor:hand;
+}
+#doctor_cycle{
+	position:absolute;
+	width:350px;
+}
+#doctor_cycle_information{
+	margin-top:10px;
 }
 #middle_tabs{
 	display:block;

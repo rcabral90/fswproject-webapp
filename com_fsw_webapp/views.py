@@ -12,9 +12,6 @@ def home(request):
     context.update(csrf(request))
     return render_to_response('home.html', {"error": False}, context_instance=RequestContext(request))
 
-def search(request):
-    return render_to_response('search.html', {"error": False}, context_instance=RequestContext(request))
-	
 def selector(request):
     if (request.method == "POST"):
         #try to set vars

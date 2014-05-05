@@ -5,8 +5,8 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-FSW_WEBSERVICE_BASE_URL = "http://emerald1.ecs.fullerton.edu"
-#FSW_WEBSERVICE_BASE_URL = 'http://127.0.0.1:7177'
+#FSW_WEBSERVICE_BASE_URL = "http://emerald1.ecs.fullerton.edu"
+FSW_WEBSERVICE_BASE_URL = 'http://127.0.0.1:7177'
 
 ADMINS = (
 ('Robert Cabral', 'rcabral90@csu.fullerton.edu'),

@@ -31,27 +31,31 @@ function get_resident_information(resident_id){
 function get_primary_doctor_information(resident_id){
 	//get the primary doctor id
 	$.get(backend_url+"/residentstodoctor/"+resident_id+"/?format=json", function(data){
-		primary_doctor_information(data[0].doctor_id);
+		primary_doctor_information(data);
 	});
 }
 
-function primary_doctor_information(doctor_id){
-	//get the primary doctor information
-	$.get(backend_url+"/doctors/"+doctor_id+"/?format=json", function(data){
-		//set vars, fill dom's
-		var first_name = data[0].first_name;
-		if((data[0].middle_name)){
-			var middle_name = data[0].middle_name;
-		}else{
-			var middle_name = "";
-		}
-		var last_name = data[0].last_name;
-		var specialization = data[0].specialization;
-		var phone_number = data[0].phone_number;
-		$("#doctor_name").append(first_name+" "+middle_name+" "+last_name);
-		$("#doctor_specialization").append(specialization);
-		$("#doctor_phone_number").append(phone_number);
-	});
+function primary_doctor_information(doctor_id_list){
+	//get the primary doctor information.
+	var html_data = "";
+	$('#doctor_cycle').empty();
+	console.log(doctor_id_list);
+	for(var k=0;k<doctor_id_list.length;k++){
+		$.get(backend_url+"/doctors/"+doctor_id_list[k].doctor_id+"/?format=json", function(data){
+			//set vars, fill dom's
+			var first_name = data[0].first_name;
+			if((data[0].middle_name)){
+				var middle_name = data[0].middle_name;
+			}else{
+				var middle_name = "";
+			}
+			var last_name = data[0].last_name;
+			var specialization = data[0].specialization;
+			var phone_number = data[0].phone_number;
+			html_data = "<div id='doctor_cycle_information'><h2>Doctor Information</h2><ul><li>Name: "+first_name+" "+middle_name+" "+last_name+"</li><li>Specialization: "+specialization+"</li><li>Phone Number: "+phone_number+"</li></ul></div>";
+			$('#doctor_cycle').cycle('add', html_data);
+		});
+	};
 }
 
 function get_physical_information(resident_id){
@@ -301,10 +305,3 @@ function get_resident_emergency_contacts_information(resident_id){
 		}
 	});
 }
-
-function get_all_resident_base_info(){
-	//note the patient selection box is special, we do that specifically in the patient_select.html file!
-	$.get(backend_url+"/residents/*/?format=json", function( data ) {
-		return data;
-	});
-};
