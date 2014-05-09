@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% block body %}
+	<div id='alert_box'>
+		<h1 id='alert_count'>Alerts ()</h1>
+		<table class="table table-hover table-bordered" id='alert_table'>
+
+		</table>
+	</div>
 	<div id='main_content'>
 		<div id='top_content_buttons'>
 			<div id='top_content_button_right'>
@@ -29,11 +35,11 @@
 					</ul>
 				</p>
 			</div>
-			<span class="glyphicon glyphicon-arrow-left" id='prev_doctor'></span>
 			<div id='secondary_information'>
+				<h2>Doctor Information</h2>
 				<div id='doctor_cycle' data-cycle-slides="div" data-cycle-timeout='0' data-cycle-prev="#prev_doctor" data-cycle-next="#next_doctor"></div>
+				<span id='prev_doctor'>&lsaquo; Prev</span><span id='next_doctor'>Next &rsaquo;</span>
 			</div>
-			<span class="glyphicon glyphicon-arrow-right" id='next_doctor'></span>
 		</div>
 		<div id='middle_tabs'>
 			<ul class="nav nav-tabs">
@@ -104,6 +110,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -168,6 +175,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -208,6 +216,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<input type='hidden' value='0' name='medication_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
@@ -249,6 +258,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -271,6 +281,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -293,6 +304,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -345,6 +357,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -366,6 +379,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -373,11 +387,13 @@
 		</div>
 	</div>
 	<!-- loadup data -->
-	<script src="{{ static }}/static/js/data_callers.js"></script>
-	<script src="{{ static }}/static/js/data_pushers.js"></script>
+	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
+	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
 	<script src="{{ static }}/static/js/jquery.form-validator.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.cycle2.min.js"></script>
+	<script src="{{ static }}/static/js/jquery.tablesorter.min.js"></script>
+	<script src="{{ static }}/static/js/fsw.dashboard.js"></script>
 	<script>
 		$( document ).ready(function() {
 			//enable form validation
@@ -388,54 +404,10 @@
 			get_physical_information({{ request.session.current_resident }});
 			//get doctor info
 			get_primary_doctor_information({{ request.session.current_resident }});
+			//get alerts
+			get_alerts({{ request.session.current_resident }},"last_login");
 			//first load so set the data in the active tab
 			get_current_medication_information({{ request.session.current_resident }});
-			//tab activation
-			$('#medication a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#medication_entry').hide();
-			})
-			$('#medication_history a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#medication_history_entry').hide();
-			})
-			$('#prescriptions a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#prescriptions_entry').hide();
-			})
-			$('#assessments a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#asessments_entry').hide();
-			})
-			$('#allergies a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#allergy_entry').hide();
-			})
-			$('#diet a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#diet_entry').hide();
-			})
-			$('#hospitalizations a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#hospitalizations_entry').hide();
-			})
-			$('#emergency_contacts a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#emergency_contacts_entry').hide();
-			})
-			$('#notes a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#notes_entry').hide();
-			})
 			//tab content generation
 			$('#medication_tab').click(function(){
 				get_current_medication_information({{ request.session.current_resident }});
@@ -464,136 +436,6 @@
 			$('#notes_tab').click(function(){
 				get_resident_notes_information({{ request.session.current_resident }});
 			})
-			//hidden form stuff
-			$('#form_open_me').click(function(){
-				if($('#medication_entry').is(":visible")){
-					$('#form_open_me').empty();
-					$('#form_open_me').append('New Entry');
-					$('#medication_entry').slideUp();
-				}else{
-					$('#medication_entry').slideDown();
-					$('#form_open_me').empty();
-					$('#form_open_me').append('Close Entry Form');
-				}
-			})
-			$('#form_open_mhe').click(function(){
-				if($('#medication_history_entry').is(":visible")){
-					$('#form_open_mhe').empty();
-					$('#form_open_mhe').append('New Entry');
-					$('#medication_history_entry').slideUp();
-				}else{
-					$('#medication_history_entry').slideDown();
-					$('#form_open_mhe').empty();
-					$('#form_open_mhe').append('Close Entry Form');
-				}
-			})
-			$('#form_open_pe').click(function(){
-				if($('#prescriptions_entry').is(":visible")){
-					$('#form_open_pe').empty();
-					$('#form_open_pe').append('New Entry');
-					$('#prescriptions_entry').slideUp();
-				}else{
-					$('#prescriptions_entry').slideDown();
-					$('#form_open_pe').empty();
-					$('#form_open_pe').append('Close Entry Form');
-				}
-			})
-			$('#form_open_ae').click(function(){
-				if($('#assessments_entry').is(":visible")){
-					$('#form_open_ae').empty();
-					$('#form_open_ae').append('New Entry');
-					$('#assessments_entry').slideUp();
-				}else{
-					$('#assessments_entry').slideDown();
-					$('#form_open_ae').empty();
-					$('#form_open_ae').append('Close Entry Form');
-				}
-			})
-			$('#form_open_ale').click(function(){
-				if($('#allergy_entry').is(":visible")){
-					$('#form_open_ale').empty();
-					$('#form_open_ale').append('New Entry');
-					$('#allergy_entry').slideUp();
-				}else{
-					$('#allergy_entry').slideDown();
-					$('#form_open_ale').empty();
-					$('#form_open_ale').append('Close Entry Form');
-				}
-			})
-			$('#form_open_de').click(function(){
-				if($('#diet_entry').is(":visible")){
-					$('#form_open_de').empty();
-					$('#form_open_de').append('New Entry');
-					$('#diet_entry').slideUp();
-				}else{
-					$('#diet_entry').slideDown();
-					$('#form_open_de').empty();
-					$('#form_open_de').append('Close Entry Form');
-				}
-			})
-			$('#form_open_he').click(function(){
-				if($('#hospitalizations_entry').is(":visible")){
-					$('#form_open_he').empty();
-					$('#form_open_he').append('New Entry');
-					$('#hospitalizations_entry').slideUp();
-				}else{
-					$('#hospitalizations_entry').slideDown();
-					$('#form_open_he').empty();
-					$('#form_open_he').append('Close Entry Form');
-				}
-			})
-			$('#form_open_ece').click(function(){
-				if($('#emergency_contacts_entry').is(":visible")){
-					$('#form_open_ece').empty();
-					$('#form_open_ece').append('New Entry');
-					$('#emergency_contacts_entry').slideUp();
-				}else{
-					$('#emergency_contacts_entry').slideDown();
-					$('#form_open_ece').empty();
-					$('#form_open_ece').append('Close Entry Form');
-				}
-			})
-			$('#form_open_ne').click(function(){
-				if($('#notes_entry').is(":visible")){
-					$('#form_open_ne').empty();
-					$('#form_open_ne').append('New Entry');
-					$('#notes_entry').slideUp();
-				}else{
-					$('#notes_entry').slideDown();
-					$('#form_open_ne').empty();
-					$('#form_open_ne').append('Close Entry Form');
-				}
-			})
-			//I know that this is not conventional but it was the only way to get this to work.
-			var resident_list = [
-				{ value: 'foobar', data: 'foobar' },
-			];
-			function get_resident_list(input){
-				resident_list = $.map(input, function(item) {
-							return { value: item.first_name+" "+item.last_name, data: item };
-						})
-			};
-			$.ajax({
-				url: backend_url+"/residents/*/?format=json",
-				type: "GET",
-				async: false,
-				success: function(data){
-					get_resident_list(data);
-				}
-			});
-			$('#search_box').autocomplete({
-				lookup: resident_list,
-				appendTo: $('#outputbox'),
-				onSelect: function (suggestion) {
-					//add a hidden value
-					$('#search_resident_id').val(suggestion.data.resident_id);
-					$(this).closest('#patient_selection').submit();
-				}
-			})
-			//enable doctor slides
-			$('#doctor_cycle').cycle({
-				log: false,
-			});
 		});
 	</script>
 {% endblock %}

@@ -8,7 +8,8 @@ $('#medication_entry').on("submit", function(event){
 	event.preventDefault();
 	var json = $(this).serializeJSON();
 	var resident_id = json['resident_id'];
-	json['medication_id'] = parseInt(json['medication_id']);
+	var medication_name = json['medication_name'];
+	var user_id = json['user_id'];
 	json['resident_id'] = parseInt(json['resident_id']);
 	json['med_dose_mg'] = parseInt(json['med_dose_mg']);
 	json = JSON.stringify(json);
@@ -19,6 +20,8 @@ $('#medication_entry').on("submit", function(event){
 		data: json,
 		dataType: "json"
 	}).done(function(){
+		var information = "Added medication - "+medication_name;
+		fsw_log(resident_id,user_id,information);
 		get_current_medication_information(resident_id);
 		//clear the form
 		resetForm($('#medication_entry'));
@@ -33,7 +36,8 @@ $('#medication_history_entry').on("submit", function(event){
 	event.preventDefault();
 	var json = $(this).serializeJSON();
 	var resident_id = json['resident_id'];
-	json['medication_id'] = parseInt(json['medication_id']);
+	var medication_name = json['medication_name'];
+	var user_id = json['user_id'];
 	json['resident_id'] = parseInt(json['resident_id']);
 	json = JSON.stringify(json);
 	$.ajax({
@@ -43,6 +47,8 @@ $('#medication_history_entry').on("submit", function(event){
 		data: json,
 		dataType: "json"
 	}).done(function(){
+		var information = "Added medication history - "+medication_name;
+		fsw_log(resident_id,user_id,information);
 		get_medication_history(resident_id);
 		//clear the form
 		resetForm($('#medication_history_entry'));
@@ -56,6 +62,8 @@ $('#medication_history_entry').on("submit", function(event){
 $('#prescriptions_entry').on("submit", function(event){
 	event.preventDefault();
 	var json = $(this).serializeJSON();
+	var prescription_number = json['prescription_number'];
+	var user_id = json['user_id'];
 	var resident_id = json['resident_id'];
 	json['medication_id'] = parseInt(json['medication_id']);
 	json['resident_id'] = parseInt(json['resident_id']);
@@ -68,6 +76,8 @@ $('#prescriptions_entry').on("submit", function(event){
 		data: json,
 		dataType: "json"
 	}).done(function(){
+		var information = "Added prescription - "+prescription_number;
+		fsw_log(resident_id,user_id,information);
 		get_prescription_information(resident_id);
 		//clear the form
 		resetForm($('#prescriptions_entry'));
@@ -82,7 +92,7 @@ $('#assessments_entry').on("submit", function(event){
 	event.preventDefault();
 	var json = $(this).serializeJSON();
 	var resident_id = json['resident_id'];
-	json['assessment_id'] = parseInt(json['assessment_id']);
+	var user_id = json['user_id'];
 	json['resident_id'] = parseInt(json['resident_id']);
 	json['assessment_time'] = json['assessment_time']+":00";
 	json = JSON.stringify(json);
@@ -93,6 +103,8 @@ $('#assessments_entry').on("submit", function(event){
 		data: json,
 		dataType: "json"
 	}).done(function(){
+		var information = "Added Assessment";
+		fsw_log(resident_id,user_id,information);
 		get_resident_assessment_information(resident_id);
 		//clear the form
 		resetForm($('#assessments_entry'));
@@ -107,6 +119,8 @@ $('#allergy_entry').on("submit", function(event){
 	event.preventDefault();
 	var json = $(this).serializeJSON();
 	var resident_id = json['resident_id'];
+	var user_id = json['user_id'];
+	var allergy_name = json['allergy_title'];
 	json['resident_id'] = parseInt(json['resident_id']);
 	json = JSON.stringify(json);
 	$.ajax({
@@ -116,6 +130,8 @@ $('#allergy_entry').on("submit", function(event){
 		data: json,
 		dataType: "json"
 	}).done(function(){
+		var information = "Added allergy - "+allergy_name;
+		fsw_log(resident_id,user_id,information);
 		get_resident_allergy_information(resident_id);
 		//clear the form
 		resetForm($('#allergy_entry'));
@@ -130,6 +146,8 @@ $('#diet_entry').on("submit", function(event){
 	event.preventDefault();
 	var json = $(this).serializeJSON();
 	var resident_id = json['resident_id'];
+	var user_id = json['user_id'];
+	var diet_name = json['diet_title'];
 	json['resident_id'] = parseInt(json['resident_id']);
 	json = JSON.stringify(json);
 	$.ajax({
@@ -139,6 +157,8 @@ $('#diet_entry').on("submit", function(event){
 		data: json,
 		dataType: "json"
 	}).done(function(){
+		var information = "Added diet - "+diet_name;
+		fsw_log(resident_id,user_id,information);
 		get_resident_diet_information(resident_id);
 		//clear the form
 		resetForm($('#diet_entry'));
@@ -153,6 +173,9 @@ $('#hospitalizations_entry').on("submit", function(event){
 	event.preventDefault();
 	var json = $(this).serializeJSON();
 	var resident_id = json['resident_id'];
+	var user_id = json['user_id'];
+	var location = json['hospitalization_location'];
+	var reason = json['reason'];
 	json['resident_id'] = parseInt(json['resident_id']);
 	json = JSON.stringify(json);
 	$.ajax({
@@ -162,6 +185,8 @@ $('#hospitalizations_entry').on("submit", function(event){
 		data: json,
 		dataType: "json"
 	}).done(function(){
+		var information = "Added hospitalization visit at "+location+", reason: "+reason;
+		fsw_log(resident_id,user_id,information);
 		get_hospitalization_history(resident_id);
 		//clear the form
 		resetForm($('#hospitalizations_entry'));
@@ -176,6 +201,8 @@ $('#notes_entry').on("submit", function(event){
 	event.preventDefault();
 	var json = $(this).serializeJSON();
 	var resident_id = json['resident_id'];
+	var user_id = json['user_id'];
+	var note = json['notes'];
 	json['resident_id'] = parseInt(json['resident_id']);
 	json = JSON.stringify(json);
 	$.ajax({
@@ -185,6 +212,8 @@ $('#notes_entry').on("submit", function(event){
 		data: json,
 		dataType: "json"
 	}).done(function(){
+		var information = "Added Note: '"+note+"'";
+		fsw_log(resident_id,user_id,information);
 		get_resident_notes_information(resident_id);
 		//clear the form
 		resetForm($('#notes_entry'));

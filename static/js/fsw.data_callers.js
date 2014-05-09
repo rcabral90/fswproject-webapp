@@ -1,6 +1,7 @@
 var backend_url = "http://127.0.0.1:7177";
 var date = new Date();
 var date_compare = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 function get_resident_information(resident_id){
 	$.get(backend_url+"/residents/"+resident_id+"/?format=json", function( data ) {
 		//fill dom objects
@@ -39,7 +40,6 @@ function primary_doctor_information(doctor_id_list){
 	//get the primary doctor information.
 	var html_data = "";
 	$('#doctor_cycle').empty();
-	console.log(doctor_id_list);
 	for(var k=0;k<doctor_id_list.length;k++){
 		$.get(backend_url+"/doctors/"+doctor_id_list[k].doctor_id+"/?format=json", function(data){
 			//set vars, fill dom's
@@ -52,7 +52,7 @@ function primary_doctor_information(doctor_id_list){
 			var last_name = data[0].last_name;
 			var specialization = data[0].specialization;
 			var phone_number = data[0].phone_number;
-			html_data = "<div id='doctor_cycle_information'><h2>Doctor Information</h2><ul><li>Name: "+first_name+" "+middle_name+" "+last_name+"</li><li>Specialization: "+specialization+"</li><li>Phone Number: "+phone_number+"</li></ul></div>";
+			html_data = "<div id='doctor_cycle_information'><ul><li>Name: "+first_name+" "+middle_name+" "+last_name+"</li><li>Specialization: "+specialization+"</li><li>Phone Number: "+phone_number+"</li></ul></div>";
 			$('#doctor_cycle').cycle('add', html_data);
 		});
 	};
@@ -104,7 +104,7 @@ function get_current_medication_information(resident_id){
 		}else{
 			$("#medication_current_table").empty();
 			//build the table
-			$("#medication_current_table").append("<tr><th>Medication Name</th><th>Generic Name</th><th>Prescribed Date</th><th>Expire Date</th><th>Dose (Mg)</th><th>Frequency</th><th>Purpose</th><th>Note</th></tr>");
+			$("#medication_current_table").append("<thead><tr><th>Medication Name</th><th>Generic Name</th><th>Prescribed Date</th><th>Expire Date</th><th>Dose (Mg)</th><th>Frequency</th><th>Purpose</th><th>Note</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				$("#medication_current_table").append(
 					"<tr><td>"+data[i].medication_name+
@@ -118,6 +118,8 @@ function get_current_medication_information(resident_id){
 					"</td></tr>"
 				);
 			}
+			//add sorting to the table
+			$("#medication_current_table").tablesorter();
 		}
 	});
 }
@@ -130,7 +132,7 @@ function get_medication_history(resident_id){
 			//clear the table just in case
 			$("#medication_history_table").empty();
 			//build the table
-			$("#medication_history_table").append("<tr><th>Medication Name</th><th>Generic Name</th><th>Prescribed Date</th><th>Expire Date</th><th>Dose (Mg)</th><th>Frequency</th><th>Diet</th><th>Purpose</th><th>Note</th></tr>");
+			$("#medication_history_table").append("<thead><tr><th>Medication Name</th><th>Generic Name</th><th>Prescribed Date</th><th>Expire Date</th><th>Dose (Mg)</th><th>Frequency</th><th>Diet</th><th>Purpose</th><th>Note</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				$("#medication_history_table").append(
 					"<tr><td>"+data[i].med_name+
@@ -145,6 +147,8 @@ function get_medication_history(resident_id){
 					"</td></tr>"
 				);
 			}
+			//add sorting to the table
+			$("#medication_history_table").tablesorter();
 		}
 	});
 }
@@ -156,7 +160,7 @@ function get_prescription_information(resident_id){
 		}else{
 			$("#prescription_table").empty();
 			//build the table
-			$("#prescription_table").append("<tr><th>Prescription Name</th><th>Date Ordered</th><th>Date Received</th><th>Refill Date</th><th>Quantity</th></tr>");
+			$("#prescription_table").append("<thead><tr><th>Prescription Name</th><th>Date Ordered</th><th>Date Received</th><th>Refill Date</th><th>Quantity</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				if(data[i].refill_date < date_compare){
 					refill_date_danger = "<tr class='danger'>";
@@ -174,6 +178,8 @@ function get_prescription_information(resident_id){
 					"</td></tr>"
 				);
 			}
+			//add sorting to the table
+			$("#prescription_table").tablesorter();
 		}
 	});
 }
@@ -185,7 +191,7 @@ function get_hospitalization_history(resident_id){
 		}else{
 			$("#hospitalizations_table").empty();
 			//build the table
-			$("#hospitalizations_table").append("<tr><th>Hospitalization Date</th><th>Location</th><th>Reason</th><th>Duration</th><th>Medication Changes</th><th>Diagnosis</th><th>Discharge Plan</th></tr>");
+			$("#hospitalizations_table").append("<thead><tr><th>Hospitalization Date</th><th>Location</th><th>Reason</th><th>Duration</th><th>Medication Changes</th><th>Diagnosis</th><th>Discharge Plan</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				$("#hospitalizations_table").append(
 					"<tr><td>"+data[i].hospitalization_date+
@@ -198,6 +204,8 @@ function get_hospitalization_history(resident_id){
 					"</td></tr>"
 				);
 			}
+			//add sorting to the table
+			$("#hospitalizations_table").tablesorter();
 		}
 	});
 }
@@ -209,7 +217,7 @@ function get_resident_assessment_information(resident_id){
 		}else{
 			$("#assessment_table").empty();
 			//build the table
-			$("#assessment_table").append("<tr><th>Assessment Date</th><th>Assessment Time</th><th>Weight</th><th>Blood Pressure</th><th>Notes</th></tr>");
+			$("#assessment_table").append("<thead><tr><th>Assessment Date</th><th>Assessment Time</th><th>Weight</th><th>Blood Pressure</th><th>Notes</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				$("#assessment_table").append(
 					"<tr><td>"+data[i].assessment_date+
@@ -220,6 +228,8 @@ function get_resident_assessment_information(resident_id){
 					"</td></tr>"
 				);
 			}
+			//add sorting to the table
+			$("#assessment_table").tablesorter();
 		}
 	});
 }
@@ -231,7 +241,7 @@ function get_resident_notes_information(resident_id){
 		}else{
 			$("#notes_table").empty();
 			//build the table
-			$("#notes_table").append("<tr><th>Notes</th></tr>");
+			$("#notes_table").append("<thead><tr><th>Notes</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				$("#notes_table").append(
 					"<tr><td>"+data[i].notes+
@@ -249,7 +259,7 @@ function get_resident_allergy_information(resident_id){
 		}else{
 			$("#allergies_table").empty();
 			//build the table
-			$("#allergies_table").append("<tr><th>Name</th><th>Description</th></tr>");
+			$("#allergies_table").append("<thead><tr><th>Name</th><th>Description</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				$("#allergies_table").append(
 					"<tr><td>"+data[i].allergy_title+
@@ -257,6 +267,8 @@ function get_resident_allergy_information(resident_id){
 					"</td></tr>"
 				);
 			}
+			//add sorting to the table
+			$("#allergies_table").tablesorter();
 		}
 	});
 }
@@ -268,7 +280,7 @@ function get_resident_diet_information(resident_id){
 		}else{
 			$("#diet_table").empty();
 			//build the table
-			$("#diet_table").append("<tr><th>Name</th><th>Description</th></tr>");
+			$("#diet_table").append("<thead><tr><th>Name</th><th>Description</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				$("#diet_table").append(
 					"<tr><td>"+data[i].diet_title+
@@ -276,6 +288,8 @@ function get_resident_diet_information(resident_id){
 					"</td></tr>"
 				);
 			}
+			//add sorting to the table
+			$("#diet_table").tablesorter();
 		}
 	});
 }
@@ -287,7 +301,7 @@ function get_resident_emergency_contacts_information(resident_id){
 		}else{
 			$("#emergency_contacts_table").empty();
 			//build the table
-			$("#emergency_contacts_table").append("<tr><th>Name</th><th>Address</th><th>Phone Number</th><th>Relationship</th></tr>");
+			$("#emergency_contacts_table").append("<thead><tr><th>Name</th><th>Address</th><th>Phone Number</th><th>Relationship</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				if(data[i].middle_name){
 					var middle_name = data[i].middle_name;
@@ -302,6 +316,8 @@ function get_resident_emergency_contacts_information(resident_id){
 					"</td></tr>"
 				);
 			}
+			//add sorting to the table
+			$("#emergency_contacts_table").tablesorter();
 		}
 	});
 }

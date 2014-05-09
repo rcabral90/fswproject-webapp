@@ -3,9 +3,6 @@ from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from com_fsw_service.user_authentication import login_user
 from django.shortcuts import redirect
-import logging
-
-logger = logging.getLogger(__name__)
 
 def home(request):
     context = {}
@@ -17,11 +14,19 @@ def selector(request):
         #try to set vars
         request.session['current_resident'] = request.POST['resident_id']
         #push to dashboard
-        return render_to_response('dashboard.html', {"user": request.session.get('user'),"resident_id": request.session.get('current_resident')}, context_instance=RequestContext(request))
+        if (request.session.get('user') != ""):
+            return render_to_response('dashboard.html', {"user": request.session.get('user'),"last_seen": request.session.get('last_seen'),"resident_id": request.session.get('current_resident')}, context_instance=RequestContext(request))
+        else:
+            return render_to_response('home.html', {"error": False}, context_instance=RequestContext(request))
+    if (request.method == "GET"):
+        return render_to_response('home.html', {"error": True}, context_instance=RequestContext(request))
+
 def login(request):
     try:
         user = login_user(request)
         if user != "":
+            request.session.set_expiry(0)
+            #request.session['last_seen'] = user.last_login
             request.session['user'] = user.username
             request.session['current_resident'] = 0
             return render_to_response('patient_select.html', {"user": user}, context_instance=RequestContext(request))

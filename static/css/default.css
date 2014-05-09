@@ -1,6 +1,23 @@
 body{
 	margin:0;
 }
+th {
+    background-color: #d9edf7;
+}
+th.header { 
+    background-image: url(../imgs/bg.gif);     
+    cursor: pointer;
+    font-weight: bold; 
+    background-repeat: no-repeat; 
+    background-position: center right; 
+    margin-left: -1px; 
+} 
+th.headerSortDown { 
+    background-image: url(../imgs/desc.gif); 
+}
+th.headerSortUp { 
+    background-image: url(../imgs/asc.gif); 
+} 
 #header{
 	width:100%;
 	height:40px;
@@ -169,20 +186,12 @@ body{
 	padding-top:2px;
 }
 #alert_box{
-	display:block;
+	display:none;
 	margin:auto;
-	width:500px;
+	width:95%;
 	min-height:125px;
 	border:1px dotted #ff1a00;
-	margin-bottom:25px;
-	background: #febbbb;
-	background: -moz-linear-gradient(top, #febbbb 0%, #fe9090 45%, #ff5c5c 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#febbbb), color-stop(45%,#fe9090), color-stop(100%,#ff5c5c));
-	background: -webkit-linear-gradient(top, #febbbb 0%,#fe9090 45%,#ff5c5c 100%);
-	background: -o-linear-gradient(top, #febbbb 0%,#fe9090 45%,#ff5c5c 100%);
-	background: -ms-linear-gradient(top, #febbbb 0%,#fe9090 45%,#ff5c5c 100%);
-	background: linear-gradient(to bottom, #febbbb 0%,#fe9090 45%,#ff5c5c 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#febbbb', endColorstr='#ff5c5c',GradientType=0 );
+	margin-bottom:35px;
 	box-shadow: 6px 0px 5px -5px #999, -6px 0px 5px -5px #999;
 	border-radius: 5px;
 }
@@ -221,6 +230,7 @@ body{
 	display:block;
 	position:relative;
 	float:left;
+	margin-left:35px;
 	border-radius: 5px;
 	box-shadow: 6px 0px 5px -5px #999, -6px 0px 5px -5px #999;
 	background-color:#e9e9e9;
@@ -233,25 +243,23 @@ body{
 	display:block;
 	margin:auto;
 	width:150px;
-	padding-bottom:5px;
+	padding-top:10px;
 	font-size:1.2em;
 	font-weight:bold;
 }
 #prev_doctor{
-	font-size:2.5em;
 	font-weight:bold;
 	display:block;
 	float:left;
-	margin-left:2%;
-	margin-right:4px;
-	margin-top:55px;
+	margin-left:35%;
+	margin-top:85px;
 	cursor:hand;
 }
 #next_doctor{
-	font-size:2.5em;
 	font-weight:bold;
 	display:block;
-	margin-top:55px;
+	margin-right:35%;
+	margin-top:85px;
 	float:right;
 	cursor:hand;
 }
@@ -308,6 +316,7 @@ body{
 #login_panel_content{
 	padding:5px;
 	text-align:center;
+	display:block;
 }
 #login_panel_content .form-control{
 	position: relative;
