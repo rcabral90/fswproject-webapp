@@ -1,3 +1,5 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"></head><body>
 {% extends 'base.html' %}
 {% block body %}
 
@@ -10,15 +12,12 @@
           <legend>Resident Information</legend>
  		 
 
- 		  <!-- Text input-->
+ 	<!-- Text input-->
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">First Name</label>
             <div class="col-sm-10">
-<<<<<<< HEAD
-              <input type="text" name='first_name' placeholder="First Name" class="form-control">
-=======
-              <input type="text" id="First_Name" placeholder="First Name" class="form-control">
->>>>>>> a0c1f5048be7ffa4d51be421ac2b16f916fc8047
+	
+              <input name="first_name" placeholder="First Name" class="form-control" type="text">
             </div>
           </div>
 
@@ -26,11 +25,10 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Middle Name</label>
             <div class="col-sm-10">
-<<<<<<< HEAD
-              <input type="text" name='middle_name' placeholder="Middle Name" class="form-control">
-=======
-              <input type="text" id="Middle_Name" placeholder="Middle Name" class="form-control">
->>>>>>> a0c1f5048be7ffa4d51be421ac2b16f916fc8047
+
+
+              <input id="Middle_Name" placeholder="Middle Name" class="form-control" type="text">
+
             </div>
           </div>
 
@@ -38,35 +36,28 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Last Name</label>
             <div class="col-sm-10">
-<<<<<<< HEAD
-              <input type="text" name='last_name' placeholder="Last Name" class="form-control">
-=======
-              <input type="text" id="Last_Name" placeholder="Last Name" class="form-control">
->>>>>>> a0c1f5048be7ffa4d51be421ac2b16f916fc8047
+
+              <input id="Last_Name" placeholder="Last Name" class="form-control" type="text">
+
             </div>
           </div>
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Line 1</label>
+            <label class="col-sm-2 control-label" for="textinput">Address Line 1</label>
             <div class="col-sm-10">
-<<<<<<< HEAD
-              <input type="text" name="address1" placeholder="Address Line 1" class="form-control">
-=======
-              <input type="text" id="Address1" placeholder="Address Line 1" class="form-control">
->>>>>>> a0c1f5048be7ffa4d51be421ac2b16f916fc8047
+
+              <input id="Address1" placeholder="Address Line 1" class="form-control" type="text">
             </div>
           </div>
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Line 2</label>
+            <label class="col-sm-2 control-label" for="textinput">Address Line 2</label>
             <div class="col-sm-10">
-<<<<<<< HEAD
-              <input type="text" name="address2" placeholder="Address Line 2" class="form-control">
-=======
-              <input type="text" id="Address2" placeholder="Address Line 2" class="form-control">
->>>>>>> a0c1f5048be7ffa4d51be421ac2b16f916fc8047
+
+              <input id="Address2" placeholder="Address Line 2" class="form-control" type="text">
+
             </div>
           </div>
 
@@ -74,11 +65,9 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">City</label>
             <div class="col-sm-10">
-<<<<<<< HEAD
-              <input type="text" name="city" placeholder="City" class="form-control">
-=======
-              <input type="text" id="City" placeholder="City" class="form-control">
->>>>>>> a0c1f5048be7ffa4d51be421ac2b16f916fc8047
+
+              <input id="City" placeholder="City" class="form-control" type="text">
+
             </div>
           </div>
 
@@ -86,20 +75,15 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">State</label>
             <div class="col-sm-4">
-<<<<<<< HEAD
-              <input type="text" name="state" placeholder="State" class="form-control">
-=======
-              <input type="text" id="State" placeholder="State" class="form-control">
->>>>>>> a0c1f5048be7ffa4d51be421ac2b16f916fc8047
+
+              <input id="State" placeholder="State" class="form-control" type="text">
+
             </div>
 
             <label class="col-sm-2 control-label" for="textinput">Zip Code</label>
             <div class="col-sm-4">
-<<<<<<< HEAD
-              <input type="text" name="zip_code" placeholder="Post Code" class="form-control">
-=======
-              <input type="text" id="Postcode" placeholder="Post Code" class="form-control">
->>>>>>> a0c1f5048be7ffa4d51be421ac2b16f916fc8047
+              <input id="Postcode" placeholder="Post Code" class="form-control" type="text">
+
             </div>
           </div>
 
@@ -107,7 +91,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Home Phone</label>
             <div class="col-sm-10">
-              <input type="text" name="home_phone" placeholder="Home Phone Number" class="form-control">
+              <input name="home_phone" placeholder="Home Phone Number" class="form-control" type="text">
             </div>
           </div>
 
@@ -115,7 +99,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Cell Phone</label>
             <div class="col-sm-10">
-              <input type="text" name="cell_phone" placeholder="Cell Phone Number" class="form-control">
+              <input name="cell_phone" placeholder="Cell Phone Number" class="form-control" type="text">
             </div>
           </div>
 
@@ -123,7 +107,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Date of Birth</label>
             <div class="col-sm-10">
-              <input type="date" name="date_of_birth" placeholder="" class="form-control">
+              <input name="date_of_birth" placeholder="" class="form-control" type="date">
             </div>
           </div>
 
@@ -131,7 +115,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Photo</label>
             <div class="col-sm-10">
-              <input type="file" name="photo" placeholder="" class="form-control">
+              <input name="photo" placeholder="" class="form-control" type="file">
             </div>
           </div>
 
@@ -152,3 +136,4 @@
 
 
 {% endblock %}
+</body></html>
