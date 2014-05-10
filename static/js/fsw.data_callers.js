@@ -3,47 +3,52 @@ var date = new Date();
 var date_compare = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 function get_resident_information(resident_id){
-	$.get(backend_url+"/residents/"+resident_id+"/?format=json", function( data ) {
-		//fill dom objects
-		var first_name = data[0].first_name;
-		if((data[0].middle_name)){
-			var middle_name = data[0].middle_name;
-		}else{
-			var middle_name = "";
-		}
-		var last_name = data[0].last_name;
-		var address1 = data[0].address1;
-		var address2 = data[0].address2;
-		var city = data[0].city;
-		var state = data[0].state;
-		var zip_code = data[0].zip_code;
-		var home_phone = data[0].home_phone;
-		var cell_phone = data[0].cell_phone;
-		var dob = data[0].date_of_birth;
-		var last_flu_shot = "";
-		var dnr = "";
-		if(data[0].last_flu_shot != null){
-			last_flu_shot = data[0].last_flu_shot;
-		}else{
-			last_flu_shot = "Never";
-		}
-		if(data[0].dnr != null){
-			if(data[0].dnr == true){
-				dnr = "Yes";
+	$.ajax({
+		url: backend_url+"/residents/"+resident_id+"/?format=json",
+		type: "GET",
+		async: false,
+		success: function(data){
+			//fill dom objects
+			var first_name = data[0].first_name;
+			if((data[0].middle_name)){
+				var middle_name = data[0].middle_name;
 			}else{
-				dnr = "No";
+				var middle_name = "";
 			}
-		}else{
-			dnr = "Yes";
+			var last_name = data[0].last_name;
+			var address1 = data[0].address1;
+			var address2 = data[0].address2;
+			var city = data[0].city;
+			var state = data[0].state;
+			var zip_code = data[0].zip_code;
+			var home_phone = data[0].home_phone;
+			var cell_phone = data[0].cell_phone;
+			var dob = data[0].date_of_birth;
+			var last_flu_shot = "";
+			var dnr = "";
+			if(data[0].last_flu_shot != null){
+				last_flu_shot = data[0].last_flu_shot;
+			}else{
+				last_flu_shot = "Never";
+			}
+			if(data[0].dnr != null){
+				if(data[0].dnr == true){
+					dnr = "Yes";
+				}else{
+					dnr = "No";
+				}
+			}else{
+				dnr = "Yes";
+			}
+			$("#resident_name").append(first_name+" "+middle_name+" "+last_name);
+			$("#resident_address").append(address1+" "+address2+", "+state+" "+zip_code);
+			$("#resident_home_phone").append(home_phone);
+			$("#resident_cell_phone").append(cell_phone);
+			$("#resident_dob").append(dob);
+			$("#resident_last_flu_shot").append(last_flu_shot);
+			$("#resident_dnr").append(dnr);
+			$("#user_image_src").attr('src', data[0].photo);
 		}
-		$("#resident_name").append(first_name+" "+middle_name+" "+last_name);
-		$("#resident_address").append(address1+" "+address2+", "+state+" "+zip_code);
-		$("#resident_home_phone").append(home_phone);
-		$("#resident_cell_phone").append(cell_phone);
-		$("#resident_dob").append(dob);
-		$("#resident_last_flu_shot").append(last_flu_shot);
-		$("#resident_dnr").append(dnr);
-		$("#user_image_src").attr('src', data[0].photo);
 	});
 }
 
