@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% block body %}
+	<div id='alert_box'>
+		<h1 id='alert_count'>Alerts ()</h1>
+		<table class="table table-hover table-bordered" id='alert_table'>
+
+		</table>
+	</div>
 	<div id='main_content'>
 		<div id='top_content_buttons'>
 			<div id='top_content_button_right'>
@@ -26,18 +32,15 @@
 						<li id='resident_cell_phone'>Cell Phone: 
 						<li id='resident_dob'>Date of Birth: 
 						<li id='resident_last_physical_date'>Last Physical Date: 
+						<li id='resident_last_flu_shot'>Last Flu Shot Date: 
+						<li id='resident_dnr'>Resuscitate: 
 					</ul>
 				</p>
 			</div>
 			<div id='secondary_information'>
-				<p>
-					<h2>Doctor Information</h2>
-					<ul>
-						<li id='doctor_name'>Name: 
-						<li id='doctor_specialization'>Specialization: 
-						<li id='doctor_phone_number'>Phone Number: 
-					</ul>
-				</p>
+				<h2>Doctor Information</h2>
+				<div id='doctor_cycle' data-cycle-slides="div" data-cycle-timeout='0' data-cycle-prev="#prev_doctor" data-cycle-next="#next_doctor"></div>
+				<span id='prev_doctor'>&lsaquo; Prev</span><span id='next_doctor'>Next &rsaquo;</span>
 			</div>
 		</div>
 		<div id='middle_tabs'>
@@ -49,6 +52,8 @@
 				<li id='allergies_tab'><a href="#allergies" data-toggle="tab">Allergies</a><li>
 				<li id='diet_tab'><a href="#diet" data-toggle="tab">Diet</a><li>
 				<li id='hospitalization_tab'><a href="#hospitalizations" data-toggle="tab">Hospitalizations</a></li>
+				<li id='physical_tab'><a href="#physical" data-toggle="tab">Physical Information</a></li>
+				<li id='insurance_tab'><a href="#insurance" data-toggle="tab">Insurance Information</a></li>
 				<li id='emergency_contacts_tab'><a href="#emergency_contacts" data-toggle="tab">Emergency Contacts</a></li>
 				<li id='notes_tab'><a href="#notes" data-toggle="tab">Notes</a></li>
 			</ul>
@@ -63,52 +68,53 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_medication_name">Medication Name</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="me_medication_name" placeholder="Medication Name" name="medication_name">
+							<input type="text" class="form-control" data-validation-help="Please enter a medication name." data-validation="required" id="me_medication_name" placeholder="Medication Name" name="medication_name">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_generic_name">Generic Name</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="me_generic_name" placeholder="Generic Name" name="generic_name">
+							<input type="text" class="form-control" data-validation-help="Please enter a generic name for this medication." data-validation="required" id="me_generic_name" placeholder="Generic Name" name="generic_name">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_prescribed">Prescribed</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="me_prescribed" placeholder="Prescribed" name="med_prescribed">
+							<input type="date" class="form-control" data-validation-help="Please enter a prescription date." data-validation="required" data-validation="date" id="me_prescribed" placeholder="Prescribed" name="med_prescribed">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_expire_date">Expire Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="me_expire_date" placeholder="Expire Date" name="med_expire">
+							<input type="date" class="form-control" data-validation-help="Please enter an expiration date." data-validation="required" data-validation="date" id="me_expire_date" placeholder="Expire Date" name="med_expire">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_dose">Dose</label>
 						<div class="col-sm-10">
-							<input type="number" class="form-control" id="me_dose" placeholder="Dose (mg)" name="med_dose_mg">
+							<input type="number" class="form-control" data-validation-help="Please enter a doseage amount." data-validation="required" id="me_dose" placeholder="Dose (mg)" name="med_dose_mg">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_frequency">Frequency</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="me_frequency" placeholder="Frequency" name="med_freq">
+							<input type="text" class="form-control" data-validation-help="Please enter a frequency amount." data-validation="required" id="me_frequency" placeholder="Frequency" name="med_freq">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_purpose">Purpose</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="me_purpose" placeholder="Purpose" name="med_purpose">
+							<input type="text" class="form-control" data-validation-help="Please enter a purpose for this medication." data-validation="required" id="me_purpose" placeholder="Purpose" name="med_purpose">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_note">Note</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" rows="4" id="me_note" placeholder="Notes" name="note"></textarea>
+							<textarea class="form-control" data-validation-help="Please enter a note (Optional)." rows="4" id="me_note" placeholder="Notes" name="note"></textarea>
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -121,58 +127,59 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_medication_name">Medication Name</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="mhe_medication_name" placeholder="Medication Name" name="med_name">
+							<input type="text" class="form-control" data-validation-help="Please enter a medication name." data-validation="required" id="mhe_medication_name" placeholder="Medication Name" name="med_name">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_generic_name">Generic Name</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="mhe_generic_name" placeholder="Generic Name" name="generic_name">
+							<input type="text" class="form-control" data-validation-help="Please enter a generic name for this medication." data-validation="required" id="mhe_generic_name" placeholder="Generic Name" name="generic_name">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_expire_date">Prescribed Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="mhe_expire_date" placeholder="Prescribed Date" name="prescribed">
+							<input type="date" class="form-control" data-validation-help="Please enter a prescription date." data-validation="required" data-validation="date" id="mhe_expire_date" placeholder="Prescribed Date" name="prescribed">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_expire_date">Expire Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="mhe_expire_date" placeholder="Expire Date" name="expiration">
+							<input type="date" class="form-control" data-validation-help="Please enter an expiration date." data-validation="required" data-validation="date" id="mhe_expire_date" placeholder="Expire Date" name="expiration">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_dose">Dose</label>
 						<div class="col-sm-10">
-							<input type="number" class="form-control" id="mhe_dose" placeholder="Dose (mg)" name="dosages">
+							<input type="number" class="form-control" data-validation-help="Please enter a doseage amount." data-validation="required" id="mhe_dose" placeholder="Dose (mg)" name="dosages">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_diet">Diet</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="mhe_diet" placeholder="Diet" name="diets">
+							<input type="text" class="form-control" data-validation-help="Please enter any diet changes related to this medication." data-validation="required" id="mhe_diet" placeholder="Diet" name="diets">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_frequency">Frequency</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="mhe_frequency" placeholder="Frequency" name="frequency">
+							<input type="text" class="form-control" data-validation-help="Please enter a frequency amount." data-validation="required" id="mhe_frequency" placeholder="Frequency" name="frequency">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_purpose">Purpose</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="mhe_purpose" placeholder="Purpose" name="purpose">
+							<input type="text" class="form-control" data-validation-help="Please enter a purpose for this medication." data-validation="required" id="mhe_purpose" placeholder="Purpose" name="purpose">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_note">Note</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" rows="4" id="mhe_note" placeholder="Notes" name="note"></textarea>
+							<textarea class="form-control" data-validation-help="Please enter a note (Optional)." rows="4" id="mhe_note" placeholder="Notes" name="note"></textarea>
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -185,34 +192,35 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="pe_prescription_number">Prescription Number</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="pe_prescription_number" placeholder="Prescription Number" name="prescription_number">
+							<input type="text" class="form-control" data-validation-help="Please enter the prescription number." data-validation="required" id="pe_prescription_number" placeholder="Prescription Number" name="prescription_number">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="pe_order_date">Date Ordered</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="pe_order_date" placeholder="Date Ordered" name="date_ordered">
+							<input type="date" class="form-control" data-validation-help="Please enter the date ordered." data-validation="required" data-validation="date" id="pe_order_date" placeholder="Date Ordered" name="date_ordered">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="pe_date_received">Date Received</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="pe_date_received" placeholder="Date Received" name="date_received">
+							<input type="date" class="form-control" data-validation-help="Please enter the date received." data-validation="required" data-validation="date" id="pe_date_received" placeholder="Date Received" name="date_received">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="pe_refill_date">Refill Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="pe_refill_date" placeholder="Refill Date" name="refill_date">
+							<input type="date" class="form-control" data-validation-help="Please enter a refill date." data-validation="required" data-validation="date" id="pe_refill_date" placeholder="Refill Date" name="refill_date">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="pe_quantity">Quantity</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="pe_quantity" placeholder="Quantity" name="quantity">
+							<input type="text" class="form-control" data-validation-help="Please enter a quantity for this medication." data-validation="required" id="pe_quantity" placeholder="Quantity" name="quantity">
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<input type='hidden' value='0' name='medication_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
@@ -254,6 +262,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -276,6 +285,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -298,6 +308,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -350,6 +361,71 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
+			</div>
+			<div class='tab-pane' id='physical'>
+				<table class="table table-hover table-bordered" id='physical_table'>
+				
+				</table>
+				<button id='form_open_ph' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='physical_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ph_date">Date</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="ph_date" placeholder="Physical Date" name="physical_date">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ph_doctor">Doctor</label>
+						<div class="col-sm-10">
+							<select id='doctor_select_entry_box' class="form-control" class="form-control" id="ph_doctor" name="doctor_id"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ph_notes">Notes</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="4" class="form-control" id="ph_notes" placeholder="Notes" name="notes"></textarea>
+						</div>
+					</div>
+					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
+			</div>
+			<div class='tab-pane' id='insurance'>
+				<table class="table table-hover table-bordered" id='insurance_table'>
+				
+				</table>
+				<button id='form_open_in' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='insurance_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="in_company">Company Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="in_company" placeholder="Company Name" name="company">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="in_policy_number">Policy Number</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="in_policy_number" placeholder="Policy Number" name="policy_number">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="in_phone_number">Company Phone Number</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="in_phone_number" placeholder="Company Phone Number" name="phone_number">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="in_purpose">Insurance Purpose</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="in_purpose" placeholder="Insurance Purpose" name="purpose">
+						</div>
+					</div>
+					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -371,6 +447,7 @@
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
@@ -378,197 +455,62 @@
 		</div>
 	</div>
 	<!-- loadup data -->
-	<script src="{{ static }}/static/js/data_callers.js"></script>
-	<script src="{{ static }}/static/js/data_pushers.js"></script>
+	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
+	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
+	<script src="{{ static }}/static/js/jquery.form-validator.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
+	<script src="{{ static }}/static/js/jquery.cycle2.min.js"></script>
+	<script src="{{ static }}/static/js/jquery.tablesorter.min.js"></script>
+	<script src="{{ static }}/static/js/fsw.dashboard.js"></script>
 	<script>
 		$( document ).ready(function() {
+			//enable form validation
+			$.validate();
 			//create a function to get the resident id somehow, use 1 for testing
 			get_resident_information({{ request.session.current_resident }});
 			//get physical info
 			get_physical_information({{ request.session.current_resident }});
 			//get doctor info
 			get_primary_doctor_information({{ request.session.current_resident }});
+			//get alerts
+			get_alerts({{ request.session.current_resident }},"{{ request.session.user }}","last_login",0);
 			//first load so set the data in the active tab
-			get_current_medication_information({{ request.session.current_resident }});
-			//tab activation
-			$('#medication a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#medication_entry').hide();
-			})
-			$('#medication_history a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#medication_history_entry').hide();
-			})
-			$('#prescriptions a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#prescriptions_entry').hide();
-			})
-			$('#assessments a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#asessments_entry').hide();
-			})
-			$('#allergies a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#allergy_entry').hide();
-			})
-			$('#diet a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#diet_entry').hide();
-			})
-			$('#hospitalizations a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#hospitalizations_entry').hide();
-			})
-			$('#emergency_contacts a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#emergency_contacts_entry').hide();
-			})
-			$('#notes a').click(function (e) {
-			  e.preventDefault()
-			  $(this).tab('show')
-			  $('#notes_entry').hide();
-			})
+			get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			//tab content generation
 			$('#medication_tab').click(function(){
-				get_current_medication_information({{ request.session.current_resident }});
+				get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#medication_history_tab').click(function(){
-				get_medication_history({{ request.session.current_resident }});
+				get_medication_history({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#prescriptions_tab').click(function(){
-				get_prescription_information({{ request.session.current_resident }});
+				get_prescription_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#assessment_tab').click(function(){
-				get_resident_assessment_information({{ request.session.current_resident }});
+				get_resident_assessment_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#allergies_tab').click(function(){
-				get_resident_allergy_information({{ request.session.current_resident }});
+				get_resident_allergy_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#diet_tab').click(function(){
-				get_resident_diet_information({{ request.session.current_resident }});
+				get_resident_diet_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#hospitalization_tab').click(function(){
-				get_hospitalization_history({{ request.session.current_resident }});
+				get_hospitalization_history({{ request.session.current_resident }},"{{ request.session.user }}");
+			})
+			$('#physical_tab').click(function(){
+				fill_doctor_select_box({{ request.session.current_resident }});
+				get_current_physical_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			})
+			$('#insurance_tab').click(function(){
+				get_current_insurance_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#emergency_contacts_tab').click(function(){
-				get_resident_emergency_contacts_information({{ request.session.current_resident }});
+				get_resident_emergency_contacts_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#notes_tab').click(function(){
-				get_resident_notes_information({{ request.session.current_resident }});
+				get_resident_notes_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
-			//hidden form stuff
-			$('#form_open_me').click(function(){
-				if($('#medication_entry').is(":visible")){
-					$('#form_open_me').empty();
-					$('#form_open_me').append('New Entry');
-					$('#medication_entry').slideUp();
-				}else{
-					$('#medication_entry').slideDown();
-					$('#form_open_me').empty();
-					$('#form_open_me').append('Close Entry Form');
-				}
-			})
-			$('#form_open_mhe').click(function(){
-				if($('#medication_history_entry').is(":visible")){
-					$('#form_open_mhe').empty();
-					$('#form_open_mhe').append('New Entry');
-					$('#medication_history_entry').slideUp();
-				}else{
-					$('#medication_history_entry').slideDown();
-					$('#form_open_mhe').empty();
-					$('#form_open_mhe').append('Close Entry Form');
-				}
-			})
-			$('#form_open_pe').click(function(){
-				if($('#prescriptions_entry').is(":visible")){
-					$('#form_open_pe').empty();
-					$('#form_open_pe').append('New Entry');
-					$('#prescriptions_entry').slideUp();
-				}else{
-					$('#prescriptions_entry').slideDown();
-					$('#form_open_pe').empty();
-					$('#form_open_pe').append('Close Entry Form');
-				}
-			})
-			$('#form_open_ae').click(function(){
-				if($('#assessments_entry').is(":visible")){
-					$('#form_open_ae').empty();
-					$('#form_open_ae').append('New Entry');
-					$('#assessments_entry').slideUp();
-				}else{
-					$('#assessments_entry').slideDown();
-					$('#form_open_ae').empty();
-					$('#form_open_ae').append('Close Entry Form');
-				}
-			})
-			$('#form_open_ale').click(function(){
-				if($('#allergy_entry').is(":visible")){
-					$('#form_open_ale').empty();
-					$('#form_open_ale').append('New Entry');
-					$('#allergy_entry').slideUp();
-				}else{
-					$('#allergy_entry').slideDown();
-					$('#form_open_ale').empty();
-					$('#form_open_ale').append('Close Entry Form');
-				}
-			})
-			$('#form_open_de').click(function(){
-				if($('#diet_entry').is(":visible")){
-					$('#form_open_de').empty();
-					$('#form_open_de').append('New Entry');
-					$('#diet_entry').slideUp();
-				}else{
-					$('#diet_entry').slideDown();
-					$('#form_open_de').empty();
-					$('#form_open_de').append('Close Entry Form');
-				}
-			})
-			$('#form_open_he').click(function(){
-				if($('#hospitalizations_entry').is(":visible")){
-					$('#form_open_he').empty();
-					$('#form_open_he').append('New Entry');
-					$('#hospitalizations_entry').slideUp();
-				}else{
-					$('#hospitalizations_entry').slideDown();
-					$('#form_open_he').empty();
-					$('#form_open_he').append('Close Entry Form');
-				}
-			})
-			$('#form_open_ece').click(function(){
-				if($('#emergency_contacts_entry').is(":visible")){
-					$('#form_open_ece').empty();
-					$('#form_open_ece').append('New Entry');
-					$('#emergency_contacts_entry').slideUp();
-				}else{
-					$('#emergency_contacts_entry').slideDown();
-					$('#form_open_ece').empty();
-					$('#form_open_ece').append('Close Entry Form');
-				}
-			})
-			$('#form_open_ne').click(function(){
-				if($('#notes_entry').is(":visible")){
-					$('#form_open_ne').empty();
-					$('#form_open_ne').append('New Entry');
-					$('#notes_entry').slideUp();
-				}else{
-					$('#notes_entry').slideDown();
-					$('#form_open_ne').empty();
-					$('#form_open_ne').append('Close Entry Form');
-				}
-			})
-			//search box functionality
-			var options, a;
-			options = { serviceUrl:'/search/' };
-			a = $('#search_box').autocomplete(options);
 		});
 	</script>
 {% endblock %}

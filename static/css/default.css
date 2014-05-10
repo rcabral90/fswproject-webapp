@@ -1,6 +1,23 @@
 body{
 	margin:0;
 }
+th {
+    background-color: #d9edf7;
+}
+th.header { 
+    background-image: url(../imgs/bg.gif);     
+    cursor: pointer;
+    font-weight: bold; 
+    background-repeat: no-repeat; 
+    background-position: center right; 
+    margin-left: -1px; 
+} 
+th.headerSortDown { 
+    background-image: url(../imgs/desc.gif); 
+}
+th.headerSortUp { 
+    background-image: url(../imgs/asc.gif); 
+} 
 #header{
 	width:100%;
 	height:40px;
@@ -61,6 +78,9 @@ body{
 	background: linear-gradient(to bottom, #e5e5e5 0%,#ffffff 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=0 );
 }
+.autocomplete-suggestions { margin-top:35px; border: 1px solid #999; background: #fff; cursor: default; overflow: auto; }
+.autocomplete-suggestion { padding: 5px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #f0f0f0; }
 #header_search{
 	display:inline-block;
 	float:right;
@@ -80,7 +100,7 @@ body{
 	display:inline-block;
 	float:right;
 	color:#fff;
-	margin:0;
+	margin-right:5px;
 	padding:0;
 	left:0;
 	font-size:1.5em;
@@ -136,7 +156,7 @@ body{
 #top_content_block{
 	margin:0 auto;
 	width:1024px;
-	min-height:215px;
+	min-height:245px;
 	clear:both;
 }
 #user_image{
@@ -166,20 +186,12 @@ body{
 	padding-top:2px;
 }
 #alert_box{
-	display:block;
+	display:none;
 	margin:auto;
-	width:500px;
+	width:95%;
 	min-height:125px;
 	border:1px dotted #ff1a00;
-	margin-bottom:25px;
-	background: #febbbb;
-	background: -moz-linear-gradient(top, #febbbb 0%, #fe9090 45%, #ff5c5c 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#febbbb), color-stop(45%,#fe9090), color-stop(100%,#ff5c5c));
-	background: -webkit-linear-gradient(top, #febbbb 0%,#fe9090 45%,#ff5c5c 100%);
-	background: -o-linear-gradient(top, #febbbb 0%,#fe9090 45%,#ff5c5c 100%);
-	background: -ms-linear-gradient(top, #febbbb 0%,#fe9090 45%,#ff5c5c 100%);
-	background: linear-gradient(to bottom, #febbbb 0%,#fe9090 45%,#ff5c5c 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#febbbb', endColorstr='#ff5c5c',GradientType=0 );
+	margin-bottom:35px;
 	box-shadow: 6px 0px 5px -5px #999, -6px 0px 5px -5px #999;
 	border-radius: 5px;
 }
@@ -218,6 +230,7 @@ body{
 	display:block;
 	position:relative;
 	float:left;
+	margin-left:35px;
 	border-radius: 5px;
 	box-shadow: 6px 0px 5px -5px #999, -6px 0px 5px -5px #999;
 	background-color:#e9e9e9;
@@ -225,15 +238,37 @@ body{
 	min-width:350px;
 	min-height:100px;
 	margin-top:2%;
-	margin-left:5%;
 }
 #secondary_information h2{
 	display:block;
 	margin:auto;
 	width:150px;
-	padding-bottom:5px;
+	padding-top:10px;
 	font-size:1.2em;
 	font-weight:bold;
+}
+#prev_doctor{
+	font-weight:bold;
+	display:block;
+	float:left;
+	margin-left:35%;
+	margin-top:85px;
+	cursor:hand;
+}
+#next_doctor{
+	font-weight:bold;
+	display:block;
+	margin-right:35%;
+	margin-top:85px;
+	float:right;
+	cursor:hand;
+}
+#doctor_cycle{
+	position:absolute;
+	width:350px;
+}
+#doctor_cycle_information{
+	margin-top:10px;
 }
 #middle_tabs{
 	display:block;
@@ -281,6 +316,7 @@ body{
 #login_panel_content{
 	padding:5px;
 	text-align:center;
+	display:block;
 }
 #login_panel_content .form-control{
 	position: relative;
@@ -307,7 +343,7 @@ body{
 	padding-bottom:15px;
 	padding-top:5px;
 }
-#medication_entry, #medication_history_entry, #prescriptions_entry, #assessments_entry, #allergy_entry, #diet_entry, #hospitalizations_entry, #emergency_contacts_entry, #notes_entry{
+#medication_entry, #medication_history_entry, #prescriptions_entry, #assessments_entry, #allergy_entry, #diet_entry, #hospitalizations_entry, #emergency_contacts_entry, #notes_entry, #physical_entry, #insurance_entry{
 	display:none;
 	margin:auto;
 	padding:10px;
@@ -316,7 +352,7 @@ body{
 	width:98%;
 	margin-bottom:5px;
 }
-#form_open_me, #form_open_mhe, #form_open_pe, #form_open_ae, #form_open_ale, #form_open_de, #form_open_he, #form_open_ece, #form_open_ne{
+#form_open_me, #form_open_mhe, #form_open_pe, #form_open_ae, #form_open_ale, #form_open_de, #form_open_he, #form_open_ece, #form_open_ne, #form_open_ph, #form_open_in{
 	display:block;
 	margin:auto;
 	width:200px;
@@ -341,6 +377,15 @@ body{
 }
 #patient_selection_form_select_box{
 	margin-bottom:15px;
+}
+#row_delete_button{
+	display:block;
+	float:left;
+	margin:0 auto;
+	font-size:0.75em;
+}
+.danger2{
+	background-color:rgb(231, 82, 82);
 }
 #footer{
 	width:100%;

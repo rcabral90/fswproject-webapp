@@ -5,6 +5,10 @@
         <script src="{{ static }}/static/js/jquery-1.11.0.min.js"></script>
         <script src="{{ static }}/static/js/bootstrap.js"></script>
 		<script type="text/javascript" src="{{ static }}/static/js/jquery.autocomplete.min.js"></script>
+		<script src="{{ static }}/static/js/fsw.csrf.js"></script>
+		{% if request.session.user %}
+			<script src="{{ static }}/static/js/fsw.logging.js"></script>
+		{% endif %}
         <title>FSW | Family Services of Westchester Online Resident Database</title>
         <link rel="Shortcut Icon" href="{{ static }}/static/imgs/favicon.ico" type="image/x-icon">
     </head>
@@ -13,27 +17,36 @@
 		<div id='header'>
 			<div id='header_links'>
 				<ul>
-					<li><a href='/'>Home</a>
-					<li><a href='#'>Settings</a>
+					{% if request.session.user %}
+						<li><a href='/'>&nbsp;<span class="glyphicon glyphicon-off"></span>&nbsp;</a>
+						<li><a href='/selector/'>Dashboard</a>
+						<li><a href='/alerts/'>Alerts</a>
+					{% endif %}
 				</ul>
 			</div>
 			<div id='header_login'>
 				<ul>
 					{% if request.session.user %}
-						<li><a href='#'>{{ request.session.user }}</a>
-					{% else %}
-						<li><a href='#'>Login</a>
+						<li>{{ request.session.user }}
 					{% endif %}
 				</ul>
 			</div>
+			{% if request.session.user %}
 			<div id='header_search'>
-				<div id='header_search_box'>
-					<input type="text" id='search_box' class="form-control" placeholder="Search">
-				</div>
-				<div id='header_search_box_button'>
-					<button class="btn btn-default" type="button">Go!</button>
-				</div>
+				<form id='patient_selection' action="/selector/" method="POST">
+					{% csrf_token %}
+					<div id='header_search_box'>
+						<input type="text" id='search_box' class="form-control" placeholder="Resident Search">
+						<input id='search_resident_id' name='resident_id' type='hidden' value='0'>
+					</div>
+					<div id='header_search_box_button'>
+						<button class="btn btn-default" type="submit">Go!</button>
+					</div>
+					<div id="outputbox"></div>
+				</form>
+				<div id="resident_list" style="display:none;"></div>
 			</div>
+			{% endif %}
 		</div>
 		<!-- end header -->
 
