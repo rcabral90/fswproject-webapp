@@ -46,31 +46,23 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 	//note last_login[0] = date, last_login[1] = time
 	
 	//query for alerts
-	$.get(backend_url+"/alerts/"+resident_id+"/?format=json", function(data){
-		$("#alert_table").empty();
-		//build the table
-		$("#alert_table").append("<thead><tr><th>Resident Name</th><th>Information</th><th>Changed By</th><th>Date & Time</th><th>Options</th></tr></thead>");
-		var alert_amount = 0;
-		if(data.length < 1){
-			//hide the alerts area
-			$("#alert_box").hide();
-		}else{
-			$("#alert_box").show();
-			for(i=0;i<data.length;i++){
-				var log_dt = data[i].date_time_modified.split("T");
-				if(ignore_flags){
-					alert_amount++;
-					$("#alert_table").append(
-						"<tr class='warning'><td>"+resident_info[0].first_name+" "+resident_info[0].last_name+
-						"</td><td>"+data[i].general_text+
-						"</td><td>"+data[i].username+
-						"</td><td>"+log_dt[0]+" @ "+log_dt[1]+
-						"</td><td>"+
-						"</td></tr>"
-					);
-				}else{
-					//ignore flags is set to 0, only add unread messages
-					if(data[i].flag == 0){
+	$.ajax({
+		url: backend_url+"/alerts/"+resident_id+"/?format=json",
+		type: "GET",
+		async: false,
+		success: function(data){
+			$("#alert_table").empty();
+			//build the table
+			$("#alert_table").append("<thead><tr><th>Resident Name</th><th>Information</th><th>Changed By</th><th>Date & Time</th><th>Options</th></tr></thead>");
+			var alert_amount = 0;
+			if(data.length < 1){
+				//hide the alerts area
+				$("#alert_box").hide();
+			}else{
+				$("#alert_box").show();
+				for(i=0;i<data.length;i++){
+					var log_dt = data[i].date_time_modified.split("T");
+					if(ignore_flags){
 						alert_amount++;
 						$("#alert_table").append(
 							"<tr class='warning'><td>"+resident_info[0].first_name+" "+resident_info[0].last_name+
@@ -78,26 +70,38 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 							"</td><td>"+data[i].username+
 							"</td><td>"+log_dt[0]+" @ "+log_dt[1]+
 							"</td><td>"+
-							"<form id='delete_row' action='#' method='post'>"+
-								"<input type='hidden' name='csrfmiddlewaretoken' value='"+csrftoken+"'>"+
-								"<input type='hidden' name='resident_id' value='"+resident_id+"'>"+
-								"<input type='hidden' name='row_id' value='"+data[i].alert_id+"'>"+
-								"<input type='hidden' name='user_id' value='"+user_id+"'>"+
-								"<input type='hidden' name='date_time' value='"+date_compare+'T'+time+"'>"+
-								"<input type='hidden' name='delete_message' value='Alert Acknowledged'>"+
-								"<input type='hidden' name='type' value='9'>"+
-								"<button id='row_delete_button' type='submit' class='btn btn-warning'><span class='glyphicon glyphicon-ok'></span>&nbsp;</button>"+
-							"</form>"+
 							"</td></tr>"
 						);
+					}else{
+						//ignore flags is set to 0, only add unread messages
+						if(data[i].flag == 0){
+							alert_amount++;
+							$("#alert_table").append(
+								"<tr class='warning'><td>"+resident_info[0].first_name+" "+resident_info[0].last_name+
+								"</td><td>"+data[i].general_text+
+								"</td><td>"+data[i].username+
+								"</td><td>"+log_dt[0]+" @ "+log_dt[1]+
+								"</td><td>"+
+								"<form id='delete_row' action='#' method='post'>"+
+									"<input type='hidden' name='csrfmiddlewaretoken' value='"+csrftoken+"'>"+
+									"<input type='hidden' name='resident_id' value='"+resident_id+"'>"+
+									"<input type='hidden' name='row_id' value='"+data[i].alert_id+"'>"+
+									"<input type='hidden' name='user_id' value='"+user_id+"'>"+
+									"<input type='hidden' name='date_time' value='"+date_compare+'T'+time+"'>"+
+									"<input type='hidden' name='delete_message' value='Alert Acknowledged'>"+
+									"<input type='hidden' name='type' value='9'>"+
+									"<button id='row_delete_button' type='submit' class='btn btn-warning'><span class='glyphicon glyphicon-ok'></span>&nbsp;</button>"+
+								"</form>"+
+								"</td></tr>"
+							);
+						}
 					}
 				}
+				$("#alert_count").empty();
+				$("#alert_count").append("Alerts ("+alert_amount+")");
+				//add sorting to the table
+				$("#alert_table").tablesorter();
 			}
-			attach_delete_row_jquery();
-			$("#alert_count").empty();
-			$("#alert_count").append("Alerts ("+alert_amount+")");
-			//add sorting to the table
-			$("#alert_table").tablesorter();
 		}
 	});
 };
