@@ -94,9 +94,11 @@ $('#medication_history_entry').on("submit", function(event){
 	event.preventDefault();
 	var json = $(this).serializeJSON();
 	var resident_id = json['resident_id'];
-	var medication_name = json['medication_name'];
+	var medication_name = json['med_name'];
 	var user_id = json['user_id'];
+	delete json['user_id'];
 	json['resident_id'] = parseInt(json['resident_id']);
+	json['medication_id'] = parseInt(json['medication_id']);
 	json = JSON.stringify(json);
 	$.ajax({
 		type: "POST",
