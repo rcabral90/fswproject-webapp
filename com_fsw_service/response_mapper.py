@@ -13,3 +13,12 @@ def map_user(response):
         user = ""
 
     return user
+
+
+def map_logout(response):
+    try:
+        response = json.loads(response)
+        return response["success"]
+    except:
+        return 0
+
