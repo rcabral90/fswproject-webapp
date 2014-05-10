@@ -46,6 +46,16 @@ $( document ).ready(function() {
 	  $(this).tab('show')
 	  $('#notes_entry').hide();
 	})
+	$('#physical a').click(function (e) {
+	  e.preventDefault()
+	  $(this).tab('show')
+	  $('#physical_entry').hide();
+	})
+	$('#insurance a').click(function (e) {
+	  e.preventDefault()
+	  $(this).tab('show')
+	  $('#insurance_entry').hide();
+	})
 	//hidden form stuff
 	$('#form_open_me').click(function(){
 		if($('#medication_entry').is(":visible")){
@@ -144,6 +154,28 @@ $( document ).ready(function() {
 			$('#notes_entry').slideDown();
 			$('#form_open_ne').empty();
 			$('#form_open_ne').append('Close Entry Form');
+		}
+	})
+	$('#form_open_ph').click(function(){
+		if($('#physical_entry').is(":visible")){
+			$('#form_open_ph').empty();
+			$('#form_open_ph').append('New Entry');
+			$('#physical_entry').slideUp();
+		}else{
+			$('#physical_entry').slideDown();
+			$('#form_open_ph').empty();
+			$('#form_open_ph').append('Close Entry Form');
+		}
+	})
+	$('#form_open_in').click(function(){
+		if($('#insurance_entry').is(":visible")){
+			$('#form_open_in').empty();
+			$('#form_open_in').append('New Entry');
+			$('#insurance_entry').slideUp();
+		}else{
+			$('#insurance_entry').slideDown();
+			$('#form_open_in').empty();
+			$('#form_open_in').append('Close Entry Form');
 		}
 	})
 	//I know that this is not conventional but it was the only way to get this to work.

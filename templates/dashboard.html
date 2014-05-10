@@ -32,6 +32,8 @@
 						<li id='resident_cell_phone'>Cell Phone: 
 						<li id='resident_dob'>Date of Birth: 
 						<li id='resident_last_physical_date'>Last Physical Date: 
+						<li id='resident_last_flu_shot'>Last Flu Shot Date: 
+						<li id='resident_dnr'>Resuscitate: 
 					</ul>
 				</p>
 			</div>
@@ -50,6 +52,8 @@
 				<li id='allergies_tab'><a href="#allergies" data-toggle="tab">Allergies</a><li>
 				<li id='diet_tab'><a href="#diet" data-toggle="tab">Diet</a><li>
 				<li id='hospitalization_tab'><a href="#hospitalizations" data-toggle="tab">Hospitalizations</a></li>
+				<li id='physical_tab'><a href="#physical" data-toggle="tab">Physical Information</a></li>
+				<li id='insurance_tab'><a href="#insurance" data-toggle="tab">Insurance Information</a></li>
 				<li id='emergency_contacts_tab'><a href="#emergency_contacts" data-toggle="tab">Emergency Contacts</a></li>
 				<li id='notes_tab'><a href="#notes" data-toggle="tab">Notes</a></li>
 			</ul>
@@ -361,6 +365,70 @@
 					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
 				</form>
 			</div>
+			<div class='tab-pane' id='physical'>
+				<table class="table table-hover table-bordered" id='physical_table'>
+				
+				</table>
+				<button id='form_open_ph' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='physical_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ph_date">Date</label>
+						<div class="col-sm-10">
+							<input type="date" class="form-control" id="ph_date" placeholder="Physical Date" name="physical_date">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ph_doctor">Doctor</label>
+						<div class="col-sm-10">
+							<select id='doctor_select_entry_box' class="form-control" class="form-control" id="ph_doctor" name="doctor_id"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ph_notes">Notes</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="4" class="form-control" id="ph_notes" placeholder="Notes" name="notes"></textarea>
+						</div>
+					</div>
+					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
+			</div>
+			<div class='tab-pane' id='insurance'>
+				<table class="table table-hover table-bordered" id='insurance_table'>
+				
+				</table>
+				<button id='form_open_in' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='insurance_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="in_company">Company Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="in_company" placeholder="Company Name" name="company">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="in_policy_number">Policy Number</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="in_policy_number" placeholder="Policy Number" name="policy_number">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="in_phone_number">Company Phone Number</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="in_phone_number" placeholder="Company Phone Number" name="phone_number">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="in_purpose">Insurance Purpose</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="in_purpose" placeholder="Insurance Purpose" name="purpose">
+						</div>
+					</div>
+					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
+			</div>
 			<div class='tab-pane' id='emergency_contacts'>
 				<table class="table table-hover table-bordered" id='emergency_contacts_table'>
 				
@@ -405,36 +473,43 @@
 			//get doctor info
 			get_primary_doctor_information({{ request.session.current_resident }});
 			//get alerts
-			get_alerts({{ request.session.current_resident }},"last_login");
+			get_alerts({{ request.session.current_resident }},"{{ request.session.user }}","last_login",0);
 			//first load so set the data in the active tab
-			get_current_medication_information({{ request.session.current_resident }});
+			get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			//tab content generation
 			$('#medication_tab').click(function(){
-				get_current_medication_information({{ request.session.current_resident }});
+				get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#medication_history_tab').click(function(){
-				get_medication_history({{ request.session.current_resident }});
+				get_medication_history({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#prescriptions_tab').click(function(){
-				get_prescription_information({{ request.session.current_resident }});
+				get_prescription_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#assessment_tab').click(function(){
-				get_resident_assessment_information({{ request.session.current_resident }});
+				get_resident_assessment_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#allergies_tab').click(function(){
-				get_resident_allergy_information({{ request.session.current_resident }});
+				get_resident_allergy_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#diet_tab').click(function(){
-				get_resident_diet_information({{ request.session.current_resident }});
+				get_resident_diet_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#hospitalization_tab').click(function(){
-				get_hospitalization_history({{ request.session.current_resident }});
+				get_hospitalization_history({{ request.session.current_resident }},"{{ request.session.user }}");
+			})
+			$('#physical_tab').click(function(){
+				fill_doctor_select_box({{ request.session.current_resident }});
+				get_current_physical_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			})
+			$('#insurance_tab').click(function(){
+				get_current_insurance_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#emergency_contacts_tab').click(function(){
-				get_resident_emergency_contacts_information({{ request.session.current_resident }});
+				get_resident_emergency_contacts_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#notes_tab').click(function(){
-				get_resident_notes_information({{ request.session.current_resident }});
+				get_resident_notes_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 		});
 	</script>

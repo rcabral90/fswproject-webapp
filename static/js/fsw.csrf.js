@@ -1,5 +1,5 @@
-$( document ).ready(function() {
-	function getCookie(name) {
+
+function getCookie(name) {
 	var cookieValue = null;
 	if (document.cookie && document.cookie != '') {
 		var cookies = document.cookie.split(';');
@@ -12,13 +12,12 @@ $( document ).ready(function() {
 			}
 		}
 	}
-		return cookieValue;
+	return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+$.ajaxSetup({
+	crossDomain: false, // obviates need for sameOrigin test
+	beforeSend: function(xhr, settings) {
+		xhr.setRequestHeader("X-CSRFToken", csrftoken);
 	}
-	var csrftoken = getCookie('csrftoken');
-	$.ajaxSetup({
-		crossDomain: false, // obviates need for sameOrigin test
-		beforeSend: function(xhr, settings) {
-			xhr.setRequestHeader("X-CSRFToken", csrftoken);
-		}
-	});
 });

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block body %}
+	{% if request.session.user %}
+	<div id='alert_box'>
+		<h1 id='alert_count'>Alerts ()</h1>
+		<table class="table table-hover table-bordered" id='alert_table'>
+
+		</table>
+	</div>
+	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
+	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
+	<script type='text/javascript'>
+	$( document ).ready(function() {
+		//get alerts
+		get_alerts({{ request.session.current_resident }},"{{ request.session.user }}","last_login",1);
+	});
+	</script>
+	{% endif %}
+{% endblock %}
+

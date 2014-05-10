@@ -100,7 +100,7 @@ th.headerSortUp {
 	display:inline-block;
 	float:right;
 	color:#fff;
-	margin:0;
+	margin-right:5px;
 	padding:0;
 	left:0;
 	font-size:1.5em;
@@ -156,7 +156,7 @@ th.headerSortUp {
 #top_content_block{
 	margin:0 auto;
 	width:1024px;
-	min-height:215px;
+	min-height:245px;
 	clear:both;
 }
 #user_image{
@@ -343,7 +343,7 @@ th.headerSortUp {
 	padding-bottom:15px;
 	padding-top:5px;
 }
-#medication_entry, #medication_history_entry, #prescriptions_entry, #assessments_entry, #allergy_entry, #diet_entry, #hospitalizations_entry, #emergency_contacts_entry, #notes_entry{
+#medication_entry, #medication_history_entry, #prescriptions_entry, #assessments_entry, #allergy_entry, #diet_entry, #hospitalizations_entry, #emergency_contacts_entry, #notes_entry, #physical_entry, #insurance_entry{
 	display:none;
 	margin:auto;
 	padding:10px;
@@ -352,7 +352,7 @@ th.headerSortUp {
 	width:98%;
 	margin-bottom:5px;
 }
-#form_open_me, #form_open_mhe, #form_open_pe, #form_open_ae, #form_open_ale, #form_open_de, #form_open_he, #form_open_ece, #form_open_ne{
+#form_open_me, #form_open_mhe, #form_open_pe, #form_open_ae, #form_open_ale, #form_open_de, #form_open_he, #form_open_ece, #form_open_ne, #form_open_ph, #form_open_in{
 	display:block;
 	margin:auto;
 	width:200px;
@@ -377,6 +377,15 @@ th.headerSortUp {
 }
 #patient_selection_form_select_box{
 	margin-bottom:15px;
+}
+#row_delete_button{
+	display:block;
+	float:left;
+	margin:0 auto;
+	font-size:0.75em;
+}
+.danger2{
+	background-color:rgb(231, 82, 82);
 }
 #footer{
 	width:100%;

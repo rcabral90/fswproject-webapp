@@ -30,7 +30,7 @@ function get_resident_info(input){
 				return { first_name: item.first_name, last_name: item.last_name };
 			})
 };
-function get_alerts(resident_id,last_login){
+function get_alerts(resident_id,user_id,last_login,ignore_flags){
 	//get the resident name
 	$.ajax({
 		url: backend_url+"/residents/"+resident_id+"/?format=json",
@@ -57,19 +57,43 @@ function get_alerts(resident_id,last_login){
 		}else{
 			$("#alert_box").show();
 			for(i=0;i<data.length;i++){
-				if(data[i].flag == 0){
+				var log_dt = data[i].date_time_modified.split("T");
+				if(ignore_flags){
 					alert_amount++;
-					var log_dt = data[i].date_time_modified.split("T");
 					$("#alert_table").append(
 						"<tr class='warning'><td>"+resident_info[0].first_name+" "+resident_info[0].last_name+
 						"</td><td>"+data[i].general_text+
 						"</td><td>"+data[i].username+
 						"</td><td>"+log_dt[0]+" @ "+log_dt[1]+
-						"</td><td><span class='glyphicon glyphicon-remove'></span>&nbsp;"+
+						"</td><td>"+
 						"</td></tr>"
 					);
+				}else{
+					//ignore flags is set to 0, only add unread messages
+					if(data[i].flag == 0){
+						alert_amount++;
+						$("#alert_table").append(
+							"<tr class='warning'><td>"+resident_info[0].first_name+" "+resident_info[0].last_name+
+							"</td><td>"+data[i].general_text+
+							"</td><td>"+data[i].username+
+							"</td><td>"+log_dt[0]+" @ "+log_dt[1]+
+							"</td><td>"+
+							"<form id='delete_row' action='#' method='post'>"+
+								"<input type='hidden' name='csrfmiddlewaretoken' value='"+csrftoken+"'>"+
+								"<input type='hidden' name='resident_id' value='"+resident_id+"'>"+
+								"<input type='hidden' name='row_id' value='"+data[i].alert_id+"'>"+
+								"<input type='hidden' name='user_id' value='"+user_id+"'>"+
+								"<input type='hidden' name='date_time' value='"+date_compare+'T'+time+"'>"+
+								"<input type='hidden' name='delete_message' value='Alert Acknowledged'>"+
+								"<input type='hidden' name='type' value='9'>"+
+								"<button id='row_delete_button' type='submit' class='btn btn-warning'><span class='glyphicon glyphicon-ok'></span>&nbsp;</button>"+
+							"</form>"+
+							"</td></tr>"
+						);
+					}
 				}
 			}
+			attach_delete_row_jquery();
 			$("#alert_count").empty();
 			$("#alert_count").append("Alerts ("+alert_amount+")");
 			//add sorting to the table

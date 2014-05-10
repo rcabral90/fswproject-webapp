@@ -19,7 +19,14 @@ def selector(request):
         else:
             return render_to_response('home.html', {"error": False}, context_instance=RequestContext(request))
     if (request.method == "GET"):
-        return render_to_response('home.html', {"error": True}, context_instance=RequestContext(request))
+        #if we still have session vars open return to that patient
+        if (request.session.get('user') != ""):
+            return render_to_response('dashboard.html', {"user": request.session.get('user'),"last_seen": request.session.get('last_seen'),"resident_id": request.session.get('current_resident')}, context_instance=RequestContext(request))
+        else:
+            return render_to_response('home.html', {"error": False}, context_instance=RequestContext(request))
+
+def alert_page(request):
+        return render_to_response('alerts.html', {"user": request.session.get('user'),"last_seen": request.session.get('last_seen'),"resident_id": request.session.get('current_resident')}, context_instance=RequestContext(request))
 
 def login(request):
     try:
