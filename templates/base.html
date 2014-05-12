@@ -19,6 +19,7 @@
 				<ul>
 					{% if request.session.user %}
 						<li><a href='/logout/'>&nbsp;<span class="glyphicon glyphicon-off"></span>&nbsp;</a>
+						<li><a href='/add_resident/'>New Resident</a>
 						<li><a href='/selector/'>Dashboard</a>
 						<li><a href='/alerts/'>Alerts</a>
 					{% endif %}

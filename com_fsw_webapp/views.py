@@ -3,7 +3,12 @@ from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from com_fsw_service.user_authentication import login_user, logout_user
 from django.shortcuts import redirect
-
+from django.http import HttpResponseRedirect
+from django.http import HttpResponse
+import simplejson as json
+from django import forms
+import random
+import string
 
 def home(request):
     context = {}
@@ -69,12 +74,34 @@ def logout(request):
         return render_to_response('home.html', {"error": True}, context_instance=RequestContext(request))
 
 
-def add_user(request):
+def add_resident(request):
     context = {}
     context.update(csrf(request))
-    return render_to_response('add_user.html', {"error": False}, context_instance=RequestContext(request))        
+    return render_to_response('add_resident.html', {"error": False}, context_instance=RequestContext(request))        
 
 def add_doctor(request):
     context = {}
     context.update(csrf(request))
     return render_to_response('add_doctor.html', {"error": False}, context_instance=RequestContext(request))      
+
+class DocumentForm(forms.Form):
+    photo = forms.FileField(label='Select a file')
+
+def upload_photo(request):
+	if request.method == 'POST':
+		form = DocumentForm(request.POST, request.FILES)
+		if form.is_valid():
+			generated_filename = "static/img_uploads/" + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8)) + request.FILES['photo'].name
+			
+			handle_uploaded_file(request.FILES['photo'],generated_filename)
+			return HttpResponse(json.dumps({'success': '1', 'filename': generated_filename}), content_type="application/json")
+		else:
+			return HttpResponse(json.dumps({'success': '0', 'error': 'File upload error, bad form.'}),content_type="application/json")
+	else:
+		form = DocumentForm()
+		return HttpResponse(json.dumps({'success': '0', 'error': 'File upload error, non post method!'}),content_type="application/json")
+
+def handle_uploaded_file(f,generated_filename):
+    with open(generated_filename, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)

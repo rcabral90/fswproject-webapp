@@ -14,6 +14,7 @@ function fsw_log(resident_id,user_id,information){
 		type: "POST",
 		contentType: 'application/json',
 		url: backend_url+"/alerts/*/",
+		async: false,
 		data: log_info,
 		dataType: "json"
 	}).done(function(){
@@ -52,14 +53,13 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 		async: false,
 		success: function(data){
 			$("#alert_table").empty();
-			//build the table
-			$("#alert_table").append("<thead><tr><th>Resident Name</th><th>Information</th><th>Changed By</th><th>Date & Time</th><th>Options</th></tr></thead>");
 			var alert_amount = 0;
 			if(data.length < 1){
 				//hide the alerts area
 				$("#alert_box").hide();
 			}else{
-				$("#alert_box").show();
+				//build the table
+				$("#alert_table").append("<thead><tr><th>Resident Name</th><th>Information</th><th>Changed By</th><th>Date & Time</th><th>Options</th></tr></thead>");
 				for(i=0;i<data.length;i++){
 					var log_dt = data[i].date_time_modified.split("T");
 					if(ignore_flags){
@@ -99,8 +99,14 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 				}
 				$("#alert_count").empty();
 				$("#alert_count").append("Alerts ("+alert_amount+")");
-				//add sorting to the table
-				$("#alert_table").tablesorter();
+				if(alert_amount < 1){
+					//hide the alerts area
+					$("#alert_box").hide();
+				}else{
+					$("#alert_box").show();
+					//add sorting to the table
+					$("#alert_table").tablesorter();
+				}
 			}
 		}
 	});

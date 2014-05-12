@@ -9,7 +9,7 @@
 	<div id='main_content'>
 		<div id='top_content_buttons'>
 			<div id='top_content_button_right'>
-				<a href="#" class="btn btn-default btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+				<a href="/add_resident/?action=edit" class="btn btn-default btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 			</div>
 			<div id='top_content_button_left'>
 				<a href="#" class="btn btn-default btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</a>
@@ -458,6 +458,7 @@
 	<!-- loadup data -->
 	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
+	<script src="{{ static }}/static/js/fsw.search_box.js"></script>
 	<script src="{{ static }}/static/js/jquery.form-validator.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.cycle2.min.js"></script>
@@ -468,7 +469,7 @@
 			//enable form validation
 			$.validate();
 			//create a function to get the resident id somehow, use 1 for testing
-			get_resident_information({{ request.session.current_resident }});
+			get_resident_information({{ request.session.current_resident }},0);
 			//get physical info
 			get_physical_information({{ request.session.current_resident }});
 			//get doctor info

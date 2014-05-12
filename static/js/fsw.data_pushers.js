@@ -5,6 +5,8 @@ function resetForm($form) {
 }
 //form submit events for deletion of row
 function attach_delete_row_jquery(){
+	//unbind the action even if it doesn't exist, this will remove duplicates.
+	$("form").unbind();
 	$("form").submit(function(event){
 		if($(this).attr('id') == "delete_row"){
 			event.preventDefault();
@@ -342,5 +344,63 @@ $('#insurance_entry').on("submit", function(event){
 		//refresh the alerts table
 		get_alerts(resident_id,user_id,"",0);
 	});
+	return false;
+})
+$('#add_new_resident').on("submit", function(event){
+	event.preventDefault();
+	var json = $(this).serializeJSON();
+	var user_id = json['user_id'];
+	var first_name = json['first_name'];
+	var resident_id = parseInt(json['resident_id']);
+	var action = json['action'];
+	if((json['middle_name'] != "")){
+		var middle_name = json['middle_name'];
+	}else{
+		var middle_name = "";
+	}
+	var last_name = json['last_name'];
+	if(json['dnr'] = "0"){
+		json['dnr'] = false;
+	}else{
+		json['dnr'] = true;
+	}
+	if(action == "add"){
+		resident_id++;
+		delete json['resident_id'];
+		json = JSON.stringify(json);
+		$.ajax({
+			type: "POST",
+			contentType: 'application/json',
+			url: backend_url+"/residents/*/",
+			data: json,
+			dataType: "json"
+		}).done(function(){
+			var information = "Added Resident: "+first_name+" "+middle_name+" "+last_name;
+			fsw_log(resident_id,user_id,information);
+			$('#resident_id').val(resident_id);
+			//clear the form
+			resetForm($('#add_new_resident'));
+			//let the form post to /selector/ with the new resident id number
+			$('#add_new_resident_form_wrapper').html('<form action="/selector/" name="new_user_redirect" method="post" style="display:none;"><input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'"><input type="text" name="resident_id" value="' + resident_id + '" /></form>');
+			document.forms['new_user_redirect'].submit();
+		});
+	}else{
+		json['resident_id'] = parseInt(json['resident_id']);
+		json['date_time'] = date_compare+'T'+time;
+		json['edit_message'] = "Edit Resident: "+first_name+" "+middle_name+" "+last_name;
+		json['type'] = 0;
+		json['row_id'] = 0;
+		$.ajax({
+			type: "POST",
+			url: backend_url+"/edit/",
+			data: json
+		}).done(function(){
+			//clear the form
+			resetForm($('#add_new_resident'));
+			//let the form post to /selector/ with the new resident id number
+			$('#add_new_resident_form_wrapper').html('<form action="/selector/" name="new_user_redirect" method="post" style="display:none;"><input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'"><input type="text" name="resident_id" value="' + resident_id + '" /></form>');
+			document.forms['new_user_redirect'].submit();
+		});
+	}
 	return false;
 })

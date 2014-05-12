@@ -3,3 +3,4 @@
 *.pyc
 *.idea
 local_settings.py
+static/img_uploads/*

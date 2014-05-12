@@ -13,22 +13,12 @@
 		</div>
 	</div>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
+	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
+	<script src="{{ static }}/static/js/fsw.patient_select.js"></script>
 	<script src="{{ static }}/static/js/fsw.csrf.js"></script>
 	<script type='text/javascript'>
 	$( document ).ready(function() {
-		$.get("http://127.0.0.1:7177/residents/*/?format=json", function( data ) {
-			$("#patient_selection_form_select_box").empty();
-			for(i=0;i<data.length;i++){
-				var first_name = data[i].first_name;
-				if((data[i].middle_name)){
-					var middle_name = data[i].middle_name;
-				}else{
-					var middle_name = "";
-				}
-				var last_name = data[i].last_name;
-				$("#patient_selection_form_select_box").append("<option value='"+data[i].resident_id+"'>"+first_name+" "+middle_name+" "+last_name+"</option>");
-			};
-		});
+		generate_resident_list_dropdown();
 	});
 	</script>
 {% endblock %}
