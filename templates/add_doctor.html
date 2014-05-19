@@ -2,8 +2,12 @@
 {% block body %}
 
   <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <form class="form-horizontal" role="form">
+    <div id='add_new_doctor_form_wrapper' class="col-md-4 col-md-offset-4">
+      <form id='add_new_doctor' action='/selector/' method='POST' class="form-horizontal" role="form">
+		{% csrf_token %}
+		<input type='hidden' value='{{ request.session.user }}' name='user_id'>
+		<input type='hidden' value='add' id='action' name='action'>
+		<input type='hidden' value='{{ request.session.current_resident }}' id='resident_id' name='resident_id'>
         <fieldset>
 
           <!-- Form Name -->
@@ -14,7 +18,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">First Name</label>
             <div class="col-sm-10">
-              <input type="text" name='first_name' placeholder="First Name" class="form-control">
+              <input type="text" name='first_name' data-validation-help="Please enter the doctors first name." data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" placeholder="First Name" class="form-control">
             </div>
           </div>
 
@@ -22,7 +26,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Middle Name</label>
             <div class="col-sm-10">
-              <input type="text" name='middle_name' placeholder="Middle Name" class="form-control">
+              <input type="text" name='middle_name' data-validation-help="Please enter the doctors middle name. (Optional)" data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" data-validation-optional="true" placeholder="Middle Name" class="form-control">
             </div>
           </div>
 
@@ -30,7 +34,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Last Name</label>
             <div class="col-sm-10">
-              <input type="text" name='last_name' placeholder="Last Name" class="form-control">
+              <input type="text" name='last_name' data-validation-help="Please enter the doctors last name." data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" placeholder="Last Name" class="form-control">
             </div>
           </div>
 
@@ -39,23 +43,22 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Specialty</label>
             <div class="col-sm-10">
-              <input type="text" name="specialization" placeholder="Specialization" class="form-control">
+              <input type="text" name="specialization" data-validation-help="Please enter the doctors specialization." data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" placeholder="Specialization" class="form-control">
             </div>
           </div>
 
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="textinput">Cell Phone</label>
+            <label class="col-sm-2 control-label" for="textinput">Phone Number</label>
             <div class="col-sm-10">
-              <input type="text" name="cell_phone" placeholder="Cell Phone Number" class="form-control">
+              <input type="text" name="phone_number" data-validation-help="Please enter the doctors phone number." data-validation="required" placeholder="Phone Number" class="form-control">
             </div>
           </div>
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <div class="pull-right">
-                <button type="submit" class="btn btn-default">Cancel</button>
                 <button type="submit" class="btn btn-primary">Save</button>
               </div>
             </div>
@@ -65,5 +68,29 @@
       </form>
     </div><!-- /.col-lg-12 -->
 </div><!-- /.row -->
+	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
+	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
+	<script src="{{ static }}/static/js/fsw.search_box.js"></script>
+	<script src="{{ static }}/static/js/jquery.form-validator.min.js"></script>
+	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
+	<script src="{{ static }}/static/js/fsw.csrf.js"></script>
+	<script>
+		$( document ).ready(function() {
+			//enable form validation
+			$.validate();
+			var $_GET = {};
+			document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+				function decode(s) {
+					return decodeURIComponent(s.split("+").join(" "));
+				}
 
+				$_GET[decode(arguments[1])] = decode(arguments[2]);
+			});
+			if($_GET['action'] == "edit"){
+				var doctor_id = $_GET['doctor_id'];
+				get_single_doctor_information(doctor_id);
+				$('#resident_id').val(doctor_id);
+			};
+		});
+	</script>
 {% endblock %}
