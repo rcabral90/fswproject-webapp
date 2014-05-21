@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% block body %}
 	{% if request.session.user %}
-	<div id='linked_doctors_box'>
-		<h1>Linked Doctors</h1>
-		<table class="table table-hover table-bordered" id='linked_doctors_table'>
+	<div id='doctor_link_unlink_wrapper'>
+		<div id='linked_doctors_box'>
+			<h1>Linked Doctors</h1>
+			<table class="table table-hover table-bordered" id='linked_doctors_table'>
 
-		</table>
-	</div>
-	<div id='unlinked_doctors_box'>
-		<h1>Unlinked Doctors</h1>
-		<table class="table table-hover table-bordered" id='unlinked_doctors_table'>
+			</table>
+		</div>
+		<div id='unlinked_doctors_box'>
+			<h1>Unlinked Doctors</h1>
+			<table class="table table-hover table-bordered" id='unlinked_doctors_table'>
 
-		</table>
+			</table>
+		</div>
 	</div>
 	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
@@ -23,7 +25,7 @@
 		//get currently linked doctors
 		get_primary_doctor_information({{ request.session.current_resident }},1,"{{ request.session.user }}");
 		//get all unlinked doctors
-		get_all_doctors({{ request.session.current_resident }},"{{ request.session.user }}");
+		filter_doctors_unlinked({{ request.session.current_resident }},"{{ request.session.user }}");
 	});
 	</script>
 	{% endif %}

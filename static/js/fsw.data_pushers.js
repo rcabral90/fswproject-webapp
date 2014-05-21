@@ -55,7 +55,7 @@ function attach_delete_row_jquery(){
 					}
 					if($("#linked_doctors_box").get(0)){
 						get_primary_doctor_information(resident_id,1,user_id);
-						get_all_doctors(resident_id,user_id);
+						filter_doctors_unlinked(resident_id,user_id);
 					}else{
 						//refresh the alerts
 						get_alerts(resident_id,user_id,"last_login");
@@ -65,6 +65,26 @@ function attach_delete_row_jquery(){
 			}else{
 				return false;
 			}
+		}
+		if($(this).attr('id') == "link_to_resident_row"){
+			event.preventDefault();
+			var json = $(this).serializeJSON();
+			json['doctor_id'] = parseInt(json['doctor_id']);
+			json['resident_id'] = parseInt(json['resident_id']);
+			var resident_id = parseInt(json['resident_id']);
+			var user_id = json['user_id'];
+			var information = "Linked doctor "+json['first_name']+" "+json['middle_name']+" "+json['last_name']+" to resident.";
+			fsw_log(resident_id,user_id,information);
+			json = JSON.stringify(json);
+			$.ajax({
+				type: "POST",
+				contentType: 'application/json',
+				url: backend_url+"/residentstodoctor/*/",
+				data: json
+			}).done(function(){
+				$('#doctor_link_unlink_wrapper').html('<form action="/doctor_list/" name="edit_linked_doctor_redirect" method="get" style="display:none;"><input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'"></form>');
+				document.forms['edit_linked_doctor_redirect'].submit();
+			});
 		}
 	})
 }
@@ -442,11 +462,9 @@ $('#add_new_doctor').on("submit", function(event){
 			document.forms['new_user_redirect'].submit();
 		});
 	}else{
-		json['resident_id'] = parseInt(json['doctor_id']);
 		json['date_time'] = date_compare+'T'+time;
-		json['edit_message'] = "Edit Resident: "+first_name+" "+middle_name+" "+last_name;
+		json['edit_message'] = "Edit Doctor: "+first_name+" "+middle_name+" "+last_name;
 		json['type'] = 5;
-		json['row_id'] = 0;
 		$.ajax({
 			type: "POST",
 			url: backend_url+"/edit/",
@@ -455,36 +473,9 @@ $('#add_new_doctor').on("submit", function(event){
 			//clear the form
 			resetForm($('#add_new_doctor'));
 			//let the form post to /selector/ with the new resident id number
-			$('#add_new_resident_form_wrapper').html('<form action="/selector/" name="new_user_redirect" method="post" style="display:none;"><input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'"><input type="text" name="resident_id" value="' + resident_id + '" /></form>');
-			document.forms['new_user_redirect'].submit();
+			$('#add_new_doctor_form_wrapper').html('<form action="/selector/" name="edit_doctor_redirect" method="post" style="display:none;"><input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'"><input type="text" name="resident_id" value="' + resident_id + '" /></form>');
+			document.forms['edit_doctor_redirect'].submit();
 		});
 	}
 	return false;
 })
-function attach_edit_doctor_link_row_jquery(){
-	//unbind the action even if it doesn't exist, this will remove duplicates.
-	$("form").unbind();
-	$("form").submit(function(event){
-		if($(this).attr('id') == "link_to_resident_row"){
-			event.preventDefault();
-			var json = $(this).serializeJSON();
-			json['doctor_id'] = parseInt(json['doctor_id']);
-			json['resident_id'] = parseInt(json['resident_id']);
-			var resident_id = parseInt(json['resident_id']);
-			var user_id = json['user_id'];
-			var information = "Linked doctor"+json['first_name']+" "+json['middle_name']+" "+json['last_name']+" to resident.";
-			fsw_log(resident_id,user_id,information);
-			json = JSON.stringify(json);
-			$.ajax({
-				type: "POST",
-				contentType: 'application/json',
-				url: backend_url+"/residentstodoctor/*/",
-				data: json
-			}).done(function(){
-				//let the form post to /selector/ with the new resident id number
-				$('#add_new_resident_form_wrapper').html('<form action="/doctor_list/" name="edit_linked_doctor_redirect" method="get" style="display:none;"><input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'"></form>');
-				document.forms['edit_linked_doctor_redirect'].submit();
-			});
-		}
-	});
-}

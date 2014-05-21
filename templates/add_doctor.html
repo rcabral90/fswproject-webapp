@@ -8,6 +8,7 @@
 		<input type='hidden' value='{{ request.session.user }}' name='user_id'>
 		<input type='hidden' value='add' id='action' name='action'>
 		<input type='hidden' value='{{ request.session.current_resident }}' id='resident_id' name='resident_id'>
+		<input type='hidden' value='0' id='row_id' name='row_id'>
         <fieldset>
 
           <!-- Form Name -->
@@ -18,7 +19,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">First Name</label>
             <div class="col-sm-10">
-              <input type="text" name='first_name' data-validation-help="Please enter the doctors first name." data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" placeholder="First Name" class="form-control">
+              <input type="text" id='doctor_first_name' name='first_name' data-validation-help="Please enter the doctors first name." data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" placeholder="First Name" class="form-control">
             </div>
           </div>
 
@@ -26,7 +27,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Middle Name</label>
             <div class="col-sm-10">
-              <input type="text" name='middle_name' data-validation-help="Please enter the doctors middle name. (Optional)" data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" data-validation-optional="true" placeholder="Middle Name" class="form-control">
+              <input type="text" id='doctor_middle_name' name='middle_name' data-validation-help="Please enter the doctors middle name. (Optional)" data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" data-validation-optional="true" placeholder="Middle Name" class="form-control">
             </div>
           </div>
 
@@ -34,7 +35,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Last Name</label>
             <div class="col-sm-10">
-              <input type="text" name='last_name' data-validation-help="Please enter the doctors last name." data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" placeholder="Last Name" class="form-control">
+              <input type="text" id='doctor_last_name' name='last_name' data-validation-help="Please enter the doctors last name." data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" placeholder="Last Name" class="form-control">
             </div>
           </div>
 
@@ -43,7 +44,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Specialty</label>
             <div class="col-sm-10">
-              <input type="text" name="specialization" data-validation-help="Please enter the doctors specialization." data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" placeholder="Specialization" class="form-control">
+              <input type="text" id='doctor_specialization' name="specialization" data-validation-help="Please enter the doctors specialization." data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$" placeholder="Specialization" class="form-control">
             </div>
           </div>
 
@@ -52,7 +53,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Phone Number</label>
             <div class="col-sm-10">
-              <input type="text" name="phone_number" data-validation-help="Please enter the doctors phone number." data-validation="required" placeholder="Phone Number" class="form-control">
+              <input type="text" id='doctor_phone_number' name="phone_number" data-validation-help="Please enter the doctors phone number." data-validation="required" placeholder="Phone Number" class="form-control">
             </div>
           </div>
 
@@ -89,7 +90,6 @@
 			if($_GET['action'] == "edit"){
 				var doctor_id = $_GET['doctor_id'];
 				get_single_doctor_information(doctor_id);
-				$('#resident_id').val(doctor_id);
 			};
 		});
 	</script>
