@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block body %}
+	{% if request.session.user %}
+	<div id='linked_doctors_box'>
+		<h1>Linked Doctors</h1>
+		<table class="table table-hover table-bordered" id='linked_doctors_table'>
+
+		</table>
+	</div>
+	<div id='unlinked_doctors_box'>
+		<h1>Unlinked Doctors</h1>
+		<table class="table table-hover table-bordered" id='unlinked_doctors_table'>
+
+		</table>
+	</div>
+	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
+	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
+	<script src="{{ static }}/static/js/jquery.tablesorter.min.js"></script>
+	<script src="{{ static }}/static/js/jquery.cycle2.min.js"></script>
+	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
+	<script type='text/javascript'>
+	$( document ).ready(function() {
+		//get currently linked doctors
+		get_primary_doctor_information({{ request.session.current_resident }},1,"{{ request.session.user }}");
+		//get all unlinked doctors
+		get_all_doctors({{ request.session.current_resident }},"{{ request.session.user }}");
+	});
+	</script>
+	{% endif %}
+{% endblock %}
+

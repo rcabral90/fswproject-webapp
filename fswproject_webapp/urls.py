@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^add_doctor/', 'com_fsw_webapp.views.add_doctor', name='add_doctor'),
     url(r'^logout/$', 'com_fsw_webapp.views.logout', name='logout'),
     url(r'^upload_photo/', 'com_fsw_webapp.views.upload_photo', name='upload_photo'),
+    url(r'^doctor_list/', 'com_fsw_webapp.views.edit_doctor_list', name='edit_doctor_list'),
     # url(r'^fswproject_webapp/', include('fswproject_webapp.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

@@ -42,6 +42,9 @@
 				<div id='doctor_cycle' data-cycle-slides="div" data-cycle-timeout='0' data-cycle-prev="#prev_doctor" data-cycle-next="#next_doctor"></div>
 				<span id='prev_doctor' class="btn btn-default btn-xs">&lsaquo; Prev</span><span class="btn btn-default btn-xs" id='next_doctor'>Next &rsaquo;</span>
 			</div>
+			<div id='doctor_list_button'>
+				<a href="/doctor_list/" class="btn btn-default btn-primary btn-xs"><span class="glyphicon glyphicon-th-list"></span> Link / Unlink Doctors</a>
+			</div>
 		</div>
 		<div id='middle_tabs'>
 			<ul class="nav nav-tabs">
@@ -473,7 +476,7 @@
 			//get physical info
 			get_physical_information({{ request.session.current_resident }});
 			//get doctor info
-			get_primary_doctor_information({{ request.session.current_resident }});
+			get_primary_doctor_information({{ request.session.current_resident }},0,"{{ request.session.user }}");
 			//get alerts
 			get_alerts({{ request.session.current_resident }},"{{ request.session.user }}","last_login",0);
 			//first load so set the data in the active tab

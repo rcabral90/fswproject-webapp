@@ -84,6 +84,11 @@ def add_doctor(request):
     context.update(csrf(request))
     return render_to_response('add_doctor.html', {"error": False}, context_instance=RequestContext(request))      
 
+def edit_doctor_list(request):
+    context = {}
+    context.update(csrf(request))
+    return render_to_response('edit_doctor_list.html', {"error": False}, context_instance=RequestContext(request))      
+
 class DocumentForm(forms.Form):
     photo = forms.FileField(label='Select a file')
 

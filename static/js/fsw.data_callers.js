@@ -92,10 +92,49 @@ function get_resident_information(resident_id,call_type){
 	});
 }
 
-function get_primary_doctor_information(resident_id){
+function get_all_doctors(resident_id,user_id){
+	$("#unlinked_doctors_table").empty();
+	$("#unlinked_doctors_table").append("<thead><tr><th>Doctor Name</th><th>Specialization</th><th>Phone Number</th><th>Options</th></tr></thead>");
+	$.ajax({
+		url: backend_url+"/doctors/*/?format=json",
+		type: "GET",
+		async: false,
+		success: function(data){
+			for(var i=0;i<data.length;i++){
+				var middle_name = "";
+				if(data[i].middle_name){
+					middle_name = data[i].middle_name;
+				}else{
+					middle_name = "";
+				}
+				$("#unlinked_doctors_table").append(
+					"<tr><td>"+data[i].first_name+" "+middle_name+" "+data[i].last_name+
+					"</td><td>"+data[i].specialization+
+					"</td><td>"+data[i].phone_number+
+					"</td><td>"+
+					"<form id='link_to_resident_row' action='#' method='post'>"+
+						"<input type='hidden' name='csrfmiddlewaretoken' value='"+csrftoken+"'>"+
+						"<input type='hidden' name='resident_id' value='"+resident_id+"'>"+
+						"<input type='hidden' name='doctor_id' value='"+data[i].doctor_id+"'>"+
+						"<input type='hidden' name='user_id' value='"+user_id+"'>"+
+						"<button id='row_delete_button' type='submit' class='btn btn-primary'><span class='glyphicon glyphicon-link'></span>&nbsp; Link</button>"+
+					"</form>"+
+					"</td></tr>"
+				);
+			}
+			if(data.length > 0){
+				//add sorting to the table
+				$("#unlinked_doctors_table").tablesorter();
+				attach_edit_doctor_link_row_jquery();
+			}
+		}
+	});
+}
+
+function get_primary_doctor_information(resident_id,is_list_page,user_id){
 	//get the primary doctor id
 	$.get(backend_url+"/residentstodoctor/"+resident_id+"/?format=json", function(data){
-		primary_doctor_information(data);
+		primary_doctor_information(data,is_list_page,user_id,resident_id);
 	});
 }
 
@@ -151,26 +190,62 @@ function get_single_doctor_information(doctor_id){
 	});
 }
 
-function primary_doctor_information(doctor_id_list){
+function primary_doctor_information(doctor_id_list,is_list_page,user_id,resident_id){
 	//get the primary doctor information.
 	var html_data = "";
-	$('#doctor_cycle').empty();
-	for(var k=0;k<doctor_id_list.length;k++){
-		$.get(backend_url+"/doctors/"+doctor_id_list[k].doctor_id+"/?format=json", function(data){
-			//set vars, fill dom's
-			var first_name = data[0].first_name;
-			if((data[0].middle_name)){
-				var middle_name = data[0].middle_name;
-			}else{
-				var middle_name = "";
-			}
-			var last_name = data[0].last_name;
-			var specialization = data[0].specialization;
-			var phone_number = data[0].phone_number;
-			html_data = "<div id='doctor_cycle_information'><ul><li>Name: "+first_name+" "+middle_name+" "+last_name+"</li><li>Specialization: "+specialization+"</li><li>Phone Number: "+phone_number+"</li></ul></div>";
-			$('#doctor_cycle').cycle('add', html_data);
-		});
+	if(is_list_page){
+		$('#linked_doctors_table').empty();
+		//build the table
+		$("#linked_doctors_table").append("<thead><tr><th>Doctor Name</th><th>Specialization</th><th>Phone Number</th><th>Options</th></tr></thead>");
+	}else{
+		$('#doctor_cycle').empty();
 	};
+	for(var k=0;k<doctor_id_list.length;k++){
+		$.ajax({
+			url: backend_url+"/doctors/"+doctor_id_list[k].doctor_id+"/?format=json",
+			type: "GET",
+			async: false,
+			success: function(data){
+				//set vars, fill dom's
+				var first_name = data[0].first_name;
+				if((data[0].middle_name)){
+					var middle_name = data[0].middle_name;
+				}else{
+					var middle_name = "";
+				}
+				var last_name = data[0].last_name;
+				var specialization = data[0].specialization;
+				var phone_number = data[0].phone_number;
+				if(is_list_page){
+					$("#linked_doctors_table").append(
+						"<tr class='success'><td>"+first_name+" "+middle_name+" "+last_name+
+						"</td><td>"+specialization+
+						"</td><td>"+phone_number+
+						"</td><td>"+
+						"<form id='delete_row' action='#' method='post'>"+
+							"<input type='hidden' name='csrfmiddlewaretoken' value='"+csrftoken+"'>"+
+							"<input type='hidden' name='resident_id' value='"+resident_id+"'>"+
+							"<input type='hidden' name='row_id' value='"+data[0].doctor_id+"'>"+
+							"<input type='hidden' name='user_id' value='"+user_id+"'>"+
+							"<input type='hidden' name='date_time' value='"+date_compare+'T'+time+"'>"+
+							"<input type='hidden' name='delete_message' value='Doctor "+first_name+" "+middle_name+" "+last_name+" unlinked'>"+
+							"<input type='hidden' name='type' value='14'>"+
+							"<button id='row_delete_button' type='submit' class='btn btn-warning'><span class='glyphicon glyphicon-ban-circle'></span>&nbsp; Unlink</button>"+
+						"</form>"+
+						"</td></tr>"
+					);
+				}else{
+					html_data = "<div id='doctor_cycle_information'><ul><li>Name: "+first_name+" "+middle_name+" "+last_name+"</li><li>Specialization: "+specialization+"</li><li>Phone Number: "+phone_number+"</li></ul></div>";
+					$('#doctor_cycle').cycle('add', html_data);			
+				}
+				if((is_list_page) && (k == data.length) && (data.length > 0)){
+					//add sorting to the table
+					$("#linked_doctors_table").tablesorter();
+					attach_delete_row_jquery();
+				}
+			}
+		});
+	}
 }
 
 function get_physical_information(resident_id){
