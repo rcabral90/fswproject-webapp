@@ -20,7 +20,7 @@ function get_last_resident_id(){
 	});
 }
 
-function get_resident_information(resident_id,call_type){
+function get_resident_information(resident_id,user_id,call_type){
 	//call type: 0 = normal, 1 = edit user
 	$.ajax({
 		url: backend_url+"/residents/"+resident_id+"/?format=json",
@@ -47,7 +47,14 @@ function get_resident_information(resident_id,call_type){
 			var dnr = "";
 			if(data[0].last_flu_shot != null){
 				last_flu_shot = data[0].last_flu_shot;
+				if((new Date(last_flu_date)) < ((new Date(last_flu_date))+31556900000)){
+					alert("flu shot overdue!");
+				}
 			}else{
+				//search for an alert, create one if it is not present
+				if(!search_alerts(resident_id,user_id,alert_flu_shot_message)){
+					fsw_log(resident_id,user_id,alert_flu_shot_message,0)
+				}
 				last_flu_shot = "Never";
 			}
 			if(data[0].dnr != null){

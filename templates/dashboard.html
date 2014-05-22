@@ -461,7 +461,6 @@
 	<!-- loadup data -->
 	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
-	<script src="{{ static }}/static/js/fsw.search_box.js"></script>
 	<script src="{{ static }}/static/js/jquery.form-validator.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.cycle2.min.js"></script>
@@ -472,7 +471,7 @@
 			//enable form validation
 			$.validate();
 			//create a function to get the resident id somehow, use 1 for testing
-			get_resident_information({{ request.session.current_resident }},0);
+			get_resident_information({{ request.session.current_resident }},"{{ request.session.user }}",0);
 			//get physical info
 			get_physical_information({{ request.session.current_resident }});
 			//get doctor info

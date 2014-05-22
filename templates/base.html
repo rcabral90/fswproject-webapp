@@ -6,6 +6,7 @@
         <script src="{{ static }}/static/js/bootstrap.js"></script>
 		<script type="text/javascript" src="{{ static }}/static/js/jquery.autocomplete.min.js"></script>
 		<script src="{{ static }}/static/js/fsw.csrf.js"></script>
+		<script src="{{ static }}/static/js/fsw.search_box.js"></script>
 		{% if request.session.user %}
 			<script src="{{ static }}/static/js/fsw.logging.js"></script>
 		{% endif %}
@@ -22,7 +23,8 @@
 						<li><a href='/add_resident/'>New Resident</a>
 						<li><a href='/add_doctor/'>New Doctor</a>
 						<li><a href='/selector/'>Dashboard</a>
-						<li><a href='/alerts/'>Alerts</a>
+						<li><a id='alerts_link' href='/alerts/'>Alerts</a>
+						<li><a id='logs_link' href='/logs/'>Logs</a>
 					{% endif %}
 				</ul>
 			</div>

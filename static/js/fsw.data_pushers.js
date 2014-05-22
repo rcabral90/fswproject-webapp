@@ -74,7 +74,7 @@ function attach_delete_row_jquery(){
 			var resident_id = parseInt(json['resident_id']);
 			var user_id = json['user_id'];
 			var information = "Linked doctor "+json['first_name']+" "+json['middle_name']+" "+json['last_name']+" to resident.";
-			fsw_log(resident_id,user_id,information);
+			fsw_log(resident_id,user_id,information,1);
 			json = JSON.stringify(json);
 			$.ajax({
 				type: "POST",
@@ -106,7 +106,7 @@ $('#medication_entry').on("submit", function(event){
 		dataType: "json"
 	}).done(function(){
 		var information = "Added medication - "+medication_name;
-		fsw_log(resident_id,user_id,information);
+		fsw_log(resident_id,user_id,information,1);
 		get_current_medication_information(resident_id);
 		//clear the form
 		resetForm($('#medication_entry'));
@@ -135,7 +135,7 @@ $('#medication_history_entry').on("submit", function(event){
 		dataType: "json"
 	}).done(function(){
 		var information = "Added medication history - "+medication_name;
-		fsw_log(resident_id,user_id,information);
+		fsw_log(resident_id,user_id,information,1);
 		get_medication_history(resident_id);
 		//clear the form
 		resetForm($('#medication_history_entry'));
@@ -164,7 +164,7 @@ $('#prescriptions_entry').on("submit", function(event){
 		dataType: "json"
 	}).done(function(){
 		var information = "Added prescription - "+prescription_number;
-		fsw_log(resident_id,user_id,information);
+		fsw_log(resident_id,user_id,information,1);
 		get_prescription_information(resident_id);
 		//clear the form
 		resetForm($('#prescriptions_entry'));
@@ -191,7 +191,7 @@ $('#assessments_entry').on("submit", function(event){
 		dataType: "json"
 	}).done(function(){
 		var information = "Added Assessment";
-		fsw_log(resident_id,user_id,information);
+		fsw_log(resident_id,user_id,information,1);
 		get_resident_assessment_information(resident_id);
 		//clear the form
 		resetForm($('#assessments_entry'));
@@ -218,7 +218,7 @@ $('#allergy_entry').on("submit", function(event){
 		dataType: "json"
 	}).done(function(){
 		var information = "Added allergy - "+allergy_name;
-		fsw_log(resident_id,user_id,information);
+		fsw_log(resident_id,user_id,information,1);
 		get_resident_allergy_information(resident_id);
 		//clear the form
 		resetForm($('#allergy_entry'));
@@ -245,7 +245,7 @@ $('#diet_entry').on("submit", function(event){
 		dataType: "json"
 	}).done(function(){
 		var information = "Added diet - "+diet_name;
-		fsw_log(resident_id,user_id,information);
+		fsw_log(resident_id,user_id,information,1);
 		get_resident_diet_information(resident_id);
 		//clear the form
 		resetForm($('#diet_entry'));
@@ -273,7 +273,7 @@ $('#hospitalizations_entry').on("submit", function(event){
 		dataType: "json"
 	}).done(function(){
 		var information = "Added hospitalization visit at "+location+", reason: "+reason;
-		fsw_log(resident_id,user_id,information);
+		fsw_log(resident_id,user_id,information,1);
 		get_hospitalization_history(resident_id);
 		//clear the form
 		resetForm($('#hospitalizations_entry'));
@@ -300,7 +300,7 @@ $('#notes_entry').on("submit", function(event){
 		dataType: "json"
 	}).done(function(){
 		var information = "Added Note: '"+note+"'";
-		fsw_log(resident_id,user_id,information);
+		fsw_log(resident_id,user_id,information,1);
 		get_resident_notes_information(resident_id);
 		//clear the form
 		resetForm($('#notes_entry'));
@@ -327,7 +327,7 @@ $('#physical_entry').on("submit", function(event){
 		dataType: "json"
 	}).done(function(){
 		var information = "Added Physical: "+physical_date+"";
-		fsw_log(resident_id,user_id,information);
+		fsw_log(resident_id,user_id,information,1);
 		fill_doctor_select_box(resident_id);
 		get_current_physical_information(resident_id,user_id);
 		//clear the form
@@ -358,7 +358,7 @@ $('#insurance_entry').on("submit", function(event){
 		dataType: "json"
 	}).done(function(){
 		var information = "Added Insurance: "+company+", policy number: "+policy_number+"";
-		fsw_log(resident_id,user_id,information);
+		fsw_log(resident_id,user_id,information,1);
 		get_current_insurance_information(resident_id,user_id);
 		//clear the form
 		resetForm($('#insurance_entry'));
@@ -401,7 +401,7 @@ $('#add_new_resident').on("submit", function(event){
 			dataType: "json"
 		}).done(function(){
 			var information = "Added Resident: "+first_name+" "+middle_name+" "+last_name;
-			fsw_log(resident_id,user_id,information);
+			fsw_log(resident_id,user_id,information,1);
 			$('#resident_id').val(resident_id);
 			//clear the form
 			resetForm($('#add_new_resident'));
@@ -454,7 +454,7 @@ $('#add_new_doctor').on("submit", function(event){
 			dataType: "json"
 		}).done(function(){
 			var information = "Added Doctor: "+first_name+" "+middle_name+" "+last_name;
-			fsw_log(0,user_id,information);
+			fsw_log(0,user_id,information,1);
 			//clear the form
 			resetForm($('#add_new_doctor'));
 			//let the form post to /selector/ with the new resident id number

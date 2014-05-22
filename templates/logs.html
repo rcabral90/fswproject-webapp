@@ -1,20 +1,19 @@
 {% extends 'base.html' %}
 {% block body %}
 	{% if request.session.user %}
-	<div id='alert_box'>
-		<h1 id='alert_count'>Alerts ()</h1>
-		<table class="table table-hover table-bordered" id='alert_table'>
+	<div id='log_box'>
+		<h1 id='log_count'>Logs ()</h1>
+		<table class="table table-hover table-bordered" id='log_table'>
 
 		</table>
 	</div>
-	<div id='alerts_page_information'></div>
 	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
 	<script src="{{ static }}/static/js/jquery.tablesorter.min.js"></script>
 	<script type='text/javascript'>
 	$( document ).ready(function() {
-		//get alerts
-		get_alerts({{ request.session.current_resident }},"{{ request.session.user }}","last_login",1);
+		//get logs
+		get_logs({{ request.session.current_resident }},"{{ request.session.user }}");
 	});
 	</script>
 	{% endif %}

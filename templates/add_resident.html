@@ -142,7 +142,6 @@
 	<script src="{{ static }}/static/js/jquery.fileupload.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
-	<script src="{{ static }}/static/js/fsw.search_box.js"></script>
 	<script src="{{ static }}/static/js/jquery.form-validator.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
 	<script src="{{ static }}/static/js/fsw.csrf.js"></script>
@@ -163,7 +162,7 @@
 					$_GET[decode(arguments[1])] = decode(arguments[2]);
 				});
 				if($_GET['action'] == "edit"){
-					get_resident_information(current_resident,1);
+					get_resident_information(current_resident,"{{ request.session.user }}",1);
 				};
 			};
 			$('#fileupload').fileupload({

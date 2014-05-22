@@ -45,6 +45,11 @@ def alert_page(request):
                                "resident_id": request.session.get('current_resident')},
                               context_instance=RequestContext(request))
 
+def log_page(request):
+    return render_to_response('logs.html',
+                              {"user": request.session.get('user'), "last_seen": request.session.get('last_seen'),
+                               "resident_id": request.session.get('current_resident')},
+                              context_instance=RequestContext(request))
 
 def login(request):
     try:

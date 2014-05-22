@@ -406,6 +406,13 @@ th.headerSortUp {
 #delete_row, #edit_row{
 	float:left;
 }
+#alerts_page_information{
+	width:100%;
+	float:left;
+	display:block;
+	text-align:center;
+	font-size:2.5em;
+}
 #row_delete_button{
 	display:block;
 	float:left;
