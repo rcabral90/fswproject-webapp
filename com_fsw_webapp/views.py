@@ -58,6 +58,7 @@ def login(request):
             request.session.set_expiry(0)
             #request.session['last_seen'] = user.last_login
             request.session['user'] = user.username
+            request.session['is_staff'] = user.is_staff
             request.session['current_resident'] = 0
             return render_to_response('patient_select.html', {"user": user}, context_instance=RequestContext(request))
         else:

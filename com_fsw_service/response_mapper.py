@@ -7,7 +7,8 @@ def map_user(response):
         response = json.loads(response)
         user = AuthUser(response["first_name"],
                         response["last_name"],
-                        response["username"]
+                        response["username"],
+                        response["is_staff"]
                         )
     except:
         user = ""
