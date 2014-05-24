@@ -81,7 +81,7 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 			}else{
 				//build the table
 				$("#alert_table").append("<thead><tr><th>Resident Name</th><th>Information</th><th>Changed By</th><th>Date & Time</th><th>Options</th></tr></thead>");
-				for(i=0;i<alerts.length;i++){
+				for(i=(alerts.length)-1;i>=0;i--){
 					var log_dt = alerts[i].date_time_modified.split("T");
 					if(ignore_flags){
 						alert_amount++;
@@ -106,7 +106,7 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 								"<form id='delete_row' action='#' method='post'>"+
 									"<input type='hidden' name='csrfmiddlewaretoken' value='"+csrftoken+"'>"+
 									"<input type='hidden' name='resident_id' value='"+resident_id+"'>"+
-									"<input type='hidden' name='row_id' value='"+data[i].alert_id+"'>"+
+									"<input type='hidden' name='row_id' value='"+alerts[i].alert_id+"'>"+
 									"<input type='hidden' name='user_id' value='"+user_id+"'>"+
 									"<input type='hidden' name='date_time' value='"+date_compare+'T'+time+"'>"+
 									"<input type='hidden' name='delete_message' value='Alert Acknowledged'>"+
@@ -136,6 +136,7 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 function search_alerts(resident_id,user_id,alert_text){
 	//looks for an alert (NOTE ONLY ALERTS) with the same text for the same day so we don't duplicate alerts.
 	//return 1 if alert was found, 0 if not.
+	var found = 0;
 	$.ajax({
 		url: backend_url+"/alerts/"+resident_id+"/?format=json",
 		type: "GET",
@@ -154,13 +155,13 @@ function search_alerts(resident_id,user_id,alert_text){
 				var log_dt = alerts[i].date_time_modified.split("T");
 				//find that log!
 				if((alerts[i].resident_id == resident_id) && (alerts[i].username == user_id) && (alerts[i].general_text == alert_text) && ((new Date(log_dt[0])) <= (new Date(date_compare)))){
-					return 1;
+					found = 1;
 					break;
 				}
 			}
 		}
 	});
-	return 0;
+	return found;
 }
 function get_logs(resident_id,user_id){
 	//note that log are type = 1!
@@ -194,8 +195,8 @@ function get_logs(resident_id,user_id){
 				$("#log_box").hide();
 			}else{
 				//build the table
-				$("#log_table").append("<thead><tr><th>Resident Name</th><th>Information</th><th>Changed By</th><th>Date & Time</th></tr></thead>");
-				for(i=0;i<logs.length;i++){
+				$("#log_table").append("<thead><tr><th>Resident Name</th><th>Information</th><th>Changed By</th><th>Date & Time</th><th>Options</th></tr></thead>");
+				for(i=(logs.length)-1;i>=0;i--){
 					var log_dt = logs[i].date_time_modified.split("T");
 					$("#log_table").append(
 						"<tr class='warning'><td>"+resident_info[0].first_name+" "+resident_info[0].last_name+

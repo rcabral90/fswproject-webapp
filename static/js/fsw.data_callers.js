@@ -47,15 +47,19 @@ function get_resident_information(resident_id,user_id,call_type){
 			var dnr = "";
 			if(data[0].last_flu_shot != null){
 				last_flu_shot = data[0].last_flu_shot;
+				//check if overdue
 				if((new Date(last_flu_date)) < ((new Date(last_flu_date))+31556900000)){
-					alert("flu shot overdue!");
+					//search for an alert, create one if it is not present
+					if(!search_alerts(resident_id,user_id,alert_flu_shot_message)){
+						fsw_log(resident_id,user_id,alert_flu_shot_message,0)
+					}
 				}
 			}else{
+				last_flu_shot = "Never";
 				//search for an alert, create one if it is not present
 				if(!search_alerts(resident_id,user_id,alert_flu_shot_message)){
 					fsw_log(resident_id,user_id,alert_flu_shot_message,0)
 				}
-				last_flu_shot = "Never";
 			}
 			if(data[0].dnr != null){
 				if(data[0].dnr == true){
@@ -139,6 +143,7 @@ function get_all_doctors(resident_id,user_id,filter_list){
 							"<input type='hidden' name='last_name' value='"+data[i].last_name+"'>"+
 							"<input type='hidden' name='doctor_id' value='"+data[i].doctor_id+"'>"+
 							"<input type='hidden' name='user_id' value='"+user_id+"'>"+
+							"<input type='hidden' name='rd_id' value='0'>"+
 							"<button id='row_delete_button' type='submit' class='btn btn-primary'><span class='glyphicon glyphicon-link'></span>&nbsp; Link</button>"+
 						"</form>"+
 						"<form id='edit_row' action='/add_doctor/' method='get'>"+
@@ -307,6 +312,12 @@ function get_physical_information(resident_id){
 		}
 		//update the DOM
 		$("#resident_last_physical_date").append(most_recent_physical);
+				if((new Date(most_recent_physical)) < ((new Date(most_recent_physical))+31556900000)){
+					//search for an alert, create one if it is not present
+					if(!search_alerts(resident_id,user_id,alert_physical_message)){
+						fsw_log(resident_id,user_id,alert_physical_message,0)
+					}
+				}
 	});
 }
 
@@ -386,6 +397,10 @@ function get_current_medication_information(resident_id,user_id){
 			var exp_date_danger = "";
 			for(i=0;i<data.length;i++){
 				if((new Date(data[i].med_expire)) < date.getTime()){
+					//search for an alert, create one if it is not present
+					if(!search_alerts(resident_id,user_id,alert_expired_medication_message+" - "+data[i].medication_name)){
+						fsw_log(resident_id,user_id,alert_expired_medication_message+" - "+data[i].medication_name,0)
+					}
 					exp_date_danger = "<tr class='danger2'>";
 					exp_date = "<b>"+data[i].med_expire+"</b>";
 				}else{
@@ -396,7 +411,7 @@ function get_current_medication_information(resident_id,user_id){
 					exp_date_danger+"<td>"+data[i].medication_name+
 					"</td><td>"+data[i].generic_name+
 					"</td><td>"+data[i].med_prescribed+
-					"</td><td>"+data[i].med_expire+
+					"</td><td>"+exp_date+
 					"</td><td>"+data[i].med_dose_mg+
 					"</td><td>"+data[i].med_freq+
 					"</td><td>"+data[i].med_purpose+
@@ -473,6 +488,10 @@ function get_prescription_information(resident_id,user_id){
 			$("#prescription_table").append("<thead><tr><th>Prescription Name</th><th>Date Ordered</th><th>Date Received</th><th>Refill Date</th><th>Quantity</th><th>Options</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				if((new Date(data[i].refill_date)) < date.getTime()){
+					//search for an alert, create one if it is not present
+					if(!search_alerts(resident_id,user_id,alert_refill_past_medication_message+" - "+data[i].prescription_number)){
+						fsw_log(resident_id,user_id,alert_refill_past_medication_message+" - "+data[i].prescription_number,0)
+					}
 					refill_date_danger = "<tr class='danger2'>";
 					refill_date = "<b>"+data[i].refill_date+"</b>";
 				}else{
