@@ -133,10 +133,19 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 		}
 	});
 };
+var found = 0;
+function set_found(value){
+	found = value;
+};
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(date.getDate() + days);
+    return result;
+}
 function search_alerts(resident_id,user_id,alert_text){
 	//looks for an alert (NOTE ONLY ALERTS) with the same text for the same day so we don't duplicate alerts.
 	//return 1 if alert was found, 0 if not.
-	var found = 0;
+	set_found(0);
 	$.ajax({
 		url: backend_url+"/alerts/"+resident_id+"/?format=json",
 		type: "GET",
@@ -154,8 +163,8 @@ function search_alerts(resident_id,user_id,alert_text){
 			for(i=0;i<alerts.length;i++){
 				var log_dt = alerts[i].date_time_modified.split("T");
 				//find that log!
-				if((alerts[i].resident_id == resident_id) && (alerts[i].username == user_id) && (alerts[i].general_text == alert_text) && ((new Date(log_dt[0])) <= (new Date(date_compare)))){
-					found = 1;
+				if((alerts[i].resident_id == resident_id) && (alerts[i].username == user_id) && (alerts[i].general_text == alert_text) && (Date.parse(new Date(log_dt[0]))) <= (addDays(new Date(date_compare),1))){
+					set_found(1);
 					break;
 				}
 			}

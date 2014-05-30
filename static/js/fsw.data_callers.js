@@ -396,7 +396,7 @@ function get_current_medication_information(resident_id,user_id){
 			var exp_date = "";
 			var exp_date_danger = "";
 			for(i=0;i<data.length;i++){
-				if((new Date(data[i].med_expire)) < date.getTime()){
+				if((Date.parse(new Date(data[i].med_expire))) < date.getTime()){
 					//search for an alert, create one if it is not present
 					if(!search_alerts(resident_id,user_id,alert_expired_medication_message+" - "+data[i].medication_name)){
 						fsw_log(resident_id,user_id,alert_expired_medication_message+" - "+data[i].medication_name,0)
