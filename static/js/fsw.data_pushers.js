@@ -384,11 +384,6 @@ $('#add_new_resident').on("submit", function(event){
 		var middle_name = "";
 	}
 	var last_name = json['last_name'];
-	if(json['dnr'] = "0"){
-		json['dnr'] = false;
-	}else{
-		json['dnr'] = true;
-	}
 	if(action == "add"){
 		resident_id++;
 		delete json['resident_id'];
@@ -415,6 +410,9 @@ $('#add_new_resident').on("submit", function(event){
 		json['edit_message'] = "Edit Resident: "+first_name+" "+middle_name+" "+last_name;
 		json['type'] = 0;
 		json['row_id'] = 0;
+		if(json['flu_shot'] == ""){
+			json['flu_shot'] = "null";
+		}
 		$.ajax({
 			type: "POST",
 			url: backend_url+"/edit/",

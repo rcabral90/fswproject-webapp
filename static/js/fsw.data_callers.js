@@ -70,6 +70,9 @@ function get_resident_information(resident_id,user_id,call_type){
 			}else{
 				dnr = "Yes";
 			}
+			if(/^(f|ht)tps?:\/\//i.test(data[0].photo)){
+				data[0].photo = "static/imgs/no_avatar.png"
+			};
 			var photo = "../"+data[0].photo;
 			if(call_type == 0){
 				$("#resident_name").append(first_name+" "+middle_name+" "+last_name);
