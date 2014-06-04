@@ -1,0 +1,88 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ static }}/static/css/print.css">
+	<script src="{{ static }}/static/js/jquery-1.11.0.min.js"></script>
+	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
+	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
+	<script src="{{ static }}/static/js/fsw.csrf.js"></script>
+	{% if request.session.user %}
+		<script src="{{ static }}/static/js/fsw.logging.js"></script>
+	{% endif %}
+	<script src="{{ static }}/static/js/jquery.cycle2.min.js"></script>
+	<script src="{{ static }}/static/js/jquery.tablesorter.min.js"></script>
+</head>
+<body>
+	<div id='print_body'>
+		<div id='main_information'>
+			<p>
+				<h2>Resident Information</h2>
+				<ul>
+					<li id='resident_name'>Name: 
+					<li id='resident_address'>Address: 
+					<li id='resident_home_phone'>Home Phone: 
+					<li id='resident_cell_phone'>Cell Phone: 
+					<li id='resident_dob'>Date of Birth: 
+					<li id='resident_last_physical_date'>Last Physical Date: 
+					<li id='resident_last_flu_shot'>Last Flu Shot Date: 
+					<li id='resident_dnr'>Resuscitate: 
+				</ul>
+			</p>
+		</div>
+		<div id='secondary_information'>
+			<h2>Doctor Information</h2>
+			<div id='doctor_cycle' data-cycle-slides="div" data-cycle-timeout='0' data-cycle-prev="#prev_doctor" data-cycle-next="#next_doctor"></div>
+		</div>
+		<br>
+		<h2>Current Medication:</h2>
+		<table class="table table-hover table-bordered" id='medication_current_table'></table>
+		<br>
+		<h2>Medication History:</h2>
+		<table class="table table-hover table-bordered" id='medication_history_table'></table>
+		<br>
+		<h2>Prescriptions:</h2>
+		<table class="table table-hover table-bordered" id='prescription_table'></table>
+		<br>
+		<h2>Assessments:</h2>
+		<table class="table table-hover table-bordered" id='assessment_table'></table>
+		<br>
+		<h2>Allergies:</h2>
+		<table class="table table-hover table-bordered" id='allergies_table'></table>
+		<br>
+		<h2>Diet:</h2>
+		<table class="table table-hover table-bordered" id='diet_table'></table>
+		<br>
+		<h2>Hospitalizations:</h2>
+		<table class="table table-hover table-bordered" id='hospitalizations_table'></table>
+		<br>
+		<h2>Physicals:</h2>
+		<table class="table table-hover table-bordered" id='physical_table'></table>
+		<br>
+		<h2>Insurance:</h2>
+		<table class="table table-hover table-bordered" id='insurance_table'></table>
+		<br>
+		<h2>Emergency Contacts:</h2>
+		<table class="table table-hover table-bordered" id='emergency_contacts_table'></table>
+	</div>
+	<script>
+		$( document ).ready(function() {
+			//enable doctor slides
+			$('#doctor_cycle').cycle({
+				log: false,
+			});
+			get_resident_information({{ request.session.current_resident }},"{{ request.session.user }}",0);
+			get_physical_information({{ request.session.current_resident }});
+			get_primary_doctor_information({{ request.session.current_resident }},0,"{{ request.session.user }}");
+			get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			get_medication_history({{ request.session.current_resident }},"{{ request.session.user }}");
+			get_prescription_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			get_resident_assessment_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			get_resident_allergy_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			get_resident_diet_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			get_hospitalization_history({{ request.session.current_resident }},"{{ request.session.user }}");
+			get_current_physical_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			get_current_insurance_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			get_resident_emergency_contacts_information({{ request.session.current_resident }},"{{ request.session.user }}");
+		});
+	</script>
+</body>
+</html>

@@ -80,6 +80,12 @@ def logout(request):
         return render_to_response('home.html', {"error": True}, context_instance=RequestContext(request))
 
 
+def print_page(request):
+    return render_to_response('print_details.html',
+                              {"user": request.session.get('user'), "last_seen": request.session.get('last_seen'),
+                               "resident_id": request.session.get('current_resident')},
+                              context_instance=RequestContext(request))
+
 def add_resident(request):
     context = {}
     context.update(csrf(request))

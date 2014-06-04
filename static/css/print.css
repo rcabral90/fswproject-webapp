@@ -1,0 +1,25 @@
+body{
+	
+}
+h2{
+	padding-bottom:0px;
+	margin-bottom:0px;
+}
+th {
+    padding:5px;
+	border:1px solid black;
+    font-size:0.9em;
+}
+table{
+	border:1px solid black;
+}
+td{
+	border:1px solid black;
+	padding:7px;
+}
+table td:last-child{
+    display:none;
+}
+table th:last-child{
+    display:none;
+}
