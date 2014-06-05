@@ -16,8 +16,30 @@
 			</div>
 		</div>
 		<div id='top_content_block'>
-			<div id='print_button'>
-				<a href="/print_details/" target="_blank" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-print"></span> Print Information</a>
+			<div id='print_subscribe_button_area'>
+				<div id='print_button'>
+					<a href="/print_details/" target="_blank" class="btn btn-default btn-primary btn-lg"><span class="glyphicon glyphicon-print"></span> Print Information</a>
+				</div>
+				<div id='not_subscribed_button'>
+					<form id="subscribe_to_resident" method='POST'>
+						{% csrf_token %}
+						<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+						<input type='hidden' value='{{ request.session.user }}' name='user_id'>
+						<button type="submit" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-heart-empty"></span> Subscribe</button>
+					</form>
+				</div>
+				<div id='subscribed_button'>
+					<form id="unsubscribe_from_resident" method='POST'>
+						{% csrf_token %}
+						<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+						<input type='hidden' value='{{ request.session.user }}' name='user_id'>
+						<input type='hidden' value='0' name='row_id'>
+						<input type='hidden' value='0' name='date_time'>
+						<input type='hidden' value='0' name='delete_message'>
+						<input type='hidden' value='15' name='type'>
+						<button type="submit" class="btn btn-default btn-success btn-lg"><span class="glyphicon glyphicon-ok"></span> Subscribed</button>
+					</form>
+				</div>
 			</div>
 			<div id='user_image'>
 				<img id='user_image_src' src="../static/imgs/no_avatar.png" style="width:150px;height:150px;">
@@ -483,6 +505,8 @@
 			get_alerts({{ request.session.current_resident }},"{{ request.session.user }}","last_login",0);
 			//first load so set the data in the active tab
 			get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			//get subscription info
+			get_subscribed_resident_list({{ request.session.current_resident }},"{{ request.session.user }}");
 			//tab content generation
 			$('#medication_tab').click(function(){
 				get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");

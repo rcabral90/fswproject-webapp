@@ -760,3 +760,28 @@ function get_current_insurance_information(resident_id,user_id){
 		}
 	});
 }
+
+function get_subscribed_resident_list(resident_id,user_id){
+	$.get(backend_url+"/subscriptions/"+user_id+"/?format=json", function(data){
+		var resident_array = [];
+		var found = 0;
+		if(data.length < 1){
+			$("#not_subscribed_button").show();
+		}else{
+			//check if resident is in list
+			for(i=0;i<data.length;i++){
+				if(data[i].resident_id == resident_id){
+					$("#subscribed_button").show();
+					found++;
+				}
+				//build a list of residents
+				resident_array.push(data[i].resident_id);
+			}
+		}
+		if(found == 0){
+			$("#not_subscribed_button").show();
+		}
+		attach_delete_row_jquery();
+		return resident_array;
+	});
+}

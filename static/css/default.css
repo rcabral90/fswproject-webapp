@@ -160,13 +160,6 @@ th.headerSortUp {
 	min-height:285px;
 	clear:both;
 }
-#print_button{
-	margin:0 auto;
-	display:block;
-	clear:both;
-	padding-top:5px;
-	padding-left:35%;
-}
 #user_image{
 	background-color:#000;
 	border:1px solid #000;
@@ -236,6 +229,23 @@ th.headerSortUp {
 	margin-left:5px;
 	margin-right:5px;
 }
+#print_subscribe_button_area{
+	margin:0 auto;
+	display:block;
+	width:1024px;
+	height:55px;
+	padding-top:5px;
+	padding-left:34%;
+}
+#print_button{
+	display:block;
+	float:left;
+	padding-right:5px;
+}
+#not_subscribed_button, #subscribed_button{
+	display:none;
+	padding-right:5px;
+}
 #main_information{
 	display:block;
 	position:relative;
@@ -247,7 +257,7 @@ th.headerSortUp {
 	min-width:350px;
 	min-height:100px;
 	margin-top:1%;
-	margin-left:5%;
+	margin-left:35px;
 }
 #main_information h2{
 	display:block;

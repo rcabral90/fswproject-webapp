@@ -369,7 +369,39 @@ function attach_delete_row_jquery(){
 			get_alerts(resident_id,user_id,"",0);
 		});
 		return false;
-	})
+	});
+	//subscribe / unsubscribe functionality
+	$('#subscribe_to_resident').on("submit", function(event){
+		event.preventDefault();
+		var json = $(this).serializeJSON();
+		json['username'] = json['user_id'];
+		delete json['user_id'];
+		json = JSON.stringify(json);
+		$.ajax({
+			type: "POST",
+			contentType: 'application/json',
+			url: backend_url+"/subscriptions/*/",
+			data: json,
+			dataType: "json"
+		}).done(function(){
+			$("#not_subscribed_button").hide();
+			$("#subscribed_button").show();
+		});
+		return false;
+	});
+	$('#unsubscribe_from_resident').on("submit", function(event){
+		event.preventDefault();
+		var info = $(this).serializeArray();
+		$.ajax({
+			type: "POST",
+			url: backend_url+"/delete/",
+			data: info
+		}).done(function(){
+			$("#not_subscribed_button").show();
+			$("#subscribed_button").hide();
+		});
+		return false;
+	});
 }
 $('#add_new_resident').on("submit", function(event){
 	event.preventDefault();
