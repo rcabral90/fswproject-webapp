@@ -14,7 +14,7 @@
 	<script type='text/javascript'>
 	$( document ).ready(function() {
 		//get alerts
-		get_alerts({{ request.session.current_resident }},"{{ request.session.user }}","last_login",1);
+		get_alerts(get_subscribed_resident_list({{ request.session.current_resident }},"{{ request.session.user }}"),"{{ request.session.user }}","last_login",1);
 	});
 	</script>
 	{% endif %}

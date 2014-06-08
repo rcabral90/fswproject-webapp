@@ -229,6 +229,23 @@ th.headerSortUp {
 	margin-left:5px;
 	margin-right:5px;
 }
+#no_resident_found{
+	margin:auto;
+	width:95%;
+	min-height:125px;
+	border:1px dotted #ff1a00;
+	margin-bottom:35px;
+	box-shadow: 6px 0px 5px -5px #999, -6px 0px 5px -5px #999;
+	border-radius: 5px;
+	text-align:center;
+}
+#no_resident_found p{
+	font-size:1.5em;
+	font-weight:bold;
+	padding-top:42px;
+	margin-left:5px;
+	margin-right:5px;
+}
 #print_subscribe_button_area{
 	margin:0 auto;
 	display:block;
@@ -385,7 +402,7 @@ th.headerSortUp {
 	padding-bottom:15px;
 	padding-top:5px;
 }
-#medication_entry, #medication_history_entry, #prescriptions_entry, #assessments_entry, #allergy_entry, #diet_entry, #hospitalizations_entry, #emergency_contacts_entry, #notes_entry, #physical_entry, #insurance_entry{
+#medication_entry, #medication_history_entry, #prescriptions_entry, #assessments_entry, #allergy_entry, #diet_entry, #hospitalizations_entry, #emergency_contact_entry, #notes_entry, #physical_entry, #insurance_entry{
 	display:none;
 	margin:auto;
 	padding:10px;
@@ -395,7 +412,7 @@ th.headerSortUp {
 	margin-bottom:5px;
 	width:900px;
 }
-#form_open_me, #form_open_mhe, #form_open_pe, #form_open_ae, #form_open_ale, #form_open_de, #form_open_he, #form_open_ece, #form_open_ne, #form_open_ph, #form_open_in{
+#form_open_me, #form_open_mhe, #form_open_pe, #form_open_ae, #form_open_ale, #form_open_de, #form_open_he, #form_open_ec, #form_open_ne, #form_open_ph, #form_open_in{
 	display:block;
 	margin:auto;
 	width:200px;

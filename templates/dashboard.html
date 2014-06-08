@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
+	{% if request.session.current_resident != "0" %}
 	<div id='alert_box'>
 		<h1 id='alert_count'>Alerts ()</h1>
 		<table class="table table-hover table-bordered" id='alert_table'>
@@ -138,7 +139,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_note">Note</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" data-validation-help="Please enter a note (Optional)." rows="4" id="me_note" placeholder="Notes" name="note"></textarea>
+							<textarea class="form-control" data-validation-help="Please enter a note (Optional)." data-validation-optional="true" rows="4" id="me_note" placeholder="Notes" name="note"></textarea>
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
@@ -203,7 +204,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_note">Note</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" data-validation-help="Please enter a note (Optional)." rows="4" id="mhe_note" placeholder="Notes" name="note"></textarea>
+							<textarea class="form-control" data-validation-help="Please enter a note (Optional)." data-validation-optional="true" rows="4" id="mhe_note" placeholder="Notes" name="note"></textarea>
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
@@ -263,31 +264,32 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ae_assessment_date">Assessment Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="ae_assessment_date" placeholder="Assessment Date" name="assessment_date">
+							<input type="date" data-validation-help="Please enter a assessment date." data-validation="date" class="form-control" id="ae_assessment_date" placeholder="Assessment Date" name="assessment_date">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ae_assessment_time">Assessment Time</label>
-						<div class="col-sm-10">
-							<input type="time" class="form-control" id="ae_assessment_time" placeholder="Assessment Time" name="assessment_time">
+						<div class="col-sm-10 input-append bootstrap-timepicker">
+							<input type="text" data-validation-help="Please enter an assessment time." data-validation="required" class="input-small form-control" id="ae_assessment_time" data-minute-step="1" placeholder="Assessment Time" name="assessment_time">
+							<span class="add-on"><i class="glyphicon glyphicon-time"></i></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ae_weight">Weight</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="ae_weight" placeholder="Weight" name="weight">
+							<input type="text" class="form-control" id="ae_weight" data-validation-help="Please enter the residents current weight." data-validation="number" data-validation-allowing="range[1;1000]" placeholder="Weight" name="weight">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ae_blood_pressure">Blood Pressure</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="ae_blood_pressure" placeholder="Blood Pressure" name="blood_pressure">
+							<input type="text" class="form-control" id="ae_blood_pressure" data-validation-help="Please enter the residents current blood pressure." data-validation="required" placeholder="Blood Pressure" name="blood_pressure">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ae_note">Note</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" rows="4" id="ae_note" placeholder="Notes" name="assess_notes"></textarea>
+							<textarea class="form-control" rows="4" id="ae_note" data-validation-help="Please enter a note (Optional)." data-validation-optional="true" placeholder="Notes" name="assess_notes"></textarea>
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
@@ -304,13 +306,13 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ale_name">Name</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="ale_name" placeholder="Name" name="allergy_title">
+							<input type="text" class="form-control" id="ale_name" data-validation-help="Please enter an allergy name." data-validation="required" placeholder="Name" name="allergy_title">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ale_note">Description</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" rows="4" id="ale_note" placeholder="Description" name="allergy_description"></textarea>
+							<textarea class="form-control" rows="4" id="ale_note" data-validation-help="Please enter a brief description of the allergy." data-validation="required" placeholder="Description" name="allergy_description"></textarea>
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
@@ -327,13 +329,13 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="de_name">Name</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="de_name" placeholder="Name" name="diet_title">
+							<input type="text" class="form-control" id="de_name" data-validation-help="Please enter a diet name." data-validation="required" placeholder="Name" name="diet_title">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="de_note">Description</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" rows="4" id="de_note" placeholder="Description" name="diet_description"></textarea>
+							<textarea class="form-control" rows="4" id="de_note" data-validation-help="Please enter a brief description of the diet requirements." data-validation="required" placeholder="Description" name="diet_description"></textarea>
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
@@ -350,43 +352,43 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="he_hospitalization_date">Hospitalization Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="he_hospitalization_date" placeholder="Hospitalization Date" name="hospitalization_date">
+							<input type="date" class="form-control" id="he_hospitalization_date" data-validation-help="Please enter a hospitalization date." data-validation="date" placeholder="Hospitalization Date" name="hospitalization_date">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="he_location">Location</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="he_location" placeholder="Location" name="hospitalization_location">
+							<input type="text" class="form-control" id="he_location" data-validation-help="Please enter the hospital name where the visit took place." data-validation="required" placeholder="Location" name="hospitalization_location">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="he_duration">Duration</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="he_duration" placeholder="Duration" name="duration_of_stay">
+							<input type="text" class="form-control" data-validation-help="Please enter the duration amount (in days)." data-validation="required" id="he_duration" placeholder="Duration" name="duration_of_stay">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="he_reason">Reason</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="he_reason" placeholder="Reason" name="reason">
+							<input type="text" class="form-control" id="he_reason" data-validation-help="Please enter a reason for the hospitalization." data-validation="required" placeholder="Reason" name="reason">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="he_medication_changes">Medication Changes</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="he_medication_changes" placeholder="Medication Changes" name="medication_changes">
+							<input type="text" class="form-control" id="he_medication_changes" data-validation-help="Please enter a brief description of any medication changes related to the hospitalization." data-validation="required" placeholder="Medication Changes" name="medication_changes">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="he_diagnosis">Diagnosis</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="he_diagnosis" placeholder="Diagnosis" name="diagnosis">
+							<input type="text" class="form-control" id="he_diagnosis" data-validation-help="Please enter the diagnosis given by the hospital." data-validation="required" placeholder="Diagnosis" name="diagnosis">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ae_note">Discharge Plan</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" rows="4" id="ae_note" placeholder="Notes" name="notes"></textarea>
+							<textarea class="form-control" rows="4" id="ae_note" data-validation-help="Please enter any information regarding a discharge plan." data-validation="required" placeholder="Notes" name="notes"></textarea>
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
@@ -403,7 +405,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ph_date">Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="ph_date" placeholder="Physical Date" name="physical_date">
+							<input type="date" class="form-control" id="ph_date" data-validation-help="Please enter a date for this physical." data-validation="date" placeholder="Physical Date" name="physical_date">
 						</div>
 					</div>
 					<div class="form-group">
@@ -415,7 +417,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ph_notes">Notes</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" rows="4" class="form-control" id="ph_notes" placeholder="Notes" name="notes"></textarea>
+							<textarea class="form-control" rows="4" class="form-control" id="ph_notes" data-validation-help="Please enter a note (Optional)."  data-validation-optional="true" placeholder="Notes" name="notes"></textarea>
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
@@ -432,25 +434,25 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="in_company">Company Name</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="in_company" placeholder="Company Name" name="company">
+							<input type="text" class="form-control" id="in_company" data-validation-help="Please enter the insurance company name." data-validation="required" placeholder="Company Name" name="company">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="in_policy_number">Policy Number</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="in_policy_number" placeholder="Policy Number" name="policy_number">
+							<input type="text" class="form-control" id="in_policy_number" data-validation-help="Please enter the residents policy number for this insurance." data-validation="required" placeholder="Policy Number" name="policy_number">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="in_phone_number">Company Phone Number</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="in_phone_number" placeholder="Company Phone Number" name="phone_number">
+							<input type="text" class="form-control" id="in_phone_number" data-validation-help="Please enter a general phone number for the insurance provider." data-validation="custom" data-validation-regexp="^((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}$" id="ec_phone_number" placeholder="Format: (101) 867-5309" name="phone_number">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="in_purpose">Insurance Purpose</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="in_purpose" placeholder="Insurance Purpose" name="purpose">
+							<input type="text" class="form-control" id="in_purpose" data-validation-help="Please enter a general purpose for this insurance." data-validation="required" placeholder="Insurance Purpose" name="purpose">
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
@@ -462,6 +464,66 @@
 				<table class="table table-hover table-bordered" id='emergency_contacts_table'>
 				
 				</table>
+				<button id='form_open_ec' type="button" class="btn btn-primary">New Entry</button>
+				<form class="form-horizontal" id='emergency_contact_entry' role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ec_first_name">First Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" data-validation-help="Please enter a first name." data-validation="required" id="ec_first_name" placeholder="First Name" name="first_name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ec_middle_name">Middle Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" data-validation-help="Please enter a middle name (Optional)." data-validation-optional="true" id="ec_middle_name" placeholder="Middle Name" name="middle_name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ec_last_name">Last Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" data-validation-help="Please enter a last name." data-validation="required" id="ec_last_name" placeholder="Last Name" name="last_name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ec_phone_number">Phone Number</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" data-validation-help="Please enter a phone number." data-validation="custom" data-validation-regexp="^((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}$" id="ec_phone_number" placeholder="Format: (101) 867-5309" name="phone_number">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ec_address1">Address 1</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" data-validation-help="Please enter an address." data-validation="required" id="ec_address1" placeholder="Basic Address" name="address1">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ec_address2">Address 2</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" data-validation-help="Please enter an extended address (Optional)." data-validation-optional="true" id="ec_address2" placeholder="Extended Address" name="address2">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ec_city">City</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" data-validation-help="Please enter a city." data-validation="required" id="ec_city" placeholder="City" name="city">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ec_zip_code">Zip Code</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" data-validation-help="Please enter a zip code." data-validation="required" id="ec_zip_code" placeholder="Zip Code" name="zip_code">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ec_relationship">Relationship</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" data-validation-help="Please enter the relationship to the resident." data-validation="required" id="ec_relationship" placeholder="Relationship" name="relationship">
+						</div>
+					</div>
+					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
+					<input type='hidden' value='{{ request.session.user }}' name='user_id'>
+					<button id='table_input_form_submit' type="submit" class="btn btn-success">Submit</button>
+				</form>
 			</div>
 			<div class='tab-pane' id='notes'>
 				<table class="table table-hover table-bordered" id='notes_table'>
@@ -472,7 +534,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ne_note">Description</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" rows="4" id="ne_note" placeholder="Description" name="notes"></textarea>
+							<textarea class="form-control" rows="4" id="ne_note" data-validation-help="Please enter some notes." data-validation="required" placeholder="Description" name="notes"></textarea>
 						</div>
 					</div>
 					<input type='hidden' value='{{ request.session.current_resident }}' name='resident_id'>
@@ -484,12 +546,12 @@
 		</div>
 	</div>
 	<!-- loadup data -->
-	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
 	<script src="{{ static }}/static/js/jquery.form-validator.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.cycle2.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.tablesorter.min.js"></script>
+	<script src="{{ static }}/static/js/bootstrap-timepicker.min.js"></script>
 	<script src="{{ static }}/static/js/fsw.dashboard.js"></script>
 	<script>
 		$( document ).ready(function() {
@@ -502,11 +564,9 @@
 			//get doctor info
 			get_primary_doctor_information({{ request.session.current_resident }},0,"{{ request.session.user }}");
 			//get alerts
-			get_alerts({{ request.session.current_resident }},"{{ request.session.user }}","last_login",0);
+			get_alerts(get_subscribed_resident_list({{ request.session.current_resident }},"{{ request.session.user }}"),"{{ request.session.user }}","last_login",0);
 			//first load so set the data in the active tab
 			get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
-			//get subscription info
-			get_subscribed_resident_list({{ request.session.current_resident }},"{{ request.session.user }}");
 			//tab content generation
 			$('#medication_tab').click(function(){
 				get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
@@ -544,4 +604,10 @@
 			})
 		});
 	</script>
+	{% else %}
+		<div id="no_resident_found">
+			<p>Resident not found. Please search again or if you feel this is an error please contact the administrator.</p>
+		</div>
+	{% endif %}
+	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
 {% endblock %}

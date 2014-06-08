@@ -58,7 +58,7 @@ function attach_delete_row_jquery(){
 						filter_doctors_unlinked(resident_id,user_id);
 					}else{
 						//refresh the alerts
-						get_alerts(resident_id,user_id,"last_login");
+						get_alerts(new Array(resident_id),user_id,"last_login");
 					}
 				});
 				return false;
@@ -336,10 +336,40 @@ function attach_delete_row_jquery(){
 			$('#form_open_ph').append('New Entry');
 			$('#physical_entry').slideUp();
 			//refresh the alerts table
-			get_alerts(resident_id,user_id,"",0);
+			get_alerts(new Array(resident_id),user_id,"",0);
 		});
 		return false;
 	})
+	$('#emergency_contact_entry').on("submit", function(event){
+		event.preventDefault();
+		var json = $(this).serializeJSON();
+		var resident_id = json['resident_id'];
+		var user_id = json['user_id'];
+		var first_name = json['first_name'];
+		var last_name = json['last_name'];
+		json['resident_id'] = parseInt(json['resident_id']);
+		json = JSON.stringify(json);
+		$.ajax({
+			type: "POST",
+			contentType: 'application/json',
+			url: backend_url+"/emergencycontacts/*/",
+			data: json,
+			dataType: "json"
+		}).done(function(){
+			var information = "Added Emergency Contact: "+first_name+" "+last_name;
+			fsw_log(resident_id,user_id,information,1);
+			get_current_insurance_information(resident_id,user_id);
+			//clear the form
+			resetForm($('#emergency_contact_entry'));
+			//close the form
+			$('#form_open_ec').empty();
+			$('#form_open_ec').append('New Entry');
+			$('#emergency_contact_entry').slideUp();
+			//refresh the alerts table
+			get_alerts(new Array(resident_id),user_id,"",0);
+		});
+		return false;
+	});
 	$('#insurance_entry').on("submit", function(event){
 		event.preventDefault();
 		var json = $(this).serializeJSON();
@@ -366,7 +396,7 @@ function attach_delete_row_jquery(){
 			$('#form_open_in').append('New Entry');
 			$('#insurance_entry').slideUp();
 			//refresh the alerts table
-			get_alerts(resident_id,user_id,"",0);
+			get_alerts(new Array(resident_id),user_id,"",0);
 		});
 		return false;
 	});

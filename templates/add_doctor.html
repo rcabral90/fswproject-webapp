@@ -53,7 +53,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Phone Number</label>
             <div class="col-sm-10">
-              <input type="text" id='doctor_phone_number' name="phone_number" data-validation-help="Please enter the doctors phone number." data-validation="required" placeholder="Phone Number" class="form-control">
+              <input type="text" id='doctor_phone_number' name="phone_number" data-validation-help="Please enter the doctors phone number." data-validation="custom" data-validation-regexp="^((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}$" id="ec_phone_number" placeholder="Format: (101) 867-5309" class="form-control">
             </div>
           </div>
 

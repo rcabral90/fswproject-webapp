@@ -134,15 +134,15 @@ $( document ).ready(function() {
 			$('#form_open_he').append('Close Entry Form');
 		}
 	})
-	$('#form_open_ece').click(function(){
-		if($('#emergency_contacts_entry').is(":visible")){
-			$('#form_open_ece').empty();
-			$('#form_open_ece').append('New Entry');
-			$('#emergency_contacts_entry').slideUp();
+	$('#form_open_ec').click(function(){
+		if($('#emergency_contact_entry').is(":visible")){
+			$('#form_open_ec').empty();
+			$('#form_open_ec').append('New Entry');
+			$('#emergency_contact_entry').slideUp();
 		}else{
-			$('#emergency_contacts_entry').slideDown();
-			$('#form_open_ece').empty();
-			$('#form_open_ece').append('Close Entry Form');
+			$('#emergency_contact_entry').slideDown();
+			$('#form_open_ec').empty();
+			$('#form_open_ec').append('Close Entry Form');
 		}
 	})
 	$('#form_open_ne').click(function(){
@@ -182,4 +182,6 @@ $( document ).ready(function() {
 	$('#doctor_cycle').cycle({
 		log: false,
 	});
+	//enable time-pickers
+	$('#ae_assessment_time').timepicker();
 });

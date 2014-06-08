@@ -78,7 +78,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Home Phone</label>
             <div class="col-sm-10">
-              <input id='home_phone' name="home_phone" data-validation-help="Please enter the residents home phone number." data-validation="required" placeholder="Home Phone Number" class="form-control" type="text">
+              <input id='home_phone' name="home_phone" data-validation-help="Please enter the residents home phone number." data-validation="custom" data-validation-regexp="^((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}$" id="ec_phone_number" placeholder="Format: (101) 867-5309" class="form-control" type="text">
             </div>
           </div>
 
@@ -86,7 +86,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Cell Phone</label>
             <div class="col-sm-10">
-              <input id='cell_phone' name="cell_phone" data-validation-help="Please enter the residents cell phone number." data-validation="required" placeholder="Cell Phone Number" class="form-control" type="text">
+              <input id='cell_phone' name="cell_phone" data-validation-help="Please enter the residents cell phone number." data-validation="custom" data-validation-regexp="^((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}$" id="ec_phone_number" placeholder="Format: (101) 867-5309" class="form-control" type="text">
             </div>
           </div>
 
