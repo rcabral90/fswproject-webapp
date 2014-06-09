@@ -58,7 +58,9 @@ function attach_delete_row_jquery(){
 						filter_doctors_unlinked(resident_id,user_id);
 					}else{
 						//refresh the alerts
-						get_alerts(new Array(resident_id),user_id,"last_login");
+						console.log("fire alerts");
+						$("#alert_table").empty();
+						get_alerts(get_subscribed_resident_list(resident_id,user_id),user_id,"last_login",0);
 					}
 				});
 				return false;
@@ -95,7 +97,6 @@ function attach_delete_row_jquery(){
 		var medication_name = json['medication_name'];
 		var user_id = json['user_id'];
 		json['resident_id'] = parseInt(json['resident_id']);
-		json['med_dose_mg'] = parseInt(json['med_dose_mg']);
 		json = JSON.stringify(json);
 		$.ajax({
 			type: "POST",
@@ -409,6 +410,7 @@ function attach_delete_row_jquery(){
 		json = JSON.stringify(json);
 		$.ajax({
 			type: "POST",
+			async: false,
 			contentType: 'application/json',
 			url: backend_url+"/subscriptions/*/",
 			data: json,
@@ -416,6 +418,8 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			$("#not_subscribed_button").hide();
 			$("#subscribed_button").show();
+			var info = JSON.parse(json);
+			get_alerts(get_subscribed_resident_list(new Array(info['resident_id']),info['username']),info['username'],"last_login",0);
 		});
 		return false;
 	});
@@ -424,11 +428,13 @@ function attach_delete_row_jquery(){
 		var info = $(this).serializeArray();
 		$.ajax({
 			type: "POST",
+			async: false,
 			url: backend_url+"/delete/",
 			data: info
 		}).done(function(){
 			$("#not_subscribed_button").show();
 			$("#subscribed_button").hide();
+			get_alerts(get_subscribed_resident_list(info[1].value,info[2].value),info[2].value,"last_login",0);
 		});
 		return false;
 	});

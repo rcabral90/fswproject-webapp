@@ -401,6 +401,7 @@ function get_current_medication_information(resident_id,user_id){
 			for(i=0;i<data.length;i++){
 				if((Date.parse(new Date(data[i].med_expire))) < date.getTime()){
 					//search for an alert, create one if it is not present
+					//console.log("expired med, searching for log: "+search_alerts(resident_id,user_id,alert_expired_medication_message+" - "+data[i].medication_name) +" "+ data[i].medication_name);
 					if(!search_alerts(resident_id,user_id,alert_expired_medication_message+" - "+data[i].medication_name)){
 						fsw_log(resident_id,user_id,alert_expired_medication_message+" - "+data[i].medication_name,0)
 					}
@@ -609,13 +610,25 @@ function get_resident_notes_information(resident_id,user_id){
 		}else{
 			$("#notes_table").empty();
 			//build the table
-			$("#notes_table").append("<thead><tr><th>Notes</th></tr></thead>");
+			$("#notes_table").append("<thead><tr><th>Notes</th><th>Options</th></tr></thead>");
 			for(i=0;i<data.length;i++){
 				$("#notes_table").append(
 					"<tr><td>"+data[i].notes+
+					"</td><td>"+
+					"<form id='delete_row' action='#' method='post'>"+
+						"<input type='hidden' name='csrfmiddlewaretoken' value='"+csrftoken+"'>"+
+						"<input type='hidden' name='resident_id' value='"+resident_id+"'>"+
+						"<input type='hidden' name='row_id' value='"+data[i].id+"'>"+
+						"<input type='hidden' name='user_id' value='"+user_id+"'>"+
+						"<input type='hidden' name='date_time' value='"+date_compare+'T'+time+"'>"+
+						"<input type='hidden' name='delete_message' value='Deleted Note'>"+
+						"<input type='hidden' name='type' value='11'>"+
+						"<button id='row_delete_button' type='submit' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Delete</button>"+
+					"</form>"+
 					"</td></tr>"
 				);
 			}
+			attach_delete_row_jquery();
 		}
 	});
 }
@@ -702,7 +715,7 @@ function get_resident_emergency_contacts_information(resident_id,user_id){
 				};
 				$("#emergency_contacts_table").append(
 					"<tr><td>"+data[i].first_name+" "+middle_name+" "+data[i].last_name+
-					"</td><td>"+data[i].address1+" "+data[i].address2+" "+data[i].city+" "+data[i].zip_code+
+					"</td><td>"+data[i].address1+" "+data[i].address2+" "+data[i].city+" "+data[i].state+ " "+data[i].zip_code+
 					"</td><td>"+data[i].phone_number+
 					"</td><td>"+data[i].relationship+
 					"</td><td>"+
@@ -763,13 +776,15 @@ function get_current_insurance_information(resident_id,user_id){
 
 var resident_array = [];
 function get_subscribed_resident_list(resident_id,user_id){
+	//reset the resident array
+	resident_array = [];
 	$.ajax({
 		url :backend_url+"/subscriptions/"+user_id+"/?format=json",
 		type: "GET",
 		async: false,
 		success: function(data){
 			var found = 0;
-			if(data.length < 1){
+			if(data.length == 0){
 				$("#not_subscribed_button").show();
 			}else{
 				//check if resident is in list
