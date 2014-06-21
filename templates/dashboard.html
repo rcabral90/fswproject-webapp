@@ -180,7 +180,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_dose">Dose</label>
 						<div class="col-sm-10">
-							<input type="number" class="form-control" data-validation-help="Please enter a doseage amount." data-validation="required" id="mhe_dose" placeholder="Dose (mg)" name="dosages">
+							<input type="text" class="form-control" data-validation-help="Please enter a doseage amount." data-validation="required" id="mhe_dose" placeholder="Dose (mg)" name="dosages">
 						</div>
 					</div>
 					<div class="form-group">
@@ -509,6 +509,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="col-sm-2 control-label" for="ec_state">State</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" data-validation-help="Please enter a state." data-validation="required" id="ec_state" placeholder="State" name="state">
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ec_zip_code">Zip Code</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" data-validation-help="Please enter a zip code." data-validation="required" id="ec_zip_code" placeholder="Zip Code" name="zip_code">
@@ -555,8 +561,6 @@
 	<script src="{{ static }}/static/js/fsw.dashboard.js"></script>
 	<script>
 		$( document ).ready(function() {
-			//enable form validation
-			$.validate();
 			//create a function to get the resident id somehow, use 1 for testing
 			get_resident_information({{ request.session.current_resident }},"{{ request.session.user }}",0);
 			//get physical info
@@ -602,6 +606,15 @@
 			$('#notes_tab').click(function(){
 				get_resident_notes_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
+			//enable form validation
+			$.validate();
+			$('input').bind('validation', function(evt, isValid) {
+					if(!isValid){
+						$('[id=table_input_form_submit]').prop("disabled",true);
+					}else{
+						$('[id=table_input_form_submit]').prop("disabled",false);
+					}
+				});
 		});
 	</script>
 	{% else %}

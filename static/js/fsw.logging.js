@@ -42,6 +42,10 @@ function get_resident_info(input){
 	resident_info.push({ first_name: resident[0].first_name, last_name: resident[0].last_name });
 };
 function get_alerts(resident_id,user_id,last_login,ignore_flags){
+	//reset resident info
+	resident_info = [
+		{ first_name: 'foobar', last_name: 'foobar' },
+	]
 	//note that alerts are type = 0!
 	//get the resident name
 	for(i=0;i<resident_id.length;i++){
@@ -65,6 +69,7 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 	//pre-functions
 	$("#alert_table").empty();
 	$("#alert_table").append("<thead><tr><th>Resident Name</th><th>Information</th><th>Changed By</th><th>Date & Time</th><th>Options</th></tr></thead>");
+	$("#alert_box").hide();
 	var total_alerts = 0;
 	for(k=0;k<resident_id.length;k++){
 		$.ajax({
@@ -73,7 +78,6 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 			async: false,
 			success: function(data){
 				
-				var alert_amount = 0;
 				var alerts = [];
 				for(var i=0;i<data.length;i++){
 					if(data[i].type == 0){
@@ -93,7 +97,6 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 					for(i=(alerts.length)-1;i>=0;i--){
 						var log_dt = alerts[i].date_time_modified.split("T");
 						if(ignore_flags){
-							alert_amount++;
 							total_alerts++;
 							$("#alert_table").append(
 								"<tr class='warning'><td>"+resident_info[k].first_name+" "+resident_info[k].last_name+
@@ -106,7 +109,6 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 						}else{
 							//ignore flags is set to 0, only add unread messages
 							if(alerts[i].flag == 0){
-								alert_amount++;
 								total_alerts++;
 								$("#alert_table").append(
 									"<tr class='warning'><td>"+resident_info[k].first_name+" "+resident_info[k].last_name+
@@ -129,6 +131,7 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 							}
 						}
 					}
+					alerts = [];
 					$("#alert_count").empty();
 					$("#alert_count").append("Alerts ("+total_alerts+")");
 					if(total_alerts < 1){
@@ -137,14 +140,14 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 					}else{
 						$("#alert_box").show();
 						$("#alerts_link").val("Alerts ("+total_alerts+")");
-						//add sorting to the table
-						$("#alert_table").tablesorter({
-							sortList: [[3,1]]
-						});
 					}
 				}
 			}
 		});
+	}
+	if(resident_id.length > 0){
+		//add sorting to the table
+		$("#alert_table").tablesorter();
 	}
 };
 var found = 0;
@@ -177,7 +180,10 @@ function search_alerts(resident_id,user_id,alert_text){
 			for(i=0;i<alerts.length;i++){
 				var log_dt = alerts[i].date_time_modified.split("T");
 				//find that log!
-				if((alerts[i].resident_id == resident_id) && (alerts[i].username == user_id) && (alerts[i].general_text == alert_text) && (Date.parse(new Date(log_dt[0]))) <= (addDays(new Date(date_compare),1))){
+				if((alerts[i].resident_id == resident_id) && (alerts[i].username == user_id) && (alerts[i].general_text == alert_text) && (Date.parse(new Date(log_dt[0]))) <= (Date.parse(addDays(new Date(date_compare),1)))){
+					//console.log("alert date: "+(Date.parse(new Date(log_dt[0]))));
+					//console.log("check against: "+(Date.parse(addDays(new Date(date_compare),1))));
+					//console.log((Date.parse(new Date(log_dt[0]))) <= (Date.parse(addDays(new Date(date_compare),1))));
 					set_found(1);
 					break;
 				}

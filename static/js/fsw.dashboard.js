@@ -67,6 +67,7 @@ $( document ).ready(function() {
 			$('#form_open_me').empty();
 			$('#form_open_me').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	$('#form_open_mhe').click(function(){
 		if($('#medication_history_entry').is(":visible")){
@@ -78,6 +79,7 @@ $( document ).ready(function() {
 			$('#form_open_mhe').empty();
 			$('#form_open_mhe').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	$('#form_open_pe').click(function(){
 		if($('#prescriptions_entry').is(":visible")){
@@ -89,6 +91,7 @@ $( document ).ready(function() {
 			$('#form_open_pe').empty();
 			$('#form_open_pe').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	$('#form_open_ae').click(function(){
 		if($('#assessments_entry').is(":visible")){
@@ -100,6 +103,7 @@ $( document ).ready(function() {
 			$('#form_open_ae').empty();
 			$('#form_open_ae').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	$('#form_open_ale').click(function(){
 		if($('#allergy_entry').is(":visible")){
@@ -111,6 +115,7 @@ $( document ).ready(function() {
 			$('#form_open_ale').empty();
 			$('#form_open_ale').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	$('#form_open_de').click(function(){
 		if($('#diet_entry').is(":visible")){
@@ -122,6 +127,7 @@ $( document ).ready(function() {
 			$('#form_open_de').empty();
 			$('#form_open_de').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	$('#form_open_he').click(function(){
 		if($('#hospitalizations_entry').is(":visible")){
@@ -133,6 +139,7 @@ $( document ).ready(function() {
 			$('#form_open_he').empty();
 			$('#form_open_he').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	$('#form_open_ec').click(function(){
 		if($('#emergency_contact_entry').is(":visible")){
@@ -144,6 +151,7 @@ $( document ).ready(function() {
 			$('#form_open_ec').empty();
 			$('#form_open_ec').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	$('#form_open_ne').click(function(){
 		if($('#notes_entry').is(":visible")){
@@ -155,6 +163,7 @@ $( document ).ready(function() {
 			$('#form_open_ne').empty();
 			$('#form_open_ne').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	$('#form_open_ph').click(function(){
 		if($('#physical_entry').is(":visible")){
@@ -166,6 +175,7 @@ $( document ).ready(function() {
 			$('#form_open_ph').empty();
 			$('#form_open_ph').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	$('#form_open_in').click(function(){
 		if($('#insurance_entry').is(":visible")){
@@ -177,6 +187,7 @@ $( document ).ready(function() {
 			$('#form_open_in').empty();
 			$('#form_open_in').append('Close Entry Form');
 		}
+		$('[id=table_input_form_submit]').prop("disabled",false);
 	})
 	//enable doctor slides
 	$('#doctor_cycle').cycle({
