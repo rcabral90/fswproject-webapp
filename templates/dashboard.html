@@ -610,7 +610,6 @@
 			$.validate();
 			$('input').bind('validation', function(evt, isValid) {
 					if(!isValid){
-						console.log("nope.");
 						$('[id=table_input_form_submit]').prop("disabled",true);
 					}else{
 						$('[id=table_input_form_submit]').prop("disabled",false);

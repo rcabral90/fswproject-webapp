@@ -145,8 +145,10 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 			}
 		});
 	}
-	//add sorting to the table
-	$("#alert_table").tablesorter();
+	if(resident_id.length > 0){
+		//add sorting to the table
+		$("#alert_table").tablesorter();
+	}
 };
 var found = 0;
 function set_found(value){

@@ -352,9 +352,11 @@ function get_current_physical_information(resident_id,user_id){
 					"</td></tr>"
 				);
 			}
-			//add sorting to the table
-			$("#physical_table").tablesorter();
-			attach_delete_row_jquery();
+			if(data.length > 0){
+				//add sorting to the table
+				$("#physical_table").tablesorter();
+				attach_delete_row_jquery();
+			}
 		}
 	});
 }
@@ -435,8 +437,10 @@ function get_current_medication_information(resident_id,user_id){
 				);
 			}
 			//add sorting to the table
-			$("#medication_current_table").tablesorter();
-			attach_delete_row_jquery();
+			if(data.length > 0){
+				$("#medication_current_table").tablesorter();
+				attach_delete_row_jquery();
+			}
 		}
 	});
 }
@@ -475,9 +479,11 @@ function get_medication_history(resident_id,user_id){
 					"</td></tr>"
 				);
 			}
-			//add sorting to the table
-			$("#medication_history_table").tablesorter();
-			attach_delete_row_jquery();
+			if(data.length > 0){
+				//add sorting to the table
+				$("#medication_history_table").tablesorter();
+				attach_delete_row_jquery();
+			}
 		}
 	});
 }
@@ -522,9 +528,11 @@ function get_prescription_information(resident_id,user_id){
 					"</td></tr>"
 				);
 			}
-			//add sorting to the table
-			$("#prescription_table").tablesorter();
-			attach_delete_row_jquery();
+			if(data.length > 0){
+				//add sorting to the table
+				$("#prescription_table").tablesorter();
+				attach_delete_row_jquery();
+			}
 		}
 	});
 }
@@ -560,9 +568,11 @@ function get_hospitalization_history(resident_id,user_id){
 					"</td></tr>"
 				);
 			}
-			//add sorting to the table
-			$("#hospitalizations_table").tablesorter();
-			attach_delete_row_jquery();
+			if(data.length > 0){
+				//add sorting to the table
+				$("#hospitalizations_table").tablesorter();
+				attach_delete_row_jquery();
+			}
 		}
 	});
 }
@@ -596,9 +606,11 @@ function get_resident_assessment_information(resident_id,user_id){
 					"</td></tr>"
 				);
 			}
-			//add sorting to the table
-			$("#assessment_table").tablesorter();
-			attach_delete_row_jquery();
+			if(data.length > 0){
+				//add sorting to the table
+				$("#assessment_table").tablesorter();
+				attach_delete_row_jquery();
+			}
 		}
 	});
 }
@@ -659,9 +671,11 @@ function get_resident_allergy_information(resident_id,user_id){
 					"</td></tr>"
 				);
 			}
-			//add sorting to the table
-			$("#allergies_table").tablesorter();
-			attach_delete_row_jquery();
+			if(data.length > 0){
+				//add sorting to the table
+				$("#allergies_table").tablesorter();
+				attach_delete_row_jquery();
+			}
 		}
 	});
 }
@@ -692,9 +706,11 @@ function get_resident_diet_information(resident_id,user_id){
 					"</td></tr>"
 				);
 			}
-			//add sorting to the table
-			$("#diet_table").tablesorter();
-			attach_delete_row_jquery();
+			if(data.length > 0){
+				//add sorting to the table
+				$("#diet_table").tablesorter();
+				attach_delete_row_jquery();
+			}
 		}
 	});
 }
@@ -732,9 +748,11 @@ function get_resident_emergency_contacts_information(resident_id,user_id){
 					"</td></tr>"
 				);
 			}
-			//add sorting to the table
-			$("#emergency_contacts_table").tablesorter();
-			attach_delete_row_jquery();
+			if(data.length > 0){
+				//add sorting to the table
+				$("#emergency_contacts_table").tablesorter();
+				attach_delete_row_jquery();
+			}
 		}
 	});
 }
@@ -767,9 +785,11 @@ function get_current_insurance_information(resident_id,user_id){
 					"</td></tr>"
 				);
 			}
-			//add sorting to the table
-			$("#insurance_table").tablesorter();
-			attach_delete_row_jquery();
+			if(data.length > 0){
+				//add sorting to the table
+				$("#insurance_table").tablesorter();
+				attach_delete_row_jquery();
+			}
 		}
 	});
 }
