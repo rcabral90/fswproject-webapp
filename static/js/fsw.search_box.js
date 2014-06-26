@@ -4,6 +4,14 @@ $( document ).ready(function() {
 		{ value: 'foobar', data: 'foobar' },
 	];
 	function get_resident_list(input){
+		var residents_temp = [];
+		//parse data for deactivated residents
+		for(i=0;i<input.length;i++){
+			if(input[i].deactivated == 0){
+				residents_temp.push(input[i]);
+			}
+		};
+		input = residents_temp;
 		resident_list = $.map(input, function(item) {
 					return { value: item.first_name+" "+item.last_name, data: item };
 				})

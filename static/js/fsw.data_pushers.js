@@ -58,7 +58,6 @@ function attach_delete_row_jquery(){
 						filter_doctors_unlinked(resident_id,user_id);
 					}else{
 						//refresh the alerts
-						console.log("fire alerts");
 						$("#alert_table").empty();
 						get_alerts(get_subscribed_resident_list(resident_id,user_id),user_id,"last_login",0);
 					}

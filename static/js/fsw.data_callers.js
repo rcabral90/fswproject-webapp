@@ -22,88 +22,101 @@ function get_last_resident_id(){
 
 function get_resident_information(resident_id,user_id,call_type){
 	//call type: 0 = normal, 1 = edit user
-	$.ajax({
-		url: backend_url+"/residents/"+resident_id+"/?format=json",
-		type: "GET",
-		async: false,
-		success: function(data){
-			//fill dom objects
-			var first_name = data[0].first_name;
-			if((data[0].middle_name)){
-				var middle_name = data[0].middle_name;
-			}else{
-				var middle_name = "";
-			}
-			var last_name = data[0].last_name;
-			var address1 = data[0].address1;
-			var address2 = data[0].address2;
-			var city = data[0].city;
-			var state = data[0].state;
-			var zip_code = data[0].zip_code;
-			var home_phone = data[0].home_phone;
-			var cell_phone = data[0].cell_phone;
-			var dob = data[0].date_of_birth;
-			var last_flu_shot = "";
-			var dnr = "";
-			if(data[0].last_flu_shot != null){
-				last_flu_shot = data[0].last_flu_shot;
-				//check if overdue
-				if((new Date(last_flu_date)) < ((new Date(last_flu_date))+31556900000)){
+	if(resident_id == 0){
+		$('#main_content').empty();
+		$('#main_content').append("<p style='text-align:center;font-size:2em;padding-top:25px;'>Invalid resident ID, please use the search box to select a valid resident.</p>");
+	}else{
+		$.ajax({
+			url: backend_url+"/residents/"+resident_id+"/?format=json",
+			type: "GET",
+			async: false,
+			success: function(data){
+				//fill dom objects
+				if(data[0].deactivated == 1){
+					$('#print_button').hide();
+					$('#not_subscribed_button').empty();
+					$('#print_subscribe_button_area').append("<p style='color:red;font-size:2em;'>This user is currently deactivated!</p>");
+					$('#user_image').hide();
+					$('#doctor_list_button').hide();
+					$('#secondary_information').hide();
+				}
+				var first_name = data[0].first_name;
+				if((data[0].middle_name)){
+					var middle_name = data[0].middle_name;
+				}else{
+					var middle_name = "";
+				}
+				var last_name = data[0].last_name;
+				var address1 = data[0].address1;
+				var address2 = data[0].address2;
+				var city = data[0].city;
+				var state = data[0].state;
+				var zip_code = data[0].zip_code;
+				var home_phone = data[0].home_phone;
+				var cell_phone = data[0].cell_phone;
+				var dob = data[0].date_of_birth;
+				var last_flu_shot = "";
+				var dnr = "";
+				if(data[0].last_flu_shot != null){
+					last_flu_shot = data[0].last_flu_shot;
+					//check if overdue
+					if((new Date(last_flu_date)) < ((new Date(last_flu_date))+31556900000)){
+						//search for an alert, create one if it is not present
+						if(!search_alerts(resident_id,user_id,alert_flu_shot_message)){
+							fsw_log(resident_id,user_id,alert_flu_shot_message,0)
+						}
+					}
+				}else{
+					last_flu_shot = "Never";
 					//search for an alert, create one if it is not present
 					if(!search_alerts(resident_id,user_id,alert_flu_shot_message)){
 						fsw_log(resident_id,user_id,alert_flu_shot_message,0)
 					}
 				}
-			}else{
-				last_flu_shot = "Never";
-				//search for an alert, create one if it is not present
-				if(!search_alerts(resident_id,user_id,alert_flu_shot_message)){
-					fsw_log(resident_id,user_id,alert_flu_shot_message,0)
-				}
-			}
-			if(data[0].dnr != null){
-				if(data[0].dnr == true){
-					dnr = "Yes";
+				if(data[0].dnr != null){
+					if(data[0].dnr == true){
+						dnr = "Yes";
+					}else{
+						dnr = "No";
+					}
 				}else{
-					dnr = "No";
+					dnr = "Yes";
 				}
-			}else{
-				dnr = "Yes";
+				if((/^(f|ht)tps?:\/\//i.test(data[0].photo)) || (data[0].photo == "") || (data[0].photo == "0")){
+					data[0].photo = "static/imgs/no_avatar.png"
+				};
+				var photo = "../"+data[0].photo;
+				if(call_type == 0){
+					$("#resident_name").append(first_name+" "+middle_name+" "+last_name);
+					$("#resident_address").append(address1+" "+address2+", "+state+" "+zip_code);
+					$("#resident_home_phone").append(home_phone);
+					$("#resident_cell_phone").append(cell_phone);
+					$("#resident_dob").append(dob);
+					$("#resident_last_flu_shot").append(last_flu_shot);
+					$("#resident_dnr").append(dnr);
+					$("#user_image_src").attr('src', photo);
+				}else{
+					$("#resident_id").val(resident_id);
+					$("#action").val("edit");
+					$("#first_name").val(first_name);
+					$("#middle_name").val(middle_name);
+					$("#last_name").val(last_name);
+					$("#address1").val(address1);
+					$("#address2").val(address2);
+					$("#city").val(city);
+					$("#state").val(state);
+					$("#zip_code").val(zip_code);
+					$("#home_phone").val(home_phone);
+					$("#cell_phone").val(cell_phone);
+					$("#dob").val(dob);
+					$("#flu_shot").val(data[0].last_flu_shot);
+					$("#file_name").val(data[0].photo);
+					$('#file_upload_message').empty();
+					$('#file_upload_message').append("<span style='font-weight:bold;color:green'>Current photo saved, use the 'browse' button above to upload a new photo.</span>");
+				}
 			}
-			if(/^(f|ht)tps?:\/\//i.test(data[0].photo)){
-				data[0].photo = "static/imgs/no_avatar.png"
-			};
-			var photo = "../"+data[0].photo;
-			if(call_type == 0){
-				$("#resident_name").append(first_name+" "+middle_name+" "+last_name);
-				$("#resident_address").append(address1+" "+address2+", "+state+" "+zip_code);
-				$("#resident_home_phone").append(home_phone);
-				$("#resident_cell_phone").append(cell_phone);
-				$("#resident_dob").append(dob);
-				$("#resident_last_flu_shot").append(last_flu_shot);
-				$("#resident_dnr").append(dnr);
-				$("#user_image_src").attr('src', photo);
-			}else{
-				$("#resident_id").val(resident_id);
-				$("#action").val("edit");
-				$("#first_name").val(first_name);
-				$("#middle_name").val(middle_name);
-				$("#last_name").val(last_name);
-				$("#address1").val(address1);
-				$("#address2").val(address2);
-				$("#city").val(city);
-				$("#state").val(state);
-				$("#zip_code").val(zip_code);
-				$("#home_phone").val(home_phone);
-				$("#cell_phone").val(cell_phone);
-				$("#dob").val(dob);
-				$("#flu_shot").val(data[0].last_flu_shot);
-				$("#file_name").val(data[0].photo);
-				$('#file_upload_message').empty();
-				$('#file_upload_message').append("<span style='font-weight:bold;color:green'>Current photo saved, use the 'browse' button above to upload a new photo.</span>");
-			}
-		}
-	});
+		});
+	};
 }
 
 function filter_doctors_unlinked(resident_id,user_id){

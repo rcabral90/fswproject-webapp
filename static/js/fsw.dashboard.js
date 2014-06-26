@@ -195,4 +195,6 @@ $( document ).ready(function() {
 	});
 	//enable time-pickers
 	$('#ae_assessment_time').timepicker();
+	//set a date and time for the delete message (deactivate resident)
+	$('#date_time_deactivate_resident').val(date_compare+'T'+time);
 });
