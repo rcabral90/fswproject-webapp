@@ -197,4 +197,7 @@ $( document ).ready(function() {
 	$('#ae_assessment_time').timepicker();
 	//set a date and time for the delete message (deactivate resident)
 	$('#date_time_deactivate_resident').val(date_compare+'T'+time);
+	$('#ph_date, #he_hospitalization_date, #ae_assessment_date, #pe_refill_date, #pe_date_received, #pe_order_date, #mhe_expire_date, #mhe_prescribed_date, #me_expire_date, #me_prescribed').datepicker({
+		format: 'dd/mm/yyyy',
+	});
 });

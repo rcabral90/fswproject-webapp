@@ -118,13 +118,13 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_prescribed">Prescribed</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" data-validation-help="Please enter a prescription date." data-validation="required" data-validation="date" id="me_prescribed" placeholder="Prescribed" name="med_prescribed">
+							<input type="text" class="form-control" data-validation-help="Please enter a prescription date." data-validation="required" data-validation="date" id="me_prescribed" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" name="med_prescribed">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="me_expire_date">Expire Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" data-validation-help="Please enter an expiration date." data-validation="required" data-validation="date" id="me_expire_date" placeholder="Expire Date" name="med_expire">
+							<input type="text" class="form-control" data-validation-help="Please enter an expiration date." data-validation="required" data-validation="date" id="me_expire_date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" name="med_expire">
 						</div>
 					</div>
 					<div class="form-group">
@@ -175,15 +175,15 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="mhe_expire_date">Prescribed Date</label>
+						<label class="col-sm-2 control-label" for="mhe_prescribed_date">Prescribed Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" data-validation-help="Please enter a prescription date." data-validation="required" data-validation="date" id="mhe_expire_date" placeholder="Prescribed Date" name="prescribed">
+							<input type="text" class="form-control" data-validation-help="Please enter a prescription date." data-validation="required" data-validation="date" id="mhe_prescribed_date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" name="prescribed">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="mhe_expire_date">Expire Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" data-validation-help="Please enter an expiration date." data-validation="required" data-validation="date" id="mhe_expire_date" placeholder="Expire Date" name="expiration">
+							<input type="text" class="form-control" data-validation-help="Please enter an expiration date." data-validation="required" data-validation="date" id="mhe_expire_date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" name="expiration">
 						</div>
 					</div>
 					<div class="form-group">
@@ -237,19 +237,19 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="pe_order_date">Date Ordered</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" data-validation-help="Please enter the date ordered." data-validation="required" data-validation="date" id="pe_order_date" placeholder="Date Ordered" name="date_ordered">
+							<input type="text" class="form-control" data-validation-help="Please enter the date ordered." data-validation="required" data-validation="date" id="pe_order_date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" name="date_ordered">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="pe_date_received">Date Received</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" data-validation-help="Please enter the date received." data-validation="required" data-validation="date" id="pe_date_received" placeholder="Date Received" name="date_received">
+							<input type="text" class="form-control" data-validation-help="Please enter the date received." data-validation="required" data-validation="date" id="pe_date_received" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" name="date_received">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="pe_refill_date">Refill Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" data-validation-help="Please enter a refill date." data-validation="required" data-validation="date" id="pe_refill_date" placeholder="Refill Date" name="refill_date">
+							<input type="text" class="form-control" data-validation-help="Please enter a refill date." data-validation="required" data-validation="date" id="pe_refill_date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" name="refill_date">
 						</div>
 					</div>
 					<div class="form-group">
@@ -273,7 +273,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ae_assessment_date">Assessment Date</label>
 						<div class="col-sm-10">
-							<input type="date" data-validation-help="Please enter a assessment date." data-validation="date" class="form-control" id="ae_assessment_date" placeholder="Assessment Date" name="assessment_date">
+							<input type="text" data-validation-help="Please enter a assessment date." data-validation="date" class="form-control" id="ae_assessment_date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" name="assessment_date">
 						</div>
 					</div>
 					<div class="form-group">
@@ -361,7 +361,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="he_hospitalization_date">Hospitalization Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="he_hospitalization_date" data-validation-help="Please enter a hospitalization date." data-validation="date" placeholder="Hospitalization Date" name="hospitalization_date">
+							<input type="text" class="form-control" id="he_hospitalization_date" data-validation-help="Please enter a hospitalization date." data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" name="hospitalization_date">
 						</div>
 					</div>
 					<div class="form-group">
@@ -414,7 +414,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="ph_date">Date</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="ph_date" data-validation-help="Please enter a date for this physical." data-validation="date" placeholder="Physical Date" name="physical_date">
+							<input type="text" class="form-control" id="ph_date" data-validation-help="Please enter a date for this physical." data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" name="physical_date">
 						</div>
 					</div>
 					<div class="form-group">
@@ -563,6 +563,7 @@
 	<!-- loadup data -->
 	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
 	<script src="{{ static }}/static/js/jquery.form-validator.min.js"></script>
+	<script src="{{ static }}/static/js/bootstrap-datepicker.js"></script>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.cycle2.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.tablesorter.min.js"></script>
@@ -616,7 +617,9 @@
 				get_resident_notes_information({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			//enable form validation
-			$.validate();
+			$.validate({
+				modules : 'date'
+			});
 			$('input').bind('validation', function(evt, isValid) {
 					if(!isValid){
 						$('[id=table_input_form_submit]').prop("disabled",true);

@@ -95,14 +95,14 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Date of Birth</label>
             <div class="col-sm-10">
-              <input id='dob' name="date_of_birth"  data-validation-help="Please enter the residents date of birth." data-validation="date" placeholder="" class="form-control" type="date">
+              <input id='dob' name="date_of_birth" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" class="form-control" type="text">
             </div>
           </div>
 		  
         <div class="form-group">
             <label class="col-sm-2 control-label" for="textinput">Last Flu Shot</label>
             <div class="col-sm-10">
-              <input id='flu_shot' name="flu_shot"  data-validation-help="Please enter the residents last known flu shot date." data-validation="date" placeholder="" class="form-control" type="date">
+              <input id='flu_shot' name="flu_shot" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" class="form-control" type="text">
             </div>
           </div>
 			<div class="form-group">
@@ -139,6 +139,7 @@
 		</div><!-- /.row -->
 	</div>
 	<script src="{{ static }}/static/js/vendor/jquery.ui.widget.js"></script>
+	<script src="{{ static }}/static/js/bootstrap-datepicker.js"></script>
 	<script src="{{ static }}/static/js/jquery.iframe-transport.js"></script>
 	<script src="{{ static }}/static/js/jquery.fileupload.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
@@ -149,7 +150,9 @@
 	<script>
 		$( document ).ready(function() {
 			//enable form validation
-			$.validate();
+			$.validate({
+				modules : 'date'
+			});
 			get_last_resident_id();
 			//create a function to get the resident id somehow, use 1 for testing
 			var current_resident = "{{ request.session.current_resident }}";
@@ -181,6 +184,9 @@
 						$('#file_upload_message').append("<span style='font-weight:bold;color:red'>Upload error!</span>");
 					}
 				}
+			});
+			$('#dob,#flu_shot').datepicker({
+				format: 'dd/mm/yyyy',
 			});
 		});
 	</script>

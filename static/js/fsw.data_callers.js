@@ -181,10 +181,6 @@ function get_all_doctors(resident_id,user_id,filter_list){
 						"</td></tr>"
 					);
 				}
-			}
-			if(data.length > 0){
-				//add sorting to the table
-				$("#unlinked_doctors_table").tablesorter();
 				attach_delete_row_jquery();
 			}
 		}
