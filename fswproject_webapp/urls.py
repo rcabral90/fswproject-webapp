@@ -23,6 +23,7 @@ urlpatterns = patterns('',
                         RedirectView.as_view(url='http://127.0.0.1:7177/admin/auth/user/')),
                        url(r'^feedback/thanks/', 'com_fsw_webapp.views.thanks'),
                        url(r'^feedback/', "com_fsw_webapp.views.feedback", name='contact'),
+                       url(r'^about/', "com_fsw_webapp.views.about", name='contact'),
                        # url(r'^fswproject_webapp/', include('fswproject_webapp.foo.urls')),
 
                        # Uncomment the admin/doc line below to enable admin documentation:

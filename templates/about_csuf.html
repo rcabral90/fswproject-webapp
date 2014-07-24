@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+{% block body %}
+    <script type="text/javascript" src="{{ static }}/static/js/wow.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <div class="row">
+    <h2 class="text-center panel">
+        Meet the Team:
+        <small>Click Each On Person To Learn More!</small>
+    </h2>
+
+    <div style="padding-top: 5px"></div>
+    <div class="well">
+    <div class="container">
+        <center>
+            <img class="img-rounded wow bounceInDown "src="{{ static }}/static/imgs/team/csufbanner.jpg"/>
+             <div style="padding-top: 20px"></div>
+            <div style="float:left; width:16%;">
+                <a href="#mikhailModal" data-toggle="modal" data-target="#mikhailModal"><img
+                        src="{{ static }}/static/imgs/team/mikhail.jpg" name="aboutme"
+                        width="140"
+                        height="140" class="img-circle left wow flipInX"></a>
+                <h3 class="wow zoomIn">Mikhail Gofman</h3>
+            </div>
+            <div style="float:left; width:16%;">
+                <a href="#nateModal" data-toggle="modal" data-target="#nateModal"><img
+                        src="{{ static }}/static/imgs/team/nate.jpg" name="aboutme" width="140"
+                        height="140"
+                        class="img-circle left wow flip"></a>
+                <h3 class="wow zoomIn">Nathan Cobb</h3>
+            </div>
+            <div style="float:left; width:16%;">
+                <a href="#jeremyModal" data-toggle="modal" data-target="#jeremyModal"><img
+                        src="{{ static }}/static/imgs/team/jerbear.jpg" name="aboutme" width="140"
+                        height="140"
+                        class="img-circle left wow bounceIn"></a>
+                <h3 class="wow zoomIn">Jeremy Chavez</h3>
+            </div>
+            <div style="float:left; width:16%;">
+                <a href="#robertModal" data-toggle="modal" data-target="#robertModal"><img
+                        src="{{ static }}/static/imgs/team/rob.jpg" name="aboutme" width="140"
+                        height="140" class="img-circle left wow rubberBand"></a>
+                <h3 class="wow zoomIn">Robert Cabral</h3>
+            </div>
+            <div style="float:left; width:16%;">
+                <a href="#jaimeModal" data-toggle="modal" data-target="#jaimeModal"><img
+                        src="{{ static }}/static/imgs/team/jaime.jpg" name="aboutme" width="140"
+                        height="140" class="img-circle left wow shake"></a>
+                <h3 class="wow zoomIn">Jaime Cabrera</h3>
+            </div>
+            <div style="float:left; width:16%;">
+                <a href="#andrewModal" data-toggle="modal" data-target="#andrewModal"><img
+                        src="{{ static }}/static/imgs/team/andrew.jpg" name="aboutme"
+                        width="140"
+                        height="140" class="img-circle left wow flip"></a>
+                <h3 class="h3 wow zoomIn">Andrew Hoang</h3>
+            </div>
+        </center>
+    </div>
+    <!-- Mikhail Modal -->
+    <div class="modal fade" id="mikhailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">More About Mikhail</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img src="{{ static }}/static/imgs/team/mikhail.jpg" name="Mikhail" width="140"
+                             height="140"
+                             border="0" class="img-circle"></a>
+                        <h3 class="media-heading">Mikhail Gofman
+                            <small>Professor/Mentor/Genius</small>
+                        </h3>
+                        <span><strong>Characteristics: </strong></span>
+                        <span class="label label-warning">Networking</span>
+                        <span class="label label-info">Hacking</span>
+                        <span class="label label-success">Programming</span>
+                    </center>
+                    <hr>
+                    <center>
+                        <p class="text-left"><strong>About: </strong><br>
+                            He likes long walks on the beach.
+                        </p>
+                        <br>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough
+                            about Mikhail
+                        </button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jeremy Modal -->
+    <div class="modal fade" id="jeremyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">More About Jeremy</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img src="{{ static }}/static/imgs/team/jerbear.jpg" name="Jeremy" width="140"
+                             height="140"
+                             border="0" class="img-circle"></a>
+                        <h3 class="media-heading">Jeremy Chavez
+                            <small>90% Javascript Beast 10% Cuddly</small>
+                        </h3>
+                        <span><strong>Characteristics: </strong></span>
+                        <span class="label label-warning">Javascript</span>
+                        <span class="label label-info">Delicious Beard</span>
+                        <span class="label label-success">Programming</span>
+                    </center>
+                    <hr>
+                    <center>
+                        <p class="text-left"><strong>About: </strong><br>
+                            Likes long walks on the beach.
+                        </p>
+                        <br>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough
+                            about Jeremy
+                        </button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Robert Modal -->
+    <div class="modal fade" id="robertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">More About Robert</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img src="{{ static }}/static/imgs/team/rob.jpg" name="Robert" width="140"
+                             height="140"
+                             border="0" class="img-circle"></a>
+                        <h3 class="media-heading">Robert Cabral
+                            <small>Django Guru</small>
+                        </h3>
+                        <span><strong>Characteristics: </strong></span>
+                        <span class="label label-warning">Django</span>
+                        <span class="label label-info">Procrastinator</span>
+                        <span class="label label-success">Party-Boy</span>
+                    </center>
+                    <hr>
+                    <center>
+                        <p class="text-left"><strong>About: </strong><br>
+                            He thinks he knows django, but can he tango?
+                        </p>
+                        <br>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough
+                            about Robert
+                        </button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nate Modal -->
+    <div class="modal fade" id="nateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">More About Nathan</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img src="{{ static }}/static/imgs/team/nate.jpg" name="Nathan" width="140"
+                             height="140"
+                             border="0" class="img-circle"></a>
+                        <h3 class="media-heading">Nathan Cobb
+                            <small>Project Manager</small>
+                        </h3>
+                        <span><strong>Characteristics: </strong></span>
+                        <span class="label label-warning">Dictator</span>
+                        <span class="label label-info">Furer</span>
+                        <span class="label label-success">Evil Genius</span>
+                    </center>
+                    <hr>
+                    <center>
+                        <p class="text-left"><strong>About: </strong><br>
+                            He also likes long walks on the beach.
+                        </p>
+                        <br>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough
+                            about Nathan.
+                        </button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jaime Modal -->
+    <div class="modal fade" id="jaimeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">More About Jaime</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img src="{{ static }}/static/imgs/team/jaime.jpg" name="Jaime" width="140"
+                             height="140"
+                             border="0" class="img-circle"></a>
+                        <h3 class="media-heading">Jaime Cabrera
+                            <small>Pro Scooter Rider</small>
+                        </h3>
+                        <span><strong>Characteristics: </strong></span>
+                        <span class="label label-warning">Donuts</span>
+                        <span class="label label-info">Doritos</span>
+                        <span class="label label-success">Snacks</span>
+                    </center>
+                    <hr>
+                    <center>
+                        <p class="text-left"><strong>About: </strong><br>
+                            Always speeding in the halls.
+                        </p>
+                        <br>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough
+                            about Jaime
+                        </button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Andrew Modal -->
+    <div class="modal fade" id="andrewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">More About Andrew</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img src="{{ static }}/static/imgs/team/andrew.jpg" name="Andrew" width="140"
+                             height="140"
+                             border="0" class="img-circle"></a>
+                        <h3 class="media-heading">Andrew Hoang
+                            <small>Super Stealth</small>
+                        </h3>
+                        <span><strong>Characteristics: </strong></span>
+                        <span class="label label-warning">Pokemon</span>
+                        <span class="label label-info">Yugioh</span>
+                        <span class="label label-success">Digimon</span>
+                    </center>
+                    <hr>
+                    <center>
+                        <p class="text-left"><strong>About: </strong><br>
+                            Pedobear keychain....(that is all)
+                        </p>
+                        <br>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough
+                            about Andrew!
+                        </button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+{% endblock %}

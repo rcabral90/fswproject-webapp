@@ -152,6 +152,10 @@ def thanks(request):
     return render_to_response('feedbackthanks.html', context_instance=RequestContext(request))
 
 
+def about(request):
+    return render_to_response('about_csuf.html', context_instance=RequestContext(request))
+
+
 def handle_uploaded_file(f, generated_filename):
     with open(generated_filename, 'wb+') as destination:
         for chunk in f.chunks():
