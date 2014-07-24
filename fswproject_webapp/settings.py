@@ -5,6 +5,13 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'fswclient@gmail.com'
+EMAIL_HOST_PASSWORD = 'fortran123'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 #FSW_WEBSERVICE_BASE_URL = "http://emerald1.ecs.fullerton.edu"
 FSW_WEBSERVICE_BASE_URL = 'http://127.0.0.1:7177'
 

@@ -28,7 +28,7 @@
 						<li><a id='alerts_link' href='/alerts/'>Alerts</a>
 						<li><a id='logs_link' href='/logs/'>Logs</a>
                         {% if request.session.is_staff %}
-                        <li><a id='logs_link' href='http://emerald1.ecs.fullerton.edu/admin/auth/user/'>Admin Menu</a>
+                        <li><a id='logs_link' href='/admin_menu/'>Admin Menu</a>
                         {% endif %}
 					{% endif %}
 				</ul>
@@ -63,7 +63,7 @@
 
 		<!-- footer -->
 		<div id='footer'>
-			<p>&copy 2014 - FSW Team</p>
+			<p>&copy 2014 - FSW Team - <a class="btn-link" href='/feedback/'>Feedback</a> </p>
 		</div>
 		<!-- end footer -->
     </body>
