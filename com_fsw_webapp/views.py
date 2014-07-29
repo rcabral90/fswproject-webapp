@@ -116,11 +116,11 @@ def upload_photo(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            generated_filename = "static/img_uploads/" + ''.join(
+            generated_filename = "/root/fswproject-webapp/static/img_uploads/" + ''.join(
                 random.choice(string.ascii_uppercase + string.digits) for _ in range(8)) + request.FILES['photo'].name
 
             handle_uploaded_file(request.FILES['photo'], generated_filename)
-            return HttpResponse(json.dumps({'success': '1', 'filename': generated_filename}),
+            return HttpResponse(json.dumps({'success': '1', 'filename': generated_filename[24:]}),
                                 content_type="application/json")
         else:
             return HttpResponse(json.dumps({'success': '0', 'error': 'File upload error, bad form.'}),

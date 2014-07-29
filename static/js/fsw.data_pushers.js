@@ -96,6 +96,8 @@ function attach_delete_row_jquery(){
 		var medication_name = json['medication_name'];
 		var user_id = json['user_id'];
 		json['resident_id'] = parseInt(json['resident_id']);
+		json['med_prescribed'] = (json['med_prescribed']).split("/").reverse().join("-");
+		json['med_expire'] = (json['med_expire']).split("/").reverse().join("-");
 		json = JSON.stringify(json);
 		$.ajax({
 			type: "POST",
@@ -125,6 +127,8 @@ function attach_delete_row_jquery(){
 		delete json['user_id'];
 		json['resident_id'] = parseInt(json['resident_id']);
 		json['medication_id'] = parseInt(json['medication_id']);
+		json['prescribed'] = (json['prescribed']).split("/").reverse().join("-");
+		json['expiration'] = (json['expiration']).split("/").reverse().join("-");
 		json = JSON.stringify(json);
 		$.ajax({
 			type: "POST",
@@ -154,6 +158,9 @@ function attach_delete_row_jquery(){
 		json['medication_id'] = parseInt(json['medication_id']);
 		json['resident_id'] = parseInt(json['resident_id']);
 		json['prescription_number'] = parseInt(json['prescription_number']);
+		json['date_ordered'] = (json['date_ordered']).split("/").reverse().join("-");
+		json['date_received'] = (json['date_received']).split("/").reverse().join("-");
+		json['refill_date'] = (json['refill_date']).split("/").reverse().join("-");
 		json = JSON.stringify(json);
 		$.ajax({
 			type: "POST",
@@ -181,6 +188,7 @@ function attach_delete_row_jquery(){
 		var user_id = json['user_id'];
 		json['resident_id'] = parseInt(json['resident_id']);
 		json['assessment_time'] = json['assessment_time']+":00";
+		json['assessment_date'] = (json['assessment_date']).split("/").reverse().join("-");
 		json = JSON.stringify(json);
 		$.ajax({
 			type: "POST",
@@ -263,6 +271,7 @@ function attach_delete_row_jquery(){
 		var location = json['hospitalization_location'];
 		var reason = json['reason'];
 		json['resident_id'] = parseInt(json['resident_id']);
+		json['hospitalization_date'] = (json['hospitalization_date']).split("/").reverse().join("-");
 		json = JSON.stringify(json);
 		$.ajax({
 			type: "POST",
@@ -317,6 +326,7 @@ function attach_delete_row_jquery(){
 		var user_id = json['user_id'];
 		var physical_date = json['physical_date'];
 		json['resident_id'] = parseInt(json['resident_id']);
+		json['physical_date'] = (json['physical_date']).split("/").reverse().join("-");
 		json = JSON.stringify(json);
 		$.ajax({
 			type: "POST",
@@ -454,6 +464,8 @@ $('#add_new_resident').on("submit", function(event){
 	if(action == "add"){
 		resident_id++;
 		delete json['resident_id'];
+		json['flu_shot'] = (json['flu_shot']).split("/").reverse().join("-");
+		json['date_of_birth'] = (json['date_of_birth']).split("/").reverse().join("-");
 		json = JSON.stringify(json);
 		$.ajax({
 			type: "POST",

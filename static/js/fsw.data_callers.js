@@ -1,4 +1,4 @@
-var backend_url = "http://127.0.0.1:7177";
+var backend_url = "http://"+window.location.host+":443";
 var date = new Date();
 var date_compare = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
