@@ -177,13 +177,12 @@ function search_alerts(resident_id,user_id,alert_text){
 			}
 			//free up some rams
 			delete data;
+			var data = new Date();
 			for(i=0;i<alerts.length;i++){
 				var log_dt = alerts[i].date_time_modified.split("T");
+				var current_date = data.getFullYear() + '-' + ('0' + data.getDate()).slice(-2) + '-' + ('0' + (data.getMonth()+1)).slice(-2);
 				//find that log!
-				if((alerts[i].resident_id == resident_id) && (alerts[i].username == user_id) && (alerts[i].general_text == alert_text) && (Date.parse(new Date(log_dt[0]))) <= (Date.parse(addDays(new Date(date_compare),1)))){
-					//console.log("alert date: "+(Date.parse(new Date(log_dt[0]))));
-					//console.log("check against: "+(Date.parse(addDays(new Date(date_compare),1))));
-					//console.log((Date.parse(new Date(log_dt[0]))) <= (Date.parse(addDays(new Date(date_compare),1))));
+				if((found == 1) || ((alerts[i].resident_id == resident_id) && (alerts[i].username == user_id) && (alerts[i].general_text == alert_text) && (log_dt[0] <= current_date))){
 					set_found(1);
 					break;
 				}

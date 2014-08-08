@@ -15,6 +15,7 @@ function generate_resident_list_dropdown(){
 				resident_amt++;
 			};
 		};
+		console.log(resident_amt);
 		if(resident_amt == 0){
 			//display a nice message about having no residents currently and point them to the add new resident page
 			$("#patient_selection_area").remove();

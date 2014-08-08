@@ -403,6 +403,8 @@ function get_current_medication_information(resident_id,user_id){
 	$.get(backend_url+"/medication/"+resident_id+"/?format=json", function(data){
 		if(data.length < 1){
 			$("#medication_current_table").empty();
+			//due to the fact that this is the default loaded tab we need to still link alert (see data_pushers.js) buttons even if this tab is empty.
+			attach_delete_row_jquery();
 		}else{
 			$("#medication_current_table").empty();
 			//build the table
