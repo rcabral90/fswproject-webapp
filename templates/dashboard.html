@@ -569,52 +569,53 @@
 	<script src="{{ static }}/static/js/jquery.tablesorter.min.js"></script>
 	<script src="{{ static }}/static/js/bootstrap-timepicker.min.js"></script>
 	<script src="{{ static }}/static/js/fsw.dashboard.js"></script>
+	<script src="{{ static }}/static/js/fsw.dom_edit.js"></script>
 	<script>
 		$( document ).ready(function() {
 			//create a function to get the resident id somehow, use 1 for testing
-			get_resident_information({{ request.session.current_resident }},"{{ request.session.user }}",0);
+			populate_resident_data({{ request.session.current_resident }},"{{ request.session.user }}",0);
 			//get physical info
-			get_physical_information({{ request.session.current_resident }});
+			populate_physical_information({{ request.session.current_resident }});
 			//get doctor info
-			get_primary_doctor_information({{ request.session.current_resident }},0,"{{ request.session.user }}");
+			populate_primary_doctor_information({{ request.session.current_resident }},"{{ request.session.user }}",0);
 			//get alerts
 			get_alerts(get_subscribed_resident_list({{ request.session.current_resident }},"{{ request.session.user }}"),"{{ request.session.user }}","last_login",0);
 			//first load so set the data in the active tab
-			get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_current_medication_information_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			//tab content generation
 			$('#medication_tab').click(function(){
-				get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
+				populate_current_medication_information_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#medication_history_tab').click(function(){
-				get_medication_history({{ request.session.current_resident }},"{{ request.session.user }}");
+				populate_medication_history_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#prescriptions_tab').click(function(){
-				get_prescription_information({{ request.session.current_resident }},"{{ request.session.user }}");
+				populate_prescriptions_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#assessment_tab').click(function(){
-				get_resident_assessment_information({{ request.session.current_resident }},"{{ request.session.user }}");
+				populate_assessment_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#allergies_tab').click(function(){
-				get_resident_allergy_information({{ request.session.current_resident }},"{{ request.session.user }}");
+				populate_allergy_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#diet_tab').click(function(){
-				get_resident_diet_information({{ request.session.current_resident }},"{{ request.session.user }}");
+				populate_diet_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#hospitalization_tab').click(function(){
-				get_hospitalization_history({{ request.session.current_resident }},"{{ request.session.user }}");
+				populate_hospitalization_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#physical_tab').click(function(){
-				fill_doctor_select_box({{ request.session.current_resident }});
-				get_current_physical_information({{ request.session.current_resident }},"{{ request.session.user }}");
+				doctor_select_box_entry({{ request.session.current_resident }});
+				populate_physical_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#insurance_tab').click(function(){
-				get_current_insurance_information({{ request.session.current_resident }},"{{ request.session.user }}");
+				populate_insurance_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#emergency_contacts_tab').click(function(){
-				get_resident_emergency_contacts_information({{ request.session.current_resident }},"{{ request.session.user }}");
+				populate_emergency_contacts_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			$('#notes_tab').click(function(){
-				get_resident_notes_information({{ request.session.current_resident }},"{{ request.session.user }}");
+				populate_notes_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 			})
 			//enable form validation
 			$.validate({

@@ -21,41 +21,41 @@ function attach_delete_row_jquery(){
 					var resident_id = $('#delete_row').find('input[name="resident_id"]').val();
 					var user_id = $('#delete_row').find('input[name="user_id"]').val();
 					if($('#medication_tab').attr('class') == "active"){
-						get_current_medication_information(resident_id,user_id);
+						populate_current_medication_information_tab(resident_id,user_id);
 					}
 					if($('#medication_history_tab').attr('class') == "active"){
-						get_medication_history(resident_id,user_id);
+						populate_medication_history_tab(resident_id,user_id);
 					}
 					if($('#prescriptions_tab').attr('class') == "active"){
-						get_prescription_information(resident_id,user_id);
+						populate_prescriptions_tab(resident_id,user_id);
 					}
 					if($('#assessment_tab').attr('class') == "active"){
-						get_resident_assessment_information(resident_id,user_id);
+						populate_assessment_tab(resident_id,user_id);
 					}
 					if($('#allergies_tab').attr('class') == "active"){
-						get_resident_allergy_information(resident_id,user_id);
+						populate_allergy_tab(resident_id,user_id);
 					}
 					if($('#diet_tab').attr('class') == "active"){
-						get_resident_diet_information(resident_id,user_id);
+						populate_diet_tab(resident_id,user_id);
 					}
 					if($('#hospitalization_tab').attr('class') == "active"){
-						get_hospitalization_history(resident_id,user_id);
+						populate_hospitalization_tab(resident_id,user_id);
 					}
 					if($('#emergency_contacts_tab').attr('class') == "active"){
-						get_resident_emergency_contacts_information(resident_id,user_id);
+						populate_emergency_contacts_tab(resident_id,user_id);
 					}
 					if($('#notes_tab').attr('class') == "active"){
-						get_resident_notes_information(resident_id,user_id);
+						populate_notes_tab(resident_id,user_id);
 					}
 					if($('#physical_tab').attr('class') == "active"){
-						get_current_physical_information(resident_id,user_id);
+						populate_physical_tab(resident_id,user_id);
 					}
 					if($('#insurance_tab').attr('class') == "active"){
-						get_current_insurance_information(resident_id,user_id);
+						populate_insurance_tab(resident_id,user_id);
 					}
 					if($("#linked_doctors_box").get(0)){
-						get_primary_doctor_information(resident_id,1,user_id);
-						filter_doctors_unlinked(resident_id,user_id);
+						populate_primary_doctor_information(resident_id,user_id,1);
+						populate_unlinked_doctor_information(resident_id,user_id);
 					}else{
 						//refresh the alerts
 						$("#alert_table").empty();
@@ -108,7 +108,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added medication - "+medication_name;
 			fsw_log(resident_id,user_id,information,1);
-			get_current_medication_information(resident_id);
+			populate_current_medication_information_tab(resident_id,user_id);
 			//clear the form
 			resetForm($('#medication_entry'));
 			//close the form
@@ -139,7 +139,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added medication history - "+medication_name;
 			fsw_log(resident_id,user_id,information,1);
-			get_medication_history(resident_id);
+			populate_medication_history_tab(resident_id,user_id);
 			//clear the form
 			resetForm($('#medication_history_entry'));
 			//close the form
@@ -171,7 +171,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added prescription - "+prescription_number;
 			fsw_log(resident_id,user_id,information,1);
-			get_prescription_information(resident_id);
+			populate_prescriptions_tab(resident_id,user_id);
 			//clear the form
 			resetForm($('#prescriptions_entry'));
 			//close the form
@@ -199,7 +199,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added Assessment";
 			fsw_log(resident_id,user_id,information,1);
-			get_resident_assessment_information(resident_id);
+			populate_assessment_tab(resident_id,user_id);
 			//clear the form
 			resetForm($('#assessments_entry'));
 			//close the form
@@ -226,7 +226,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added allergy - "+allergy_name;
 			fsw_log(resident_id,user_id,information,1);
-			get_resident_allergy_information(resident_id);
+			populate_allergy_tab(resident_id,user_id);
 			//clear the form
 			resetForm($('#allergy_entry'));
 			//close the form
@@ -253,7 +253,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added diet - "+diet_name;
 			fsw_log(resident_id,user_id,information,1);
-			get_resident_diet_information(resident_id);
+			populate_diet_tab(resident_id,user_id);
 			//clear the form
 			resetForm($('#diet_entry'));
 			//close the form
@@ -282,7 +282,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added hospitalization visit at "+location+", reason: "+reason;
 			fsw_log(resident_id,user_id,information,1);
-			get_hospitalization_history(resident_id);
+			populate_hospitalization_tab(resident_id,user_id);
 			//clear the form
 			resetForm($('#hospitalizations_entry'));
 			//close the form
@@ -309,7 +309,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added Note: '"+note+"'";
 			fsw_log(resident_id,user_id,information,1);
-			get_resident_notes_information(resident_id);
+			populate_notes_tab(resident_id,user_id);
 			//clear the form
 			resetForm($('#notes_entry'));
 			//close the form
@@ -337,7 +337,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added Physical: "+physical_date+"";
 			fsw_log(resident_id,user_id,information,1);
-			fill_doctor_select_box(resident_id);
+			doctor_select_box_entry(resident_id);
 			get_current_physical_information(resident_id,user_id);
 			//clear the form
 			resetForm($('#physical_entry'));
@@ -368,7 +368,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added Emergency Contact: "+first_name+" "+last_name;
 			fsw_log(resident_id,user_id,information,1);
-			get_current_insurance_information(resident_id,user_id);
+			populate_emergency_contacts_tab(resident_id,user_id);
 			//clear the form
 			resetForm($('#emergency_contact_entry'));
 			//close the form
@@ -398,7 +398,7 @@ function attach_delete_row_jquery(){
 		}).done(function(){
 			var information = "Added Insurance: "+company+", policy number: "+policy_number+"";
 			fsw_log(resident_id,user_id,information,1);
-			get_current_insurance_information(resident_id,user_id);
+			populate_insurance_tab(resident_id,user_id);
 			//clear the form
 			resetForm($('#insurance_entry'));
 			//close the form

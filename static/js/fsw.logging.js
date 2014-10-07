@@ -1,9 +1,24 @@
+/* 
+	Global logging messages
+	
+	Note that we left off here with the project, you could potentially factor these guys out and make a nice language file.
+*/
 var alert_physical_message = "Resident is due for a physical.";
 var alert_flu_shot_message = "Resident is due for a flu shot.";
 var alert_expired_medication_message = "Resident medication is expired!";
 var alert_expire_soon_medication_message = "Resident medication is about to expire!";
 var alert_refill_soon_medication_message = "Resident medication requires a refill soon.";
 var alert_refill_past_medication_message = "Resident medication is past due for a refill.";
+
+/*
+	Purpose: Calls the restful API to create a log event in the database.
+	Inputs: 
+		resident_id = int variable for the current reisdent_id
+		user_id = int variable for the current user_id
+		information = the information (read: text) that will be stored in the logs "general_text" field.
+		type = the type of log, this is a bit hairy as 0 is an alert and 1 is a log.
+	Outputs: None
+*/
 function fsw_log(resident_id,user_id,information,type){
 	//alert id, resident_id, username, general_text, flag, date_time_modified
 	//create the log info json, note that 'date_compare' and 'time' is defined in fsw.data_callers.js
@@ -32,15 +47,35 @@ function fsw_log(resident_id,user_id,information,type){
 		//console.log(log_info);
 	});
 };
+
+//placeholder global var array for resident mapping, an alternative method can be used but was never researched.
 var resident_info = [
 	{ first_name: 'foobar', last_name: 'foobar' },
 ];
+
+/*
+	Purpose: Helper function to map a residents info into a nice javascript object.
+	Inputs: 
+		input = javascript object that requires mapping
+	Outputs: None
+*/
 function get_resident_info(input){
 	resident = $.map(input, function(item) {
 				return { first_name: item.first_name, last_name: item.last_name };
 			})
 	resident_info.push({ first_name: resident[0].first_name, last_name: resident[0].last_name });
 };
+
+/*
+	Purpose: Helper function for retrieving and showing alerts.
+	Inputs: 
+		resident_id = int variable for the current reisdent_id
+		user_id = int variable for the current user_id
+		last_login = string of the users last login set by django or cookie
+		ignore_flags = int (0 or 1) value that determines if the flags field should be ignored, this is for showing alerts and logs on the logs.html and alerts.html page.
+	Outputs: None
+	Manipulated pages: alerts.html, dashboard.html
+*/
 function get_alerts(resident_id,user_id,last_login,ignore_flags){
 	//reset resident info
 	resident_info = [
@@ -150,15 +185,29 @@ function get_alerts(resident_id,user_id,last_login,ignore_flags){
 		$("#alert_table").tablesorter();
 	}
 };
+
+//helper vars for terrible async ajax calls
 var found = 0;
 function set_found(value){
 	found = value;
 };
+
+//adds a day to a date, necessary for proper logging.
 function addDays(date, days) {
     var result = new Date(date);
     result.setDate(date.getDate() + days);
     return result;
 }
+
+/*
+	Purpose: Helper function for searching alerts.
+	Inputs: 
+		resident_id = int variable for the current reisdent_id
+		user_id = int variable for the current user_id
+		alert_text = string value to match against
+	Outputs: 
+		found = int value if same alert (within a day) has been found
+*/
 function search_alerts(resident_id,user_id,alert_text){
 	//looks for an alert (NOTE ONLY ALERTS) with the same text for the same day so we don't duplicate alerts.
 	//return 1 if alert was found, 0 if not.
@@ -191,6 +240,15 @@ function search_alerts(resident_id,user_id,alert_text){
 	});
 	return found;
 }
+
+/*
+	Purpose: Helper function for retrieving and showing alerts.
+	Inputs: 
+		resident_id = int variable for the current reisdent_id
+		user_id = int variable for the current user_id
+	Outputs: None
+	Manipulated pages: logs.html, dashboard.html
+*/
 function get_logs(resident_id,user_id){
 	//note that log are type = 1!
 	//get the resident name

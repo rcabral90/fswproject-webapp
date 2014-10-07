@@ -1,6 +1,16 @@
+/*
+	Purpose: Generates the drop-down list for patient selection on patient_select.html
+	Input: None
+	Output: None
+	Manipulated pages: patient_select.html
+*/
 function generate_resident_list_dropdown(){
+	//make a ajax get request to grab all residents
 	$.get(backend_url+"/residents/*/?format=json", function( data ) {
+		//dom manipulate the selection box to be empty
 		$("#patient_selection_form_select_box").empty();
+		
+		//give a base resident amount
 		var resident_amt = 0;
 		for(i=0;i<data.length;i++){
 			if(data[i].deactivated == 0){
@@ -15,7 +25,7 @@ function generate_resident_list_dropdown(){
 				resident_amt++;
 			};
 		};
-		console.log(resident_amt);
+		
 		if(resident_amt == 0){
 			//display a nice message about having no residents currently and point them to the add new resident page
 			$("#patient_selection_area").remove();

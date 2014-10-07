@@ -74,6 +74,7 @@
 	<script src="{{ static }}/static/js/jquery.form-validator.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
 	<script src="{{ static }}/static/js/fsw.csrf.js"></script>
+	<script src="{{ static }}/static/js/fsw.dom_edit.js"></script>
 	<script>
 		$( document ).ready(function() {
 			//enable form validation
@@ -88,7 +89,7 @@
 			});
 			if($_GET['action'] == "edit"){
 				var doctor_id = $_GET['doctor_id'];
-				get_single_doctor_information(doctor_id);
+				populate_single_doctor_information(doctor_id);
 			};
 		});
 	</script>
