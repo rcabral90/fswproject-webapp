@@ -3,56 +3,84 @@ function resetForm($form) {
     $form.find('input:radio, input:checkbox')
          .removeAttr('checked').removeAttr('selected');
 }
+/* Why does this gigantic ugly funciton exist?
+	-> In short we needed to be able to allow the delete or edit event to be called from any dynamically generated row. Unfortunately the way
+	we bound this was via the click function - at the time I had no experience with creating my own jquery events.
+	
+	-> When a delete event is called we unbind the click event entirely and then rebind any click events after we have executed our ajax call,
+	this was not necessarily the best way to go about doing it but got the job done. I would highly encourage spending some time on refactoring
+	the way delete events are done (using a custom jquery event) that way you do not have to do this as it causes a huge amount of load for the
+	browser.
+*/
 //form submit events for deletion of row
 function attach_delete_row_jquery(){
 	//unbind the action even if it doesn't exist, this will remove duplicates.
 	$("form").unbind();
+	//perform a custom submit event
 	$("form").submit(function(event){
+		//if the id of the element where this submit event is being called from equals 'delete_row'
 		if($(this).attr('id') == "delete_row"){
+			//prevent the default submit function from happening (necessary for ajax calls)
 			event.preventDefault();
+			//pop a dialog box to the user
 			if(confirm('Are you sure?')){
+				//if 'yes' was selected from the dialog box serialize the form into an array
 				var info = $(this).serializeArray();
+				//perform an ajax call to the delete function and pass all of the form data
 				$.ajax({
 					type: "POST",
 					url: backend_url+"/delete/",
 					data: info
 				}).done(function(){
+					//when complete rebind all of the click events we want.
 					//refresh the data table
 					var resident_id = $('#delete_row').find('input[name="resident_id"]').val();
 					var user_id = $('#delete_row').find('input[name="user_id"]').val();
+					//if the medication tab is currently active repopulate and rebind events
 					if($('#medication_tab').attr('class') == "active"){
 						populate_current_medication_information_tab(resident_id,user_id);
 					}
+					//ditto for the medication history tab
 					if($('#medication_history_tab').attr('class') == "active"){
 						populate_medication_history_tab(resident_id,user_id);
 					}
+					//ditto for the prescriptions tab
 					if($('#prescriptions_tab').attr('class') == "active"){
 						populate_prescriptions_tab(resident_id,user_id);
 					}
+					//ditto for the assessments tab
 					if($('#assessment_tab').attr('class') == "active"){
 						populate_assessment_tab(resident_id,user_id);
 					}
+					//ditto for the allergies tab
 					if($('#allergies_tab').attr('class') == "active"){
 						populate_allergy_tab(resident_id,user_id);
 					}
+					//ditto for the diets tab
 					if($('#diet_tab').attr('class') == "active"){
 						populate_diet_tab(resident_id,user_id);
 					}
+					//ditto for the hospitalization tab
 					if($('#hospitalization_tab').attr('class') == "active"){
 						populate_hospitalization_tab(resident_id,user_id);
 					}
+					//ditto for the emergency contacts tab
 					if($('#emergency_contacts_tab').attr('class') == "active"){
 						populate_emergency_contacts_tab(resident_id,user_id);
 					}
+					//ditto for the notes tab
 					if($('#notes_tab').attr('class') == "active"){
 						populate_notes_tab(resident_id,user_id);
 					}
+					//ditto for the physicals tab
 					if($('#physical_tab').attr('class') == "active"){
 						populate_physical_tab(resident_id,user_id);
 					}
+					//ditto for the insurance tab
 					if($('#insurance_tab').attr('class') == "active"){
 						populate_insurance_tab(resident_id,user_id);
 					}
+					//ditto for the linked doctors box
 					if($("#linked_doctors_box").get(0)){
 						populate_primary_doctor_information(resident_id,user_id,1);
 						populate_unlinked_doctor_information(resident_id,user_id);
@@ -67,38 +95,55 @@ function attach_delete_row_jquery(){
 				return false;
 			}
 		}
+		//if the event fired from an element has an element id of 'link_to_resident_row' do the following
+		//Note that this is used on the doctors->patient linking page
 		if($(this).attr('id') == "link_to_resident_row"){
+			//prevent the default submit event
 			event.preventDefault();
+			//serialize the form into an array
 			var json = $(this).serializeJSON();
+			//edit some array elements so that it passes as the proper type to the database
 			json['doctor_id'] = parseInt(json['doctor_id']);
 			json['resident_id'] = parseInt(json['resident_id']);
+			//set some variables
 			var resident_id = parseInt(json['resident_id']);
 			var user_id = json['user_id'];
 			var information = "Linked doctor "+json['first_name']+" "+json['middle_name']+" "+json['last_name']+" to resident.";
+			//log the event
 			fsw_log(resident_id,user_id,information,1);
+			//stringify the array into json
 			json = JSON.stringify(json);
+			//do an ajax call
 			$.ajax({
 				type: "POST",
 				contentType: 'application/json',
 				url: backend_url+"/residentstodoctor/*/",
 				data: json
 			}).done(function(){
+				//when done create a hidden redirect to the page and redirect the browser - this can be done way better
 				$('#doctor_link_unlink_wrapper').html('<form action="/doctor_list/" name="edit_linked_doctor_redirect" method="get" style="display:none;"><input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'"></form>');
 				document.forms['edit_linked_doctor_redirect'].submit();
 			});
 		}
 	})
 	//form submit events
+	//NOTE: All submit events follow the same procedure so only the first one is well documented.
+	//when an entry is made under the medication tab
 	$('#medication_entry').on("submit", function(event){
+		//prevent the default event
 		event.preventDefault();
+		//serialize the form into an array
 		var json = $(this).serializeJSON();
 		var resident_id = json['resident_id'];
 		var medication_name = json['medication_name'];
 		var user_id = json['user_id'];
+		//make sure some values are int
 		json['resident_id'] = parseInt(json['resident_id']);
 		json['med_prescribed'] = (json['med_prescribed']).split("/").reverse().join("-");
 		json['med_expire'] = (json['med_expire']).split("/").reverse().join("-");
+		//make the array into a json object
 		json = JSON.stringify(json);
+		//ajax post it
 		$.ajax({
 			type: "POST",
 			contentType: 'application/json',
@@ -106,6 +151,7 @@ function attach_delete_row_jquery(){
 			data: json,
 			dataType: "json"
 		}).done(function(){
+			//when complete create a log for the event
 			var information = "Added medication - "+medication_name;
 			fsw_log(resident_id,user_id,information,1);
 			populate_current_medication_information_tab(resident_id,user_id);
@@ -448,8 +494,13 @@ function attach_delete_row_jquery(){
 		return false;
 	});
 }
+
+
+//submit function for adding new residents
 $('#add_new_resident').on("submit", function(event){
+	//prevent the default submit state
 	event.preventDefault();
+	//serialize the form into an array
 	var json = $(this).serializeJSON();
 	var user_id = json['user_id'];
 	var first_name = json['first_name'];
@@ -461,12 +512,18 @@ $('#add_new_resident').on("submit", function(event){
 		var middle_name = "";
 	}
 	var last_name = json['last_name'];
+	//if the form action is 'add' (see add new residents page for more details)
 	if(action == "add"){
+		//increment the resident id so we dont collide on page refresh / ajax reload
 		resident_id++;
+		//remove resident_id from the json (database does not need it due to auto-increment features on resident_id field)
 		delete json['resident_id'];
+		//reverse the date so the database doesn't cry about the entry method (sqlite enjoys EU standard dates)
 		json['flu_shot'] = (json['flu_shot']).split("/").reverse().join("-");
 		json['date_of_birth'] = (json['date_of_birth']).split("/").reverse().join("-");
+		//combine the array into a json object
 		json = JSON.stringify(json);
+		//submit an ajax post event
 		$.ajax({
 			type: "POST",
 			contentType: 'application/json',
@@ -474,8 +531,10 @@ $('#add_new_resident').on("submit", function(event){
 			data: json,
 			dataType: "json"
 		}).done(function(){
+			//when done create a log of the event
 			var information = "Added Resident: "+first_name+" "+middle_name+" "+last_name;
 			fsw_log(resident_id,user_id,information,1);
+			//set the resident id on the page
 			$('#resident_id').val(resident_id);
 			//clear the form
 			resetForm($('#add_new_resident'));
@@ -484,6 +543,7 @@ $('#add_new_resident').on("submit", function(event){
 			document.forms['new_user_redirect'].submit();
 		});
 	}else{
+		//not an 'add' event, we assume event is 'edit' here.
 		json['resident_id'] = parseInt(json['resident_id']);
 		json['date_time'] = date_compare+'T'+time;
 		json['edit_message'] = "Edit Resident: "+first_name+" "+middle_name+" "+last_name;
@@ -506,6 +566,7 @@ $('#add_new_resident').on("submit", function(event){
 	}
 	return false;
 })
+//add new doctor submit event, follows the same methods as the add new resident.
 $('#add_new_doctor').on("submit", function(event){
 	event.preventDefault();
 	var json = $(this).serializeJSON();
