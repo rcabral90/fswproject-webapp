@@ -196,6 +196,7 @@
 	<script src="{{ static }}/static/js/jquery.fileupload.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
+	<script src="{{ static }}/static/js/fsw.dom_edit.js"></script>
 	<script src="{{ static }}/static/js/jquery.form-validator.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
 	<script src="{{ static }}/static/js/fsw.csrf.js"></script>
@@ -205,7 +206,7 @@
 			$.validate({
 				modules : 'date'
 			});
-			get_last_resident_id();
+			populate_last_resident_id();
 			//create a function to get the resident id somehow, use 1 for testing
 			var current_resident = "{{ request.session.current_resident }}";
 			if(current_resident != ""){
@@ -218,7 +219,7 @@
 					$_GET[decode(arguments[1])] = decode(arguments[2]);
 				});
 				if($_GET['action'] == "edit"){
-					get_resident_information(current_resident,"{{ request.session.user }}",1);
+					populate_resident_data(current_resident,"{{ request.session.user }}",1);
 				};
 			};
 			$('#fileupload').fileupload({

@@ -3,6 +3,7 @@ $( document ).ready(function() {
 	var resident_list = [
 		{ value: 'foobar', data: 'foobar' },
 	];
+	//function to parse the resident list into something more readable for our autocomplete jquery plugin
 	function get_resident_list(input){
 		var residents_temp = [];
 		//parse data for deactivated residents
@@ -16,6 +17,7 @@ $( document ).ready(function() {
 					return { value: item.first_name+" "+item.last_name, data: item };
 				})
 	};
+	//ajax call to get the full resident list
 	$.ajax({
 		url: backend_url+"/residents/*/?format=json",
 		type: "GET",
@@ -24,6 +26,7 @@ $( document ).ready(function() {
 			get_resident_list(data);
 		}
 	});
+	//dom manipulate the search box to auto-complete known residents
 	$('#search_box').autocomplete({
 		lookup: resident_list,
 		appendTo: $('#outputbox'),

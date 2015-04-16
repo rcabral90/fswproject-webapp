@@ -4,6 +4,7 @@
 	<script src="{{ static }}/static/js/jquery-1.11.0.min.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_callers.js"></script>
 	<script src="{{ static }}/static/js/fsw.data_pushers.js"></script>
+	<script src="{{ static }}/static/js/fsw.dom_edit.js"></script>
 	<script src="{{ static }}/static/js/fsw.csrf.js"></script>
 	{% if request.session.user %}
 		<script src="{{ static }}/static/js/fsw.logging.js"></script>
@@ -69,19 +70,19 @@
 			$('#doctor_cycle').cycle({
 				log: false,
 			});
-			get_resident_information({{ request.session.current_resident }},"{{ request.session.user }}",0);
-			get_physical_information({{ request.session.current_resident }});
-			get_primary_doctor_information({{ request.session.current_resident }},0,"{{ request.session.user }}");
-			get_current_medication_information({{ request.session.current_resident }},"{{ request.session.user }}");
-			get_medication_history({{ request.session.current_resident }},"{{ request.session.user }}");
-			get_prescription_information({{ request.session.current_resident }},"{{ request.session.user }}");
-			get_resident_assessment_information({{ request.session.current_resident }},"{{ request.session.user }}");
-			get_resident_allergy_information({{ request.session.current_resident }},"{{ request.session.user }}");
-			get_resident_diet_information({{ request.session.current_resident }},"{{ request.session.user }}");
-			get_hospitalization_history({{ request.session.current_resident }},"{{ request.session.user }}");
-			get_current_physical_information({{ request.session.current_resident }},"{{ request.session.user }}");
-			get_current_insurance_information({{ request.session.current_resident }},"{{ request.session.user }}");
-			get_resident_emergency_contacts_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_resident_data({{ request.session.current_resident }},"{{ request.session.user }}",0);
+			populate_physical_tab({{ request.session.current_resident }});
+			populate_primary_doctor_information({{ request.session.current_resident }},0,"{{ request.session.user }}");
+			populate_current_medication_information_tab({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_medication_history_tab({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_prescriptions_tab({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_assessment_tab({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_allergy_tab({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_diet_tab({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_hospitalization_tab({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_physical_information({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_insurance_tab({{ request.session.current_resident }},"{{ request.session.user }}");
+			populate_emergency_contacts_tab({{ request.session.current_resident }},"{{ request.session.user }}");
 		});
 	</script>
 </body>

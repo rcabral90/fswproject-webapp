@@ -20,12 +20,13 @@
 	<script src="{{ static }}/static/js/jquery.tablesorter.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.cycle2.min.js"></script>
 	<script src="{{ static }}/static/js/jquery.serializeJSON.min.js"></script>
+	<script src="{{ static }}/static/js/fsw.dom_edit.js"></script>
 	<script type='text/javascript'>
 	$( document ).ready(function() {
 		//get currently linked doctors
-		get_primary_doctor_information({{ request.session.current_resident }},1,"{{ request.session.user }}");
+		populate_primary_doctor_information({{ request.session.current_resident }},"{{ request.session.user }}",1);
 		//get all unlinked doctors
-		filter_doctors_unlinked({{ request.session.current_resident }},"{{ request.session.user }}");
+		populate_unlinked_doctor_information({{ request.session.current_resident }},"{{ request.session.user }}");
 	});
 	</script>
 	{% endif %}
