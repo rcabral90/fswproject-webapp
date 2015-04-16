@@ -13,7 +13,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 #FSW_WEBSERVICE_BASE_URL = "http://emerald1.ecs.fullerton.edu"
-FSW_WEBSERVICE_BASE_URL = 'http://127.0.0.1:443'
+FSW_WEBSERVICE_BASE_URL = 'http://127.0.0.1:7177'
 
 ADMINS = (
 ('Robert Cabral', 'rcabral90@csu.fullerton.edu'),

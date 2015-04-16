@@ -6,16 +6,19 @@ from django.core.mail import send_mail, BadHeaderError
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
+from django.conf import settings
 import simplejson as json
 from django import forms
-
 from com_fsw_service.user_authentication import login_user, logout_user
+
+backend_url = getattr(settings, "FSW_WEBSERVICE_BASE_URL", None)
 
 
 def home(request):
     context = {}
     context.update(csrf(request))
-    return render_to_response('home.html', {"error": False}, context_instance=RequestContext(request))
+    return render_to_response('home.html', {"error": False,
+                                            "backend_url": backend_url}, context_instance=RequestContext(request))
 
 
 def selector(request):
@@ -26,32 +29,40 @@ def selector(request):
         if request.session.get('user') != "":
             return render_to_response('dashboard.html', {"user": request.session.get('user'),
                                                          "last_seen": request.session.get('last_seen'),
-                                                         "resident_id": request.session.get('current_resident')},
+                                                         "resident_id": request.session.get('current_resident'),
+                                                         "backend_url": backend_url},
                                       context_instance=RequestContext(request))
         else:
-            return render_to_response('home.html', {"error": False}, context_instance=RequestContext(request))
+            return render_to_response('home.html', {"error": False,
+                                                    "backend_url": backend_url},
+                                      context_instance=RequestContext(request))
     if request.method == "GET":
         # if we still have session vars open return to that patient
         if request.session.get('user') != "":
             return render_to_response('dashboard.html', {"user": request.session.get('user'),
                                                          "last_seen": request.session.get('last_seen'),
-                                                         "resident_id": request.session.get('current_resident')},
+                                                         "resident_id": request.session.get('current_resident'),
+                                                         "backend_url": backend_url},
                                       context_instance=RequestContext(request))
         else:
-            return render_to_response('home.html', {"error": False}, context_instance=RequestContext(request))
+            return render_to_response('home.html', {"error": False,
+                                                    "backend_url": backend_url},
+                                      context_instance=RequestContext(request))
 
 
 def alert_page(request):
     return render_to_response('alerts.html',
                               {"user": request.session.get('user'), "last_seen": request.session.get('last_seen'),
-                               "resident_id": request.session.get('current_resident')},
+                               "resident_id": request.session.get('current_resident'),
+                               "backend_url": backend_url},
                               context_instance=RequestContext(request))
 
 
 def log_page(request):
     return render_to_response('logs.html',
                               {"user": request.session.get('user'), "last_seen": request.session.get('last_seen'),
-                               "resident_id": request.session.get('current_resident')},
+                               "resident_id": request.session.get('current_resident'),
+                               "backend_url": backend_url},
                               context_instance=RequestContext(request))
 
 
@@ -63,11 +74,16 @@ def login(request):
             request.session['user'] = user.username
             request.session['is_staff'] = user.is_staff
             request.session['current_resident'] = 0
-            return render_to_response('patient_select.html', {"user": user}, context_instance=RequestContext(request))
+            return render_to_response('patient_select.html', {"user": user,
+                                                              "backend_url": backend_url},
+                                      context_instance=RequestContext(request))
         else:
-            return render_to_response('home.html', {"error": True}, context_instance=RequestContext(request))
+            return render_to_response('home.html', {"error": True,
+                                                    "backend_url": backend_url},
+                                      context_instance=RequestContext(request))
     except:
-        return render_to_response('home.html', {"error": True}, context_instance=RequestContext(request))
+        return render_to_response('home.html', {"error": True,
+                                                "backend_url": backend_url}, context_instance=RequestContext(request))
 
 
 def logout(request):
@@ -76,36 +92,47 @@ def logout(request):
         if success != 0:
             request.session['user'] = ''
             request.session['current_resident'] = ''
-            return render_to_response('home.html', {"error": False}, context_instance=RequestContext(request))
+            return render_to_response('home.html', {"error": False,
+                                                    "backend_url": backend_url},
+                                      context_instance=RequestContext(request))
         else:
-            return render_to_response('home.html', {"error": True}, context_instance=RequestContext(request))
+            return render_to_response('home.html', {"error": True,
+                                                    "backend_url": backend_url},
+                                      context_instance=RequestContext(request))
     except ValueError:
-        return render_to_response('home.html', {"error": True}, context_instance=RequestContext(request))
+        return render_to_response('home.html', {"error": True,
+                                                "backend_url": backend_url}, context_instance=RequestContext(request))
 
 
 def print_page(request):
     return render_to_response('print_details.html',
                               {"user": request.session.get('user'), "last_seen": request.session.get('last_seen'),
-                               "resident_id": request.session.get('current_resident')},
+                               "resident_id": request.session.get('current_resident'),
+                               "backend_url": backend_url},
                               context_instance=RequestContext(request))
 
 
 def add_resident(request):
     context = {}
     context.update(csrf(request))
-    return render_to_response('add_resident.html', {"error": False}, context_instance=RequestContext(request))
+    return render_to_response('add_resident.html', {"error": False,
+                                                    "backend_url": backend_url},
+                              context_instance=RequestContext(request))
 
 
 def add_doctor(request):
     context = {}
     context.update(csrf(request))
-    return render_to_response('add_doctor.html', {"error": False}, context_instance=RequestContext(request))
+    return render_to_response('add_doctor.html', {"error": False,
+                                                  "backend_url": backend_url}, context_instance=RequestContext(request))
 
 
 def edit_doctor_list(request):
     context = {}
     context.update(csrf(request))
-    return render_to_response('edit_doctor_list.html', {"error": False}, context_instance=RequestContext(request))
+    return render_to_response('edit_doctor_list.html', {"error": False,
+                                                        "backend_url": backend_url},
+                              context_instance=RequestContext(request))
 
 
 class DocumentForm(forms.Form):

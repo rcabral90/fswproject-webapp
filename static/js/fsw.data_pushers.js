@@ -470,7 +470,7 @@ $('#add_new_resident').on("submit", function(event){
 		$.ajax({
 			type: "POST",
 			contentType: 'application/json',
-			url: backend_url+"/residents/*/",
+			url: backend_url + "/residents/*/",
 			data: json,
 			dataType: "json"
 		}).done(function(){
